@@ -3,4 +3,5 @@
  */
 var config = {
     apiEndpoint: "http://www.choucairtesting.com:4000/api/"
+   // apiEndpoint: "localhost:4000/api/"
 };

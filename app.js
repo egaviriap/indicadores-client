@@ -20,7 +20,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 // Configuring Passport
@@ -40,6 +40,16 @@ app.use(flash());
 var initPassport = require('./passport/init');
 initPassport(passport);
 
+app.use(function(req, res, next) {
+    if (!req.user && (req.path != '/') && (req.path != '/login')&& (req.path != '/signup')){
+        res.redirect('/');
+    }
+    else {
+        next();
+    }
+});
+
+app.use(express.static(path.join(__dirname, 'public')));
 var routes = require('./routes/index')(passport);
 app.use('/', routes);
 
@@ -61,5 +71,6 @@ if (app.get('env') === 'development') {
         });
     });
 }
+
 
 module.exports = app;

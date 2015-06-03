@@ -20,13 +20,9 @@
         }
     });
 
-    function addDynamicFilters(idText) {
-        var list = document.getElementById('dashboard_div');
-        list.innerHTML = list.innerHTML + '<div id=' + idText  + ' style="float:left; padding-left: 30px;"' + '> </div>';
-    }
-
     addDynamicFilters("filtroHoras_div");
-
+    addDivCharts("col-sm-12","calendar_div",true);
+    addDivCharts("col-sm-12","TableChart_div" );
 
     var calendar = new google.visualization.ChartWrapper({
         'chartType': 'Calendar',
@@ -52,19 +48,7 @@
         }
     });
 
-    addDivCharts("col-sm-12","calendar_div" );
-    addDivCharts("col-sm-12","TableChart_div" );
 
-
-    /**
-     *
-     * @param <String> classText
-     * @param <String>idText
-     */
-    function addDivCharts(classText, idText) {
-        var list = document.getElementById('charts');
-        list.innerHTML = list.innerHTML + '<div class=' + classText  + '> <div id=' + idText + '></div></div>';
-    }
 
 
     dashboard.bind(filtroHoras, calendar);

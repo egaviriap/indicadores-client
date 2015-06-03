@@ -8,33 +8,18 @@
     var data = new google.visualization.DataTable(jsonData);
     var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));
-    addDynamicDiv("col-sm-4","chart1_div");
-    addDynamicDiv("col-sm-4","chart2_div");
-    addDynamicDiv("col-sm-4","chart3_div");
-    addDynamicDiv("col-sm-4","chart4_div");
-    addDynamicDiv("col-sm-4","chart5_div");
-    addDynamicDiv("col-sm-4","chart6_div");
-    addDynamicDiv("col-sm-12","TableChart_div");
-
-    /**
-     *
-     * @param <String> classText
-     * @param <String>idText
-     */
-    function addDynamicDiv(classText, idText) {
-        var list = document.getElementById('charts');
-        list.innerHTML = list.innerHTML + '<div class=' + classText  + '> <div id=' + idText + '></div></div>';
-    }
+    addDivCharts("col-sm-4","chart1_div", true);
+    addDivCharts("col-sm-4","chart2_div");
+    addDivCharts("col-sm-4","chart3_div");
+    addDivCharts("col-sm-4","chart4_div");
+    addDivCharts("col-sm-4","chart5_div");
+    addDivCharts("col-sm-4","chart6_div");
+    addDivCharts("col-sm-12","TableChart_div");
 
 
     var filtroCargo = filters("CategoryFilter","filtroCargo_div","CargoN",false,true,"Todos","Cargo");
     var filtroServicio = filters("CategoryFilter","filtroServicio_div","ServicioN",false,true,"Todos","Servicio");
     var filtroCiudad = filters("CategoryFilter","filtroCiudad_div","CiudadClienteN",false,true,"Todos","Ciudad");
-
-    function addDynamicFilters(idText) {
-        var list = document.getElementById('dashboard_div');
-        list.innerHTML = list.innerHTML + '<div id=' + idText  + ' style="float:left; padding-left: 30px;"' + '> </div>';
-    }
 
     addDynamicFilters("filtroCiudad_div");
     addDynamicFilters("filtroCargo_div");

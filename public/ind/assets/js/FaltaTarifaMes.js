@@ -9,16 +9,12 @@
     var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));
 
-    /**
-     *
-     * @param <String> classText
-     * @param <String>idText
-     */
-    function addDynamicDiv(element,classText, idText) {
-        var list = document.getElementById(element);
-        list.innerHTML = list.innerHTML + '<div class=' + classText  + '> <div id=' + idText + '></div></div>';
-    }
-
+    addDynamicFilters("filtroCliente_div");
+    addDynamicFilters("filtroServicio_div");
+    addDynamicFilters("filtroValor_div");
+    addDivCharts("col-sm-6","chart1_div",true);
+    addDivCharts("col-sm-6","chart2_div");
+    addDivCharts("col-sm-12","TableChart_div");
 
     var filtroCliente = filters("CategoryFilter","filtroCliente_div","Cliente",false,true,"Todos", "Cliente");
     var filtroServicio = filters("CategoryFilter","filtroServicio_div","Servicio",false,true,"Todos","Servicio");
@@ -42,35 +38,12 @@
     }
 
 
-    function addDynamicFilters(idText) {
-        var list = document.getElementById('dashboard_div');
-        list.innerHTML = list.innerHTML + '<div id=' + idText  + ' style="float:left; padding-left: 30px;"' + '> </div>';
-    }
-
-    addDynamicFilters("filtroCliente_div");
-    addDynamicFilters("filtroServicio_div");
-    addDynamicFilters("filtroValor_div");
-
-
     var chartCiudadHoras = charts("BarChart","chart1_div",
-        "Horas",
-        "Porcentage","Ciudad","decimal",400,"horizontal");
-    addDivCharts("col-sm-6","chart1_div" );
+        "Horas","Porcentage","Ciudad","decimal",400,"horizontal");
     var chartServicioHoras  = charts("BarChart","chart2_div",
         "Indices IF / IOP POR CARGO",
         "Porcentage","Servicio","decimal",400,"horizontal");
-    addDivCharts("col-sm-6","chart2_div" );
 
-
-    /**
-     *
-     * @param <String> classText
-     * @param <String>idText
-     */
-    function addDivCharts(classText, idText) {
-        var list = document.getElementById('charts');
-        list.innerHTML = list.innerHTML + '<div class=' + classText  + '> <div id=' + idText + '></div></div>';
-    }
 
     /**
      * @param {string} chartType
@@ -113,7 +86,6 @@
     });
 
 
-    addDynamicDiv("charts","col-sm-12","TableChart_div");
 
     //Instantiate and draw our chart, passing in some options.
     google.visualization.events.addListener(tableChart, 'ready', function (){

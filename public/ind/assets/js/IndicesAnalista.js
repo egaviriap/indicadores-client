@@ -14,70 +14,58 @@ function draw(jsonData) {
     var chartCiudadIndices = charts("BarChart","chart1_div",
         "Indices IF / IOP POR CIUDAD",
         "Porcentage","Ciudad","#,###%",400,"horizontal");
-    addDynamicDivs("charts","col-sm-6","chart1_div" );
+    addDivCharts("col-sm-6","chart1_div", true);
     var chartCargoIndices  = charts("BarChart","chart2_div",
         "Indices IF / IOP POR CARGO",
         "Porcentage","Cargo","#,###%",400,"horizontal");
-    addDynamicDivs("charts","col-sm-6","chart2_div" );
+    addDivCharts("col-sm-6","chart2_div" );
     var chartAnalistaIndices  = charts("BarChart","chart3_div",
         "Indices IF / IOP POR Analista",
         "Analista","Porcentage","#,###%",800,"vertical");
-    addDynamicDivs("charts","col-sm-12","chart3_div" );
+    addDivCharts("col-sm-12","chart3_div" );
 
     var chartCiudadSUMIngresos  = charts("BarChart","chart4_div",
         "Suma Ingresos/No Ingresos Por Ciudad",
         "Cantidad","Ciudad","$#,###.###",400,"horizontal",["#5e8043","#F15854"]);
-    addDynamicDivs("charts","col-sm-6","chart4_div" );
+    addDivCharts("col-sm-6","chart4_div" );
     var chartCargoSUMIngresos  = charts("BarChart","chart5_div",
         "Suma Ingresos/No Ingresos Por Cargo",
         "Cantidad","Cargo","$#,###.###",400,"horizontal",["#5e8043","#F15854"]);
-    addDynamicDivs("charts","col-sm-6","chart5_div");
+    addDivCharts("col-sm-6","chart5_div");
     var chartAnalistaSUMIngresos  = charts("BarChart","chart6_div",
         "Suma Ingresos/No Ingresos Por Analista",
         "Analista","Cantidad","$#,###.###",800,"vertical",["#5e8043","#F15854"]);
-    addDynamicDivs("charts","col-sm-12","chart6_div" );
+    addDivCharts("col-sm-12","chart6_div" );
     var chartCiudadSumHoras  = charts("BarChart","chart7_div",
         "Suma Horas Laborales/Facturables/No Facturables Por Ciudad",
         "Cantidad","Ciudad","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]);
-    addDynamicDivs("charts","col-sm-6","chart7_div" );
+    addDivCharts("col-sm-6","chart7_div" );
     var chartCargoSumHoras  = charts("BarChart","chart8_div",
         "Suma Horas Laborales/Facturables/No Facturables Por Cargo",
         "Cantidad","Cargo","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]);
-    addDynamicDivs("charts","col-sm-6","chart8_div" );
+    addDivCharts("col-sm-6","chart8_div" );
     var chartAnalistaSumHoras  = charts("BarChart","chart9_div",
         "Suma Horas Laborales/Facturables/No Facturables Por Analista",
         "Analista","Cantidad","decimal",800,"vertical",["#5DA5DA","#60BD68","#FAA43A"]);
-    addDynamicDivs("charts","col-sm-12","chart9_div" );
+    addDivCharts("col-sm-12","chart9_div" );
     var chartCiudadCampos  = charts("BarChart","chart10_div",
         "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC",
         "Cantidad","Ciudad","decimal",400,"horizontal",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
-    addDynamicDivs("charts","col-sm-6","chart10_div" );
+    addDivCharts("col-sm-6","chart10_div" );
     var chartCargosCampos  = charts("BarChart","chart11_div",
         "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC",
         "Cantidad","Cargo","decimal",400,"horizontal",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
-    addDynamicDivs("charts","col-sm-6","chart11_div" );
+    addDivCharts("col-sm-6","chart11_div" );
     var chartAnalistaCampos  = charts("BarChart","chart12_div",
         "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC",
         "Analista","Cantidad","decimal",800,"vertical",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
-    addDynamicDivs("charts","col-sm-12","chart12_div" );
+    addDivCharts("col-sm-12","chart12_div" );
 
 
-    /**
-     *
-     * @param <String> classText
-     * @param <String>idText
-     */
-    function addDynamicDivs(divArea,classText, idText) {
-        var list = document.getElementById(divArea);
-            list.innerHTML = list.innerHTML + '<div class=' + classText  + '> <div id=' + idText + '></div></div>';
-    }
-    function addDynamicFilters(idText) {
-        var list = document.getElementById('dashboard_div');
-        list.innerHTML = list.innerHTML + '<div id=' + idText  + ' style="float:left; padding-left: 30px;"' + '> </div>';
-    }
+
 
 
     /**
@@ -119,7 +107,7 @@ function draw(jsonData) {
             pageSize: 10
         }
     });
-    addDynamicDivs("charts","col-sm-12","TableChart_div" );
+    addDivCharts("col-sm-12","TableChart_div" );
 
     var filtroCiudad = filters("CategoryFilter","filtroCiudad_div","CiudadN",false,true,"Todos","Ciudad",true);
     var filtroAnalista = filters("CategoryFilter","filtroAnalista_div","AnalistaN",true,false,"Todos", "Analista",true);

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -9,13 +9,43 @@
 
     <title>Indicadores De Choucair</title>
 </head>
-<body data-ano="2015" data-mes="1" data-url="IndicesAnalista" data-analista="1">
+<body data-ano="2015" data-mes="1" data-url="IndicesClientes" data-analista="1">
 
     <div class="container">
         <div class="jumbotron">
-            <img class="img-rounded" id="img" src="assets/img/logochoucair.png" alt="" width="262" height="66" >
+            <img class="img-rounded" id="img" src="assets/img/logochoucair.png" alt="" width="262" height="66">
         </div>
+       <div align="right"> <a href="/signout">
+            <div class="btn btn-warning">Sign Out</div>
+        </a>
+       </div>
         <!-- Navigation -->
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Link</a></li>
+            </ul>
+        </div>
         <nav class="navbar navbar-default">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -27,17 +57,16 @@
                         <span class="icon-bar"></span>
                     </button>
                 </div>
-
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-middle">
+                    <ul class="nav navbar-nav navbar-middle" title="Menu">
                         <li class="hidden">
                         </li>
                         <li class="page-scroll">
                             <select  class="selectpicker span2" title='Seleccione El Servicio' data-width="280px"
                                      id="ServicioSelect" data-style="btn-inverse">
                                 <option label="IndicesAnalista" value="IndicesAnalista">Panorama De Reportes Por Analista</option>
-                                <option label="IndicesClientes" value="IndicesClientes">Panorama De Reportes Por Cliente</option>
+                                <option selected="selected" label="IndicesClientes" value="IndicesClientes">Panorama De Reportes Por Cliente</option>
                                 <option label="HorasPorAnalista" value="HorasPorAnalista">Acompañamiento De Reporte Diario</option>
                                 <option label="HorasPorCargoPorCiudad" value="HorasCargoCiudad">Reporte de Horas Por Servicio Por Cargo</option>
                                 <option label="FaltaTarifames" value="FaltaTarifaMes">Reporte De Tarifas </option>
@@ -84,13 +113,14 @@
             </div>
             <!-- /.container-fluid -->
         </nav>
-
+       <div align="right">
+           <button type="button" id="btnModal" class="btn btn-info btn-sm"style="float:right;">
+               <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+           </button>
+       </div>
         <div class="row">
             <H3>FILTROS</H3>
             <div class="panel panel-default">
-                <button type="button" id="btnModal" class="btn btn-info btn-xs"style="float:right;">
-                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </button>
                 <div class="panel-body">
                     <div id="dashboard_div" style="height: 20px;"></div>
                 </div>
@@ -159,7 +189,7 @@
         <input type="button" class="btn btn-default" id="btnExport" value=" Exportar a Excel " style="display:none;" />
 
         <div id="charts">
-
+           <div align="middle"><img src="assets/img/preloader.gif" alt=""/></div>
         </div>
     </div>
 
@@ -187,9 +217,22 @@
     // Set a callback to run when the Google Visualization API is loaded.
     //google.setOnLoadCallback(drawChart);
 
+    /**
+     *
+     * @param <String> classText
+     * @param <String>idText
+     */
+    function addDivCharts(classText, idText, erase) {
+        var list = document.getElementById('charts');
+        list.innerHTML = (erase ? "" : list.innerHTML) + '<div class=' + classText  + '> <div id=' + idText + '></div></div>';
+    }
+
+    function addDynamicFilters(idText) {
+        var list = document.getElementById('dashboard_div');
+        list.innerHTML = list.innerHTML + '<div id=' + idText  + ' style="float:left; padding-left: 30px;"' + '> </div>';
+    }
+
     var now = new Date();
-
-
     $("#mesSelect").on("change", function(e){
         $.data(document.body, "mes", this.value);
         onChange();
@@ -260,18 +303,20 @@
     }
 
     function drawChart(e, ano, mes, url, analista) {
-        var d = new Date();
-        var ano = ano || d.getFullYear();
-        var mes = mes || d.getMonth()+1;
-        var urls = url || 'IndicesAnalista';
+        var ano = ano || now.getFullYear();
+        var mes = mes || now.getMonth()+1;
+        var urls = url || 'IndicesClientes';
         var analista = analista || 0;
         var jsonData = $.ajax({
             url: config.apiEndpoint + urls,
             dataType:"json",
-            data: {"ano": ano, "mes": mes, "analista": analista}
+            data: {"ano": ano, "mes": mes, "analista": analista, "url": url}
         }).then(function(data, textStatus){
-            changeService(urls);
-            draw(convertToDate(data));
+            if(url){
+                changeService(urls);
+                draw(convertToDate(data));
+            }
+
         }, function(xhr, textStatus){
             console.log("ERROR 123");
         });
@@ -279,13 +324,14 @@
 
     $(document).ready(function(){
         var searchObj = searchToObject(window.location.hash.substring(1));
-        changeService(searchObj.url);
+        if(searchObj.url)
+            changeService(searchObj.url);
         $("#mesSelect").val(searchObj.mes);
         $.data(document.body, "mes", searchObj.mes || (now.getMonth()+1));
         $("#anoSelect").val(searchObj.ano);
         $.data(document.body, "ano", searchObj.ano || now.getFullYear());
         $("#ServicioSelect").val(searchObj.url);
-        $.data(document.body, "url", searchObj.url);
+        $.data(document.body, "url", searchObj.url || "IndicesClientes");
         $("#AnalistaSelect").val(searchObj.analista);
         $.data(document.body, "analista", searchObj.analista);
         drawChart(null, searchObj.ano, searchObj.mes, searchObj.url, parseInt(searchObj.analista));

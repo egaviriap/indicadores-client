@@ -28,18 +28,18 @@
     var chartServicioIndices= charts("BarChart","chart1_div",
         "Indices IF / IOP POR Servicio",
         "Porcentage","Servicio","#,###%",400,"horizontal");
-    addDivCharts("col-sm-6","chart1_div" );
+    addDivCharts("col-sm-6","chart1_div", true);
     var chartClienteIndices = charts("BarChart","chart2_div",
         "Indices IF / IOP POR Cliente",
         "Porcentage","Cliente","#,###%",400,"horizontal");
     addDivCharts("col-sm-6","chart2_div");
     var chartServicioSumHoras = charts("BarChart","chart3_div",
         "Suma Horas Laborales/Facturables/No Facturables Por Cliente",
-        "Cantidad","Cliente","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]);
+        "Cantidad","Servicio","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]);
     addDivCharts("col-sm-6","chart3_div" );
     var chartClienteSumHoras = charts("BarChart","chart4_div",
         "Suma Horas Laborales/Facturables/No Facturables Por Cliente",
-        "Cantidad","Servicio","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]);
+        "Cantidad","Cliente","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]);
     addDivCharts("col-sm-6","chart4_div" );
     var chartServicioCampos = charts("BarChart","chart5_div",
         "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC",
@@ -63,21 +63,6 @@
     addDivCharts("col-sm-12","TableChart_div" );
 
 
-    /**
-     *
-     * @param <String> classText
-     * @param <String>idText
-     */
-    function addDivCharts(classText, idText) {
-        var list = document.getElementById('charts');
-        list.innerHTML = list.innerHTML + '<div class=' + classText  + '> <div id=' + idText + '></div></div>';
-    }
-
-
-    function addDynamicFilters(idText) {
-        var list = document.getElementById('dashboard_div');
-        list.innerHTML = list.innerHTML + '<div id=' + idText  + ' style="float:left; padding-left: 30px;"' + '> </div>';
-    }
 
     addDynamicFilters("filtroCliente_div");
     addDynamicFilters("filtroServicio_div");
