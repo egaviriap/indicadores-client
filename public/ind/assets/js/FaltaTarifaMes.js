@@ -18,7 +18,20 @@
 
     var filtroCliente = filters("CategoryFilter","filtroCliente_div","Cliente",false,true,"Todos", "Cliente");
     var filtroServicio = filters("CategoryFilter","filtroServicio_div","Servicio",false,true,"Todos","Servicio");
-    var filtroValor = filters("CategoryFilter","filtroValor_div","ValorHora",false,false,"Todos","Valor Por Hora");
+
+    var filtroValor =  new google.visualization.ControlWrapper({
+        'controlType': 'NumberRangeFilter',
+        'containerId': 'filtroValor_div',
+        'options': {
+            'filterColumnLabel': 'ValorHora',
+            'ui': {'labelStacking': 'vertical',
+                'cssClass': 'sliderClass',
+                'label': "Valor Por Hora"
+            }
+        }
+    });
+
+
 
     function filters(typeFileter,containerId, columnLabel,allowTyping,allowMultiple,caption,label){
         var filter = new google.visualization.ControlWrapper({

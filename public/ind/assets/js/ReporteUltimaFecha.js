@@ -10,8 +10,9 @@
         document.getElementById('dashboard_div'));
     //var formatter = new google.visualization.ArrowFormat();
     //formatter.format(data, 2); // Apply formatter to second columna
-
-
+    addDynamicFilters("filtroHorasR_div");
+    addDynamicFilters("filtroDiferencia_div");
+    addDivCharts("col-sm-12","TableChart_div",true);
     var tableChart = new google.visualization.ChartWrapper({
         'chartType': 'Table',
         'containerId': 'TableChart_div',
@@ -22,12 +23,19 @@
         }
     });
 
-    addDivCharts("col-sm-12","TableChart_div",true);
 
-    var filtroAnalista = filters("CategoryFilter","filtroAnalista_div","HorasRegistradas",false,true,"Todos","HorasRegistradas");
 
-    addDynamicFilters("filtroAnalista_div");
-    addDynamicFilters("filtroDiferencia_div");
+    var filtroAnalista = new google.visualization.ControlWrapper({
+        'controlType': 'NumberRangeFilter',
+        'containerId': 'filtroHorasR_div',
+        'options': {
+            'filterColumnLabel': 'HorasRegistradas',
+            'ui': {'labelStacking': 'vertical',
+                'cssClass': 'sliderClass'}
+        }
+    });
+
+
 
     var filtroDiferencia = new google.visualization.ControlWrapper({
         'controlType': 'NumberRangeFilter',
@@ -38,37 +46,6 @@
                 'cssClass': 'sliderClass'}
         }
     });
-
-
-
-    /**
-     *
-     * @param {string} typeFileter
-     * @param {string} containerId
-     * @param {string} columnLabel
-     * @param {boolean} allowTyping
-     * @param {boolean} allowMultiple
-     * @param {string} caption
-     * @returns {google.visualization.ControlWrapper}
-     */
-    function filters(typeFileter,containerId, columnLabel,allowTyping,allowMultiple,caption, label){
-        var filter = new google.visualization.ControlWrapper({
-            'controlType': typeFileter,
-            'containerId': containerId,
-            'options': {
-                'filterColumnLabel': columnLabel,
-                'ui': {'labelStacking': 'vertical',
-                    'allowTyping': allowTyping,
-                    'allowMultiple': allowMultiple,
-                    'caption': caption,
-                    'label': label}
-
-            }
-        });
-
-        return filter;
-    }
-
 
 
     new google.visualization.Dashboard(document.getElementById("dashboard_div")).
