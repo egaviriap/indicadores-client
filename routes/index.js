@@ -17,6 +17,7 @@ module.exports = function(passport){
 	router.get('/', function(req, res) {
     	// Display the Login page with any flash message, if any
 		res.render('index', { message: req.flash('message') });
+        res.set('Content-Type', 'text/html');
 	});
 
 	/* Handle Login POST */

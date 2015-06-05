@@ -60,9 +60,9 @@
                                 <option value="2012">2012</option>
                             </select>
                         </li>
-                        <li class="page-scroll">
+                        <li class="page-scroll" style="float: left; margin-left: 5px">
                             <label for="mesSelect">Mes</label>
-                            <select class="selectpicker span2" style="float: left;" title='Seleccione El Mes' data-width="160px"
+                            <select class="selectpicker span2"  title='Seleccione El Mes' data-width="160px"
                                     id="mesSelect">
                                 <option value="0">Seleccione Uno</option>
                                 <option value="1">Enero</option>
@@ -211,6 +211,7 @@
     }
 
     var now = new Date();
+
     $("#mesSelect").on("change", function(e){
         $.data(document.body, "mes", this.value);
         onChange();
@@ -283,15 +284,15 @@
     function drawChart(e, ano, mes, url, analista) {
         var ano = ano || now.getFullYear();
         var mes = mes || now.getMonth()+1;
-        var urls = url || 'IndicesClientes';
+        var urls = url || "IndicesClientes";
         var analista = analista || 0;
         var jsonData = $.ajax({
             url: config.apiEndpoint + urls,
             dataType:"json",
-            data: {"ano": ano, "mes": mes, "analista": analista, "url": url}
+            data: {"ano": ano, "mes": mes, "analista": analista, "url": urls}
         }).then(function(data, textStatus){
             if(url){
-                changeService(urls);
+                changeService(urls || "IndicesClientes");
                 draw(convertToDate(data));
             }
 
@@ -301,18 +302,19 @@
     }
 
     $(document).ready(function(){
-        var searchObj = searchToObject(window.location.hash.substring(1));
-        if(searchObj.url)
-            changeService(searchObj.url);
+        var searchObj = searchToObject(window.location.hash.substring(1)),
+                servicio = searchObj.url || "IndicesClientes";
+        changeService(servicio);
         $("#mesSelect").val(searchObj.mes);
         $.data(document.body, "mes", searchObj.mes || (now.getMonth()+1));
         $("#anoSelect").val(searchObj.ano);
         $.data(document.body, "ano", searchObj.ano || now.getFullYear());
-        $("#ServicioSelect").val(searchObj.url);
-        $.data(document.body, "url", searchObj.url || "IndicesClientes");
+        $("#ServicioSelect").val(servicio);
+        $.data(document.body, "url", servicio);
         $("#AnalistaSelect").val(searchObj.analista);
         $.data(document.body, "analista", searchObj.analista);
-        drawChart(null, searchObj.ano, searchObj.mes, searchObj.url, parseInt(searchObj.analista));
+        drawChart(null, searchObj.ano, searchObj.mes, servicio, parseInt(searchObj.analista));
+
 
         $("#btnModal").click(function(){
             $("#myModal").modal('show');
