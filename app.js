@@ -27,8 +27,6 @@ app.use(function(req,res,next){
     next();
 });
 
-
-
 // Configuring Passport
 var passport = require('passport');
 var expressSession = require('express-session');
@@ -47,7 +45,7 @@ var initPassport = require('./passport/init');
 initPassport(passport);
 
 app.use(function(req, res, next) {
-    if (!req.user && (req.path != '/') && (req.path != '/login')&& (req.path != '/signup')){
+    if (!req.user && (req.path != '/') && (req.path != '/login')){
         res.redirect('/');
     }
     else {
