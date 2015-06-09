@@ -36,22 +36,22 @@
                     <ul class="nav navbar-nav navbar-middle" title="Menu">
                         <li class="hidden">
                         </li>
-                        <li class="page-scroll">
-                            <label for="servicioselect">Servicio</label>
-                            <select  class="selectpicker span2" title='Seleccione El Servicio' data-width="300px"
+                        <li class="page-scroll"  style="margin: 1em;">
+                            <label for="servicioselect">Servicio</label><br/>
+                            <select  class="selectpicker span2" title='Seleccione El Servicio'
                                      id="ServicioSelect">
-                                <option label="IndicesAnalista" value="IndicesAnalista">Panorama De Reportes Por Analista</option>
-                                <option label="IndicesClientes" value="IndicesClientes">Panorama De Reportes Por Cliente</option>
-                                <option label="HorasPorAnalista" value="HorasPorAnalista">Acompañamiento De Reporte Diario</option>
-                                <option label="HorasPorCargoPorCiudad" value="HorasCargoCiudad">Reporte de Horas Por Servicio Por Cargo</option>
+                                <option label="IndicesAnalista" value="IndicesAnalista">Panorama Por Analista</option>
+                                <option label="IndicesClientes" value="IndicesClientes">Panorama Por Cliente</option>
+                                <option label="HorasPorAnalista" value="HorasPorAnalista">Acompañamiento Diario</option>
+                                <option label="HorasPorCargoPorCiudad" value="HorasCargoCiudad">Horas Por Servicio/Cargo</option>
                                 <option label="FaltaTarifames" value="FaltaTarifaMes">Reporte De Tarifas </option>
                                 <option label="ReporteMaxTime" value="ReporteMaxTime">Reporte De MaxTime </option>
                                 <option label="ReporteUltimaFecha" value="ReporteUltimaFecha">Reporte Ultima Fecha </option>
                             </select>
                         </li>
-                        <li class="page-scroll">
-                            <label for="anoSelect">Año</label>
-                            <select class="selectpicker span2" style="float: left;"  data-width="160px"
+                        <li class="page-scroll" style="margin: 1em;">
+                            <label for="anoSelect">Año</label><br/>
+                            <select class="selectpicker span2"
                                     title='Seleccione El Año' id="anoSelect">
                                 <option value="0">Seleccione Uno</option>
                                 <option value="2015">2015</option>
@@ -60,9 +60,9 @@
                                 <option value="2012">2012</option>
                             </select>
                         </li>
-                        <li class="page-scroll" style="float: left; margin-left: 5px">
-                            <label for="mesSelect">Mes</label>
-                            <select class="selectpicker span2"  title='Seleccione El Mes' data-width="160px"
+                        <li class="page-scroll" style="margin: 1em;">
+                            <label for="mesSelect">Mes</label><br/>
+                            <select class="selectpicker span2"  title='Seleccione El Mes'
                                     id="mesSelect">
                                 <option value="0">Seleccione Uno</option>
                                 <option value="1">Enero</option>
@@ -79,9 +79,9 @@
                                 <option value="12">Diciembre</option>
                             </select>
                         </li>
-                        <li class="page-scroll">
-                            <label for="AnalistaSelect">Analista</label>
-                            <select name="AnalistaSelect" data-live-search="true" title='Seleccione El Analista' data-width="330px"
+                        <li class="page-scroll" style="margin: 1em;">
+                            <label for="AnalistaSelect">Analista</label><br/>
+                            <select name="AnalistaSelect" data-live-search="true" title='Seleccione El Analista'  data-width="330px"
                                     class="selectpicker span4" id="AnalistaSelect">
                             </select>
                         </li>
@@ -292,7 +292,7 @@
             data: {"ano": ano, "mes": mes, "analista": analista, "url": urls}
         }).then(function(data, textStatus){
             if(url){
-                changeService(urls || "IndicesClientes");
+                changeService(urls);
                 draw(convertToDate(data));
             }
 
