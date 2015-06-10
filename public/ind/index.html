@@ -240,11 +240,10 @@
         };
         var urls = $.data(document.body, "url");
         if(urls == 'ReporteMaxTime'){
-            console.log("El Url es ",urls);
             window.open(config.apiEndpoint + 'reporteMaxTime?'+$.param(data));
         }
         else {
-            console.log("El Url en el else ",urls);
+
             window.open(config.apiEndpoint + 'reporteUltimaFecha?' + $.param(data));
         }
     });
