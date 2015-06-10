@@ -17,12 +17,10 @@ app.set('view engine', 'jade');
 app.set('x-powered-by', false);
 
 app.use(favicon());
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(function(req,res,next){
-    console.log("HEADER SET");
     res.set('Content-Type', 'text/html; charset=utf-8');
     next();
 });
@@ -43,6 +41,7 @@ app.use(flash());
 // Initialize Passport
 var initPassport = require('./passport/init');
 initPassport(passport);
+app.use(express.static(__dirname, '/common'));
 
 app.use(function(req, res, next) {
     if (!req.user && (req.path != '/') && (req.path != '/login')){

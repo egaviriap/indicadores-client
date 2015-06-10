@@ -21,7 +21,6 @@ var ServicioUltimaFechaReporteXAnalista = function(){
         {label:'HorasRegistradas', type:'number', format: null},
         {label:'Diferencia', type:'number', format: null}
 
-
     ];
 };
 /*

@@ -43,20 +43,18 @@ var ServicioReporteMaxTime = function(){
  *
  */
 
-ServicioReporteMaxTime.prototype.saveDataXls = function(jsonData, query){
+ServicioReporteMaxTime.prototype.saveDataXls = function(jsonData){
 
-    var xls = json2xls(jsonData),
-        filename = this.getFilename(query);
-    fs.writeFileSync(filename, xls, 'binary');
-    return fs.readFileSync(filename);
-    
+    try{
+        var xls = json2xls(jsonData);
+        fs.writeFileSync(this.file, xls, 'binary');
+        return fs.readFileSync(this.file);
+    }catch(err){
+        console.log(err);
+    }
+
 };
 
-ServicioReporteMaxTime.prototype.getFilename = function(query){
-    return this.file + "_" +
-        (new Date()).getTime() + "_" +
-        query.ano + "_" + query.mes + ".xlsx";
-};
 
 ServicioReporteMaxTime.prototype.getResults = function(callback,ano,mes){
 
