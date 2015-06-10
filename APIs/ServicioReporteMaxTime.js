@@ -12,7 +12,7 @@ var fs = require('fs');
 var connection = DBConnection.getConnection();
 
 var ServicioReporteMaxTime = function(){
-    this.file = '../reports/ReporteMaxTime';
+    this.file = '../reports/ReporteMaxTime.xlsx';
 
     this.cols = [
         {label:'Sector', type:'string', format: null},

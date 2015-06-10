@@ -11,7 +11,7 @@ var fs = require('fs');
 var connection = DBConnection.getConnection();
 
 var ServicioUltimaFechaReporteXAnalista = function(){
-    this.file = '../reports/UltimaFechaReporteXAnalista';
+    this.file = '../reports/UltimaFechaReporteXAnalista.xlsx';
 
     this.cols = [
         {label:'Fecha', type:'string', format: null},
