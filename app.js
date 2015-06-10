@@ -20,10 +20,6 @@ app.use(favicon());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(function(req,res,next){
-    res.set('Content-Type', 'text/html; charset=utf-8');
-    next();
-});
 
 // Configuring Passport
 var passport = require('passport');

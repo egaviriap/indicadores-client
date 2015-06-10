@@ -7,7 +7,7 @@ a {
   color: #00B7FF;
 }
 
-.container{
+div.container{
     position: absolute;
     left: 50%;
     top: 50%;
@@ -44,7 +44,7 @@ a {
     border-bottom-right-radius: 0;
 }
 .form-signin input[type="password"]{
-    margin-bottom: 10px;
+    margin-bottom: 16px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
@@ -71,18 +71,14 @@ a {
 }
 .login-title{
     color: #555;
-    font-size: 10px;
+    font: 3vmin/1 Arial, sans-serif;
     font-weight: 400;
+    letter-spacing: -0.5px;
     display: block;
 }
 .profile-img{
-    width: 96px;
-    height: 96px;
     margin: 0 auto 10px;
     display: block;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
 }
 .new-account{
     display: block;
