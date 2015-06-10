@@ -80,10 +80,10 @@
                                 <option value="12">Diciembre</option>
                             </select>
                         </li>
-                        <li class="page-scroll" style="margin: 1em;">
+                        <li class="page-scroll" style="margin: 1em;display:none;" id="analistaLI">
                             <label for="AnalistaSelect">Analista</label><br/>
                             <select name="AnalistaSelect" data-live-search="true" title='Seleccione El Analista'  data-width="330px"
-                                    class="selectpicker span4" id="AnalistaSelect">
+                                    class="selectpicker span4" id="AnalistaSelect" >
                             </select>
                         </li>
                     </ul>
@@ -164,9 +164,9 @@
                 </div>
             </div>
         </div>
-        <!--<div align="right">-->
-            <!--<input type="button" class="btn btn-default" id="btnExport" value=" Exportar a Excel " style="display:none;" />-->
-        <!--</div>-->
+        <div id="buttonDiv" align="right">
+            <input type="button" class="btn btn-default" id="btnExport" value="Exportar a Excel" style="display:none;" />
+        </div>
         <div id="charts">
            <div align="middle"><img src="assets/img/preloader.gif" alt=""/></div>
         </div>
@@ -238,7 +238,15 @@
             ano: $.data(document.body, "ano"),
             mes: $.data(document.body, "mes")
         };
-        window.open(config.apiEndpoint + 'DownloadReport?'+$.param(data));
+        var urls = $.data(document.body, "url");
+        if(urls == 'ReporteMaxTime'){
+            console.log("El Url es ",urls);
+            window.open(config.apiEndpoint + 'reporteMaxTime?'+$.param(data));
+        }
+        else {
+            console.log("El Url en el else ",urls);
+            window.open(config.apiEndpoint + 'reporteUltimaFecha?' + $.param(data));
+        }
     });
 
     function onChange(){

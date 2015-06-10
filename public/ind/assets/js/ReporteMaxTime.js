@@ -4,13 +4,10 @@
 
 ;function draw(jsonData) {
     // Create our data table out of JSON data loaded from server.
-    //document.getElementById("btnExport").style.display = "block";
+    document.getElementById("btnExport").style.display = "block";
     var data = new google.visualization.DataTable(jsonData);
     var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));
-    //var formatter = new google.visualization.ArrowFormat();
-    //formatter.format(data, 2); // Apply formatter to second columna
-
 
     var tableChart = new google.visualization.ChartWrapper({
         'chartType': 'Table',
@@ -23,7 +20,6 @@
     });
 
     addDivCharts("col-sm-12","TableChart_div",true);
-
     var filtroServicio = filters("CategoryFilter","filtroServicio_div","Servicio",false,true,"Todos","Seleccione El Servicio");
     var filtroCliente = filters("CategoryFilter","filtroCliente_div","Cliente",false,true,"Todos","Seleccione el Cliente");
 

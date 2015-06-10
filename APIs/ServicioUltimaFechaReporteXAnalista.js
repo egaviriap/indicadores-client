@@ -11,7 +11,7 @@ var fs = require('fs');
 var connection = DBConnection.getConnection();
 
 var ServicioUltimaFechaReporteXAnalista = function(){
-    this.file = 'UltimaFechaReporteXAnalista.xlsx';
+    this.file = '../reports/UltimaFechaReporteXAnalista';
 
     this.cols = [
         {label:'Fecha', type:'string', format: null},
@@ -29,13 +29,15 @@ var ServicioUltimaFechaReporteXAnalista = function(){
  */
 
 ServicioUltimaFechaReporteXAnalista.prototype.saveDataXls = function(jsonData){
+    try{
+        var xls = json2xls(jsonData);
+        fs.writeFileSync(this.file, xls, 'binary');
+        return fs.readFileSync(this.file);
+    }catch(err){
+        console.log(err);
+    }
 
-    var xls = json2xls(jsonData);
-    fs.writeFileSync(this.file, xls, 'binary');
-    return fs.readFileSync(this.file);
-    
 };
-
 
 ServicioUltimaFechaReporteXAnalista.prototype.getResults = function(callback,ano,mes){
 

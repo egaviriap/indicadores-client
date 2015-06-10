@@ -59,9 +59,14 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioUltimaFechaReporteXAnalista();
         servicio.getResults(writeData(servicio),ano, mes);
     }
-    if (/^\/api\/DownloadReport/.test(req.url)) {
+    if (/^\/api\/reporteMaxTime/.test(req.url)) {
         servicio = new ServicioReporteMaxTime();
-        servicio.getResults(downloadReport(servicio, parsedUrl.query), ano, mes);
+        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
+    }
+
+    if (/^\/api\/reporteUltimaFecha/.test(req.url)) {
+        servicio = new ServicioUltimaFechaReporteXAnalista();
+        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
 
     function writeData(servicio){
@@ -83,8 +88,7 @@ var server = http.createServer(function (req, res) {
             res.end(JSON.stringify(data));
         }
     }
-    function downloadReport(servicio, query){
-        console.log(query);
+    function downloadReports(servicio, query){
         return function(data){
             res.writeHead(200, {
                 'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8',

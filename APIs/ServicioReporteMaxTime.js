@@ -44,7 +44,6 @@ var ServicioReporteMaxTime = function(){
  */
 
 ServicioReporteMaxTime.prototype.saveDataXls = function(jsonData){
-
     try{
         var xls = json2xls(jsonData);
         fs.writeFileSync(this.file, xls, 'binary');
@@ -52,9 +51,7 @@ ServicioReporteMaxTime.prototype.saveDataXls = function(jsonData){
     }catch(err){
         console.log(err);
     }
-
 };
-
 
 ServicioReporteMaxTime.prototype.getResults = function(callback,ano,mes){
 

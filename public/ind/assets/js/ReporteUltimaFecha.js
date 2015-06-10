@@ -4,7 +4,7 @@
 
 ;function draw(jsonData) {
     // Create our data table out of JSON data loaded from server.
-    //document.getElementById("btnExport").style.display = "block";
+    document.getElementById("btnExport").style.display = "block";
     var data = new google.visualization.DataTable(jsonData);
     var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));
@@ -19,7 +19,7 @@
         options: {
             // minimize the footprint of the table in HTML
             page: 'enable',
-            pageSize: 100
+            pageSize: 10
         }
     });
 

@@ -1,3 +1,4 @@
 node_modules/*
 APIS/ReporteMaxTime.xlsx
 APIs/DBConfig.js
+reports/*
