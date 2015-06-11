@@ -26,7 +26,8 @@
             'filterColumnLabel': 'ValorHora',
             'ui': {'labelStacking': 'vertical',
                 'cssClass': 'sliderClass',
-                'label': "Valor Por Hora"
+                'label': "Valor Por Hora",
+                'format': "#,##.#"
             }
         }
     });

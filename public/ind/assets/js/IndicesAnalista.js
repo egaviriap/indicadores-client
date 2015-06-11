@@ -154,14 +154,15 @@ function draw(jsonData) {
             'controlType': 'NumberRangeFilter',
             'containerId': 'filtroIE_div',
             'options': {
-                'filterColumnLabel': 'IE',
+                'filterColumnLabel': 'IOP',
                 'ui': {
-                    'unitIncrement': '0.01',
-                    'steps': '0.01',
-                    'format': '#.#'
+                    'unitIncrement': '0,1',
+                    'steps': '0,1'
                 },
+            'unitIncrement': '0,1',
+            'steps': '0,1',
             'minValue': 0,
-            'maxValue': 1
+            'maxValue': 2
             }
         });
 
