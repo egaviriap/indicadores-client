@@ -21,8 +21,8 @@
         }
     });
 
-    addDynamicFilters("filtroHoras_div");
-    addDivCharts("col-sm-12","calendar_div",true);
+    addDynamicFilters("filtroHoras_div",true);
+    addDivCharts("col-sm-12","calendar_div");
     addDivCharts("col-sm-12","TableChart_div" );
 
     var calendar = new google.visualization.ChartWrapper({

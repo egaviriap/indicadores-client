@@ -11,7 +11,7 @@ var fs = require('fs');
 var connection = DBConnection.getConnection();
 
 var ServicioUltimaFechaReporteXAnalista = function(){
-    this.file = '../reports/UltimaFechaReporteXAnalista.xlsx';
+    this.file = './reports/UltimaFechaReporteXAnalista.xlsx';
 
     this.cols = [
         {label:'Fecha', type:'string', format: null},
@@ -20,7 +20,6 @@ var ServicioUltimaFechaReporteXAnalista = function(){
         {label:'HorasLaborales', type:'number', format: null},
         {label:'HorasRegistradas', type:'number', format: null},
         {label:'Diferencia', type:'number', format: null}
-
     ];
 };
 /*
@@ -40,7 +39,6 @@ ServicioUltimaFechaReporteXAnalista.prototype.saveDataXls = function(jsonData){
 };
 
 ServicioUltimaFechaReporteXAnalista.prototype.getResults = function(callback,ano,mes){
-
     var params = null;
     DBConnection.prepare(SQLQuery.UltimaFechaReporteXAnalista, params, callback);
 };
