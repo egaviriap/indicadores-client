@@ -21,17 +21,15 @@
         }
     });
 
-    addDynamicFilters("filtroHoras_div",true);
-    addDivCharts("col-sm-12","calendar_div");
+    addDynamicFilters("filtroHoras_div");
+    addDivCharts("col-sm-12","calendar_div",true);
     addDivCharts("col-sm-12","TableChart_div" );
 
     var calendar = new google.visualization.ChartWrapper({
         'chartType': 'Calendar',
         'containerId': 'calendar_div',
         'options': {
-            title: document.getElementById("ServicioSelect").value,
-            vAxis: {title: "Calendario"},
-            hAxis: {title: "Horas Por Fecha"},
+            title: "Horas Por Fecha Por Analista",
             height: 500,
             colorAxis: {
                 minValue: 0,

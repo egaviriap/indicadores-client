@@ -27,11 +27,11 @@
     });
     var chartServicioIndices= charts("BarChart","chart1_div",
         "Indices IF / IOP POR Servicio",
-        "Porcentage","Servicio","#,###%",400,"horizontal");
+        "porcentaje","Servicio","#,###%",400,"horizontal");
     addDivCharts("col-sm-6","chart1_div", true);
     var chartClienteIndices = charts("BarChart","chart2_div",
         "Indices IF / IOP POR Cliente",
-        "Porcentage","Cliente","#,###%",400,"horizontal");
+        "porcentaje","Cliente","#,###%",400,"horizontal");
     addDivCharts("col-sm-6","chart2_div");
     var chartServicioSumHoras = charts("BarChart","chart3_div",
         "Suma Horas Laborales/Facturables/No Facturables Por Cliente",
@@ -258,10 +258,10 @@
             return groupedDataTable;
         }
 
-        chartServicioIndices.setDataTable(gca.convertColsToPercentage(serviciosIndicesTable,[1,2,3]));
-        chartClienteIndices.setDataTable(gca.convertColsToPercentage(clientesIndicesTable,[1,2,3]));
-        chartClienteValorHora.setDataTable(gca.convertColsToCurrency(clientesValorHoraTable,[1,2,3]));
-        chartServicioValorHora.setDataTable(gca.convertColsToCurrency(servicioValorHoraTable,[1,2,3]));
+        chartServicioIndices.setDataTable(gca.convertColsToPercentage(serviciosIndicesTable,[3,2,1]));
+        chartClienteIndices.setDataTable(gca.convertColsToPercentage(clientesIndicesTable,[3,2,1]));
+        chartClienteValorHora.setDataTable(gca.convertColsToCurrency(clientesValorHoraTable,[3,2,1]));
+        chartServicioValorHora.setDataTable(gca.convertColsToCurrency(servicioValorHoraTable,[3,2,1]));
         chartServicioSumHoras.setDataTable(groupedDataServicioSumHoras);
         chartClienteSumHoras.setDataTable(groupedDataClienteSumHoras);
         chartServicioCampos.setDataTable(groupedDataServicioCampos);

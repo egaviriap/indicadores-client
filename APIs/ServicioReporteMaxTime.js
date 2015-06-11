@@ -8,7 +8,7 @@ var DBPreparedParams = require('./DBPreparedParams');
 var CurrencyConversion = require('./CurrencyConverter.js');
 var json2xls = require('json2xls');
 var fs = require('fs');
-
+var path = require('path');
 var connection = DBConnection.getConnection();
 
 var ServicioReporteMaxTime = function(){
@@ -46,7 +46,8 @@ var ServicioReporteMaxTime = function(){
 ServicioReporteMaxTime.prototype.saveDataXls = function(jsonData){
     try{
         var xls = json2xls(jsonData);
-        fs.writeFileSync(this.file, xls, 'binary');
+        fs.writeFileSync(path.resolve(__dirname, this.file), xls, 'binary');
+
         return fs.readFileSync(this.file);
     }catch(err){
         console.log(err);

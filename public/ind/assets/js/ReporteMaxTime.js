@@ -4,7 +4,7 @@
 
 ;function draw(jsonData) {
     // Create our data table out of JSON data loaded from server.
-    document.getElementById("btnExport").style.display = "block";
+    //document.getElementById("btnExport").style.display = "block";
     var data = new google.visualization.DataTable(jsonData);
     var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));
@@ -22,9 +22,11 @@
     addDivCharts("col-sm-12","TableChart_div",true);
     var filtroServicio = filters("CategoryFilter","filtroServicio_div","Servicio",false,true,"Todos","Seleccione El Servicio");
     var filtroCliente = filters("CategoryFilter","filtroCliente_div","Cliente",false,true,"Todos","Seleccione el Cliente");
+    var filtroAnalista = filters("CategoryFilter","filtroAnalista_div","Analista",true,true,"Todos","Seleccione el Analista");
 
     addDynamicFilters("filtroCliente_div");
     addDynamicFilters("filtroServicio_div");
+    addDynamicFilters("filtroAnalista_div");
 
     /**
      *
@@ -58,7 +60,8 @@
 
     new google.visualization.Dashboard(document.getElementById("dashboard_div")).
         bind(filtroServicio, filtroCliente).
-        bind(filtroCliente, tableChart).
+        bind(filtroCliente, filtroAnalista).
+        bind(filtroAnalista, tableChart).
         // Draw the dashboard
         draw(data);
         

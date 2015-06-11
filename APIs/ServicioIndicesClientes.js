@@ -19,7 +19,7 @@ var ServicioIndicesClientes = function(){
     this.cols = [
         {label:'IE', type:'number', format: "percentage"},
         {label:'IOP', type:'number', format: null},
-        {label:'IFs', type:'number', format: "percentage"},
+        {label:'IF', type:'number', format: "percentage"},
         {label:'Servicio', type:'string', format: null},
         {label:'Cliente', type:'string', format: null},
         {label:'Analistas', type:'number', format: null},

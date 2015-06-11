@@ -11,9 +11,9 @@ tableRowIndices.prototype.createIndexesData = function (dataTable, col, distinct
                                hafColumn, hascColumn, incapColumn, vacColumn){
             var groupedDataServicioIndices = new google.visualization.DataTable();
             groupedDataServicioIndices.addColumn("string",dataTable.getColumnLabel(col));
-            groupedDataServicioIndices.addColumn("number","IF");
-            groupedDataServicioIndices.addColumn("number","IOP");
             groupedDataServicioIndices.addColumn("number","IE");
+            groupedDataServicioIndices.addColumn("number","IOP");
+            groupedDataServicioIndices.addColumn("number","IF");
             groupedDataServicioIndices.addRows(this.tableRowsIndices(dataTable, col, distinctedGroup,
                 horasLaboralesColumn, horasFacturablesColumn,
                 hafColumn, hascColumn, incapColumn, vacColumn));

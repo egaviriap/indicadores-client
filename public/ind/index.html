@@ -311,17 +311,19 @@
 
     $(document).ready(function(){
         var searchObj = searchToObject(window.location.hash.substring(1)),
-                servicio = searchObj.url || "IndicesClientes";
+                servicio = searchObj.url || "IndicesClientes",
+                ano = searchObj.ano || now.getFullYear(),
+                mes = searchObj.mes || (now.getMonth()+1);
         changeService(servicio);
-        $("#mesSelect").val(searchObj.mes);
-        $.data(document.body, "mes", searchObj.mes || (now.getMonth()+1));
-        $("#anoSelect").val(searchObj.ano);
-        $.data(document.body, "ano", searchObj.ano || now.getFullYear());
+        $("#mesSelect").val(mes);
+        $.data(document.body, "mes", mes);
+        $("#anoSelect").val(ano);
+        $.data(document.body, "ano", ano);
         $("#ServicioSelect").val(servicio);
         $.data(document.body, "url", servicio);
         $("#AnalistaSelect").val(searchObj.analista);
         $.data(document.body, "analista", searchObj.analista);
-        drawChart(null, searchObj.ano, searchObj.mes, servicio, parseInt(searchObj.analista));
+        drawChart(null, ano, mes, servicio, parseInt(searchObj.analista));
 
 
         $("#btnModal").click(function(){

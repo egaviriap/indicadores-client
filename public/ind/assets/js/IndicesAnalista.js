@@ -13,15 +13,15 @@ function draw(jsonData) {
 
     var chartCiudadIndices = charts("BarChart","chart1_div",
         "Indices IF / IOP POR CIUDAD",
-        "Porcentage","Ciudad","#,###%",400,"horizontal");
+        "porcentaje","Ciudad","#,###%",400,"horizontal");
     addDivCharts("col-sm-6","chart1_div", true);
     var chartCargoIndices  = charts("BarChart","chart2_div",
         "Indices IF / IOP POR CARGO",
-        "Porcentage","Cargo","#,###%",400,"horizontal");
+        "porcentaje","Cargo","#,###%",400,"horizontal");
     addDivCharts("col-sm-6","chart2_div" );
     var chartAnalistaIndices  = charts("BarChart","chart3_div",
         "Indices IF / IOP POR Analista",
-        "Analista","Porcentage","#,###%",800,"vertical");
+        "Analista","porcentaje","#,###%",800,"vertical");
     addDivCharts("col-sm-12","chart3_div" );
 
     var chartCiudadSUMIngresos  = charts("BarChart","chart4_div",
