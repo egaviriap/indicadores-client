@@ -12,7 +12,7 @@ var GoogleChartAdapter = function(){
 
     function formatPercentage(value){
         var num = numeral(value);
-        numeral.defaultFormat('0.0%');
+        numeral.defaultFormat('0%');
         return num.format();
     }
     /**

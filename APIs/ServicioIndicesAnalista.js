@@ -17,7 +17,7 @@ var ServicioIndicesAnalista = function(){
         {label:'Cargo', type:'string', format: null},
         {label:'IE', type:'number', format: "percentage"},
         {label:'IOP', type:'number', format: "percentage"},
-        {label:'IF', type:'number', format: "percentage"},
+        {label:'IFs', type:'number', format: "percentage"},
         {label:'Analista', type:'number', format: null},
         {label:'HorasLaborales', type:'number', format: null},
         {label:'Incap', type:'number', format: null},

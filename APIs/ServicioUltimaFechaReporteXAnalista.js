@@ -5,13 +5,11 @@
 var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
-var CurrencyConversion = require('./CurrencyConverter.js');
-var json2xls = require('../node_modules/json2xls/lib/json2xls.js');
 var fs = require('fs');
 var connection = DBConnection.getConnection();
-
+var dlClass = require('./DownloadClass.js');
 var ServicioUltimaFechaReporteXAnalista = function(){
-    this.file = './reports/UltimaFechaReporteXAnalista.xlsx';
+    this.file = __dirname + '/../reports/UltimaFechaReporteXAnalista.xlsx';
 
     this.cols = [
         {label:'Fecha', type:'string', format: null},
@@ -27,16 +25,12 @@ var ServicioUltimaFechaReporteXAnalista = function(){
  *
  */
 
-ServicioUltimaFechaReporteXAnalista.prototype.saveDataXls = function(jsonData){
-    try{
-        var xls = json2xls(jsonData);
-        fs.writeFileSync(this.file, xls, 'binary');
-        return fs.readFileSync(this.file);
-    }catch(err){
-        console.log(err);
-    }
-
+ServicioUltimaFechaReporteXAnalista.prototype.saveDataXls = function(jsonData, query){
+    descarga = new dlClass('/../reports/ReportMaxTime.xlsx');
+    return descarga.getFile(jsonData, query);
 };
+
+
 
 ServicioUltimaFechaReporteXAnalista.prototype.getResults = function(callback,ano,mes){
     var params = null;

@@ -55,7 +55,7 @@ GoogleChartAdapter.prototype.formatValue = function(value, format){
             break;
         case "percentage":
             var num = numeral(value);
-            numeral.defaultFormat('0.0%');
+            numeral.defaultFormat('#%');
             formatedValue = num.format();
             break;
         default:

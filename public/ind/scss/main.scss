@@ -1,1 +1,15 @@
 @import "../bootstrap-sass/assets/stylesheets/bootstrap";
+
+.main-content {
+  position: relative;
+}
+
+.signout {
+  position: absolute;
+  top: 7px;
+  right: 24px;
+}
+
+.exportar {
+  right: 24px;
+}

@@ -1,18 +1,16 @@
 /**
  * Created by egaviria on 29/04/2015.
  */
-
 var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
 var CurrencyConversion = require('./CurrencyConverter.js');
-var json2xls = require('json2xls');
 var fs = require('fs');
 var path = require('path');
 var connection = DBConnection.getConnection();
+var dlClass = require('./DownloadClass.js');
 
 var ServicioReporteMaxTime = function(){
-    this.file = './reports/ReporteMaxTime.xlsx';
 
     this.cols = [
         {label:'Sector', type:'string', format: null},
@@ -43,15 +41,11 @@ var ServicioReporteMaxTime = function(){
  *
  */
 
-ServicioReporteMaxTime.prototype.saveDataXls = function(jsonData){
-    try{
-        var xls = json2xls(jsonData);
-        fs.writeFileSync(path.resolve(__dirname, this.file), xls, 'binary');
+ServicioReporteMaxTime.prototype.saveDataXls = function(jsonData, query){
 
-        return fs.readFileSync(this.file);
-    }catch(err){
-        console.log(err);
-    }
+    descarga = new dlClass('/../reports/ReportMaxTime.xlsx');
+    return descarga.getFile(jsonData, query);
+
 };
 
 ServicioReporteMaxTime.prototype.getResults = function(callback,ano,mes){

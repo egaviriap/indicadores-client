@@ -3625,7 +3625,7 @@ a.badge:hover, a.badge:focus {
     max-width: 100%; }
   @media screen and (min-width: 768px) {
     .jumbotron {
-      padding: 20px 0; }
+      padding: 48px 0; }
       .container .jumbotron, .container-fluid .jumbotron {
         padding-left: 60px;
         padding-right: 60px; }
@@ -4902,3 +4902,14 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+
+.main-content {
+  position: relative; }
+
+.signout {
+  position: absolute;
+  top: 7px;
+  right: 24px; }
+
+.exportar {
+  right: 24px; }

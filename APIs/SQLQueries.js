@@ -583,6 +583,8 @@ var SQLQuery = {
                                 INNER JOIN DBO.Pais P ON (DNL.Pais = P.ID)\
                                 WHERE dnl.Ano = YEAR(getdate()) AND dnl.mes = MONTH(getdate()) AND DNL.Pais = P.ID and DNL.Dia < DAY(getdate())\
                                 GROUP BY P.id ) DBX on (DBX.ID = Horas.Pais)\
+                                where ((HorasFacturables+HorasNoFacturables-HorasAdicionalSC-HorasAdicionalNF-HorasAdicionalF)-\
+                                (HORAS.HorasLaborales*(DAY(GETDATE()) - DBX.DiaNoLaboral))) < 0\
                                 ORDER BY Horas.Nombre"
 
 
