@@ -5,6 +5,8 @@
 ;function draw(jsonData) {
     // Create our data table out of JSON data loaded from server.
     document.getElementById("analistaLI").style.display = "block";
+    document.getElementById("anoLI").style.display = "none";
+    document.getElementById("mesLI").style.display = "none";
     var data = new google.visualization.DataTable(jsonData);
     var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));

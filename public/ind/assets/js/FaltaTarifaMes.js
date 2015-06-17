@@ -27,7 +27,9 @@
             'ui': {'labelStacking': 'vertical',
                 'cssClass': 'sliderClass',
                 'label': "Valor Por Hora",
-                'format': "#,##.#"
+                'format':{
+                    'pattern': '$#,###'
+                }
             }
         }
     });

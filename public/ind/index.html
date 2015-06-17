@@ -35,9 +35,7 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-middle" title="Menu">
-                        <li class="hidden">
-                        </li>
-                        <li class="page-scroll"  style="margin: 1em;">
+                        <li class="page-scrol"  style="margin: 1em;">
                             <label for="servicioselect">Servicio</label><br/>
                             <select  class="selectpicker span2" title='Seleccione El Servicio'
                                      id="ServicioSelect">
@@ -50,7 +48,7 @@
                                 <option label="ReporteUltimaFecha" value="ReporteUltimaFecha">Reporte Ultima Fecha </option>
                             </select>
                         </li>
-                        <li class="page-scroll" style="margin: 1em;">
+                        <li class="page-scroll" id="anoLI" style="margin: 1em;">
                             <label for="anoSelect">Año</label><br/>
                             <select class="selectpicker span2"
                                     title='Seleccione El Año' id="anoSelect">
@@ -60,7 +58,7 @@
                                 <option value="2012">2012</option>
                             </select>
                         </li>
-                        <li class="page-scroll" style="margin: 1em;">
+                        <li class="page-scroll"  id="mesLI" style="margin: 1em;">
                             <label for="mesSelect">Mes</label><br/>
                             <select class="selectpicker span2"  title='Seleccione El Mes'
                                     id="mesSelect">
@@ -90,8 +88,8 @@
             </div>
             <!-- /.container-fluid -->
         </nav>
-       <div align="right">
-           <button type="button" id="btnModal" class="btn btn-primary btn-sm"style="float:right;">
+       <div align="left">
+           <button type="button" id="btnModal" class="btn btn-primary btn-sm exportar"style="float:right;">
                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
            </button>
        </div>
@@ -209,6 +207,14 @@
         list.innerHTML = list.innerHTML + '<div id=' + idText  + ' style="float:left; padding-left: 30px;"' + '> </div>';
     }
 
+    function addDynacimButtons(id,value){
+        var list = document.getElementById('charts');
+        list.innerHTML = list.innerHTML +
+        '<div align="center"> ' +
+             '<input type="button" class="btn btn-default btnCharts" id='+id+' value='+value+'> ' +
+        '</div>';
+    }
+
     var now = new Date();
 
     $("#mesSelect").on("change", function(e){
@@ -241,7 +247,6 @@
             window.open(config.apiEndpoint + 'reporteMaxTime?'+$.param(data));
         }
         else {
-
             window.open(config.apiEndpoint + 'reporteUltimaFecha?' + $.param(data));
         }
     });

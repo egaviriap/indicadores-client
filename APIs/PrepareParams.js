@@ -20,7 +20,6 @@ PrepareParams.prototype.prepare = function(ano, mes){
 
     this.params.ano= ano;
     this.params.mes= mes;
-
     return this.params;
 
 };

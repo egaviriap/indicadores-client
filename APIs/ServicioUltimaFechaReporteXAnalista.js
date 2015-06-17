@@ -8,6 +8,7 @@ var DBPreparedParams = require('./DBPreparedParams');
 var fs = require('fs');
 var connection = DBConnection.getConnection();
 var dlClass = require('./DownloadClass.js');
+
 var ServicioUltimaFechaReporteXAnalista = function(){
     this.file = __dirname + '/../reports/UltimaFechaReporteXAnalista.xlsx';
 

@@ -4912,4 +4912,9 @@ button.close {
   right: 24px; }
 
 .exportar {
-  right: 24px; }
+  right: 24px;
+  top: -10;
+  position: relative; }
+
+.btnCharts {
+  align-items: center; }

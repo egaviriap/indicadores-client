@@ -104,7 +104,7 @@
      */
 
     var filtroServicio = filters("CategoryFilter","filtroServicio_div","Servicio",false,true,"Todos","Servicio");
-    var filtroCliente = filters("CategoryFilter","filtroCliente_div","Cliente",false,true,"Todos","Cliente");
+    var filtroCliente = filters("CategoryFilter","filtroCliente_div","Cliente",true,true,"Todos","Cliente");
 
     /**
      *
@@ -126,7 +126,8 @@
                     'allowTyping': allowTyping,
                     'allowMultiple': allowMultiple,
                     'caption': caption,
-                    'label': label}
+                    'label': label
+                    }
 
             }
         });
