@@ -17,7 +17,8 @@
         'containerId': 'filtroHoras_div',
         'options': {
             'filterColumnLabel': 'HorasRegistradas',
-            'ui': {'caption': 'Todos'},
+            'ui': {'label': 'Horas Registradas',
+                'cssClass': 'sliderClass'},
             'minValue': 0,
             'maxValue': 20
         }

@@ -21,10 +21,9 @@ function draw(jsonData) {
     addDivCharts("col-sm-6","chart2_div" );
     var chartAnalistaIndices  = chartsAnalistas("BarChart","chart3_div",
         "Indices IF / IOP POR Analista",
-        "Analista","porcentaje","#,###%",800,"horizontal");
+        "Analista","porcentaje","#,###%",800,"vertical");
     addDivCharts("col-sm-12","chart3_div" );
-    addDynacimButtons("btnPrev1","Anterior");
-    addDynacimButtons("btnNext1","Siguiente");
+
     var chartCiudadSUMIngresos  = charts("BarChart","chart4_div",
         "Suma Ingresos/No Ingresos Por Ciudad",
         "Cantidad","Ciudad","$#,###.###",400,"horizontal",["#5e8043","#F15854"]);
@@ -37,8 +36,6 @@ function draw(jsonData) {
         "Suma Ingresos/No Ingresos Por Analista",
         "Analista","Cantidad","$#,###.###",800,"vertical",["#5e8043","#F15854"]);
     addDivCharts("col-sm-12","chart6_div" );
-    addDynacimButtons("btnPrev2","Anterior");
-    addDynacimButtons("btnNext2","Siguiente");
     var chartCiudadSumHoras  = charts("BarChart","chart7_div",
         "Suma Horas Laborales/Facturables/No Facturables Por Ciudad",
         "Cantidad","Ciudad","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]);
@@ -51,8 +48,6 @@ function draw(jsonData) {
         "Suma Horas Laborales/Facturables/No Facturables Por Analista",
         "Analista","Cantidad","decimal",800,"vertical",["#5DA5DA","#60BD68","#FAA43A"]);
     addDivCharts("col-sm-12","chart9_div" );
-    addDynacimButtons("btnPrev3","Anterior");
-    addDynacimButtons("btnNext3","Siguiente");
     var chartCiudadCampos  = charts("BarChart","chart10_div",
         "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC",
         "Cantidad","Ciudad","decimal",400,"horizontal",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
@@ -68,8 +63,6 @@ function draw(jsonData) {
         "Analista","Cantidad","decimal",800,"vertical",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
     addDivCharts("col-sm-12","chart12_div" );
-    addDynacimButtons("btnPrev4","Anterior");
-    addDynacimButtons("btnNext4","Siguiente");
 
     function chartsAnalistas(chartType,containerId, title,vAxisTitle, hAxisTitle,format,height, orientation, colors){
         var chart = new google.visualization.ChartWrapper({
@@ -78,7 +71,8 @@ function draw(jsonData) {
             'options': {
                 title: title,
                 vAxis: {title: vAxisTitle, minValue: 0, format: format},
-                hAxis: {title: hAxisTitle, minValue: 0, format: format, viewWindow: {min:0, max:10}},
+                hAxis: {title: hAxisTitle, minValue: 0, format: format},
+                //hAxis: {title: hAxisTitle, minValue: 0, format: format, viewWindow: {min:0, max:10}},
                 height: height,
                 colors: colors,
                 orientation: orientation
@@ -333,28 +327,28 @@ function draw(jsonData) {
             hAxis: {viewWindow: {min:0, max:10}}
 
         };
-        var MAX = 400;
-        var prevButton = document.getElementById('btnPrev1');
-        var nextButton = document.getElementById('btnNext1');
-        prevButton.disabled = true;
-        nextButton.disabled = true;
-
-        google.visualization.events.addListener(chartAnalistaIndices, 'ready',
-            function() {
-                prevButton.disabled = options.hAxis.viewWindow.min <= 0;
-                nextButton.disabled = options.hAxis.viewWindow.max >= MAX;
-            });
-
-        prevButton.onclick = function() {
-            options.hAxis.viewWindow.min -= 1;
-            options.hAxis.viewWindow.max -= 1;
-            drawChart();
-        };
-        nextButton.onclick = function() {
-            options.hAxis.viewWindow.min += 1;
-            options.hAxis.viewWindow.max += 1;
-            drawChart();
-        };
+        //var MAX = 400;
+        //var prevButton = document.getElementById('btnPrev1');
+        //var nextButton = document.getElementById('btnNext1');
+        //prevButton.disabled = true;
+        //nextButton.disabled = true;
+        //
+        //google.visualization.events.addListener(chartAnalistaIndices, 'ready',
+        //    function() {
+        //        prevButton.disabled = options.hAxis.viewWindow.min <= 0;
+        //        nextButton.disabled = options.hAxis.viewWindow.max >= MAX;
+        //    });
+        //
+        //prevButton.onclick = function() {
+        //    options.hAxis.viewWindow.min -= 1;
+        //    options.hAxis.viewWindow.max -= 1;
+        //    drawChart();
+        //};
+        //nextButton.onclick = function() {
+        //    options.hAxis.viewWindow.min += 1;
+        //    options.hAxis.viewWindow.max += 1;
+        //    drawChart();
+        //};
 
         chartCiudadIndices.setDataTable(gca.convertColsToPercentage(ciudadIndicesTable,[1,2,3]));
         chartAnalistaIndices.setDataTable(gca.convertColsToPercentage(analistaIndicesTable,[1,2,3]));

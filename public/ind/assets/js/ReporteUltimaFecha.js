@@ -33,6 +33,7 @@
         'options': {
             'filterColumnLabel': 'HorasRegistradas',
             'ui': {'labelStacking': 'vertical',
+                'label': 'Horas Registradas',
                 'cssClass': 'sliderClass'}
         }
     });

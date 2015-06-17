@@ -4916,5 +4916,5 @@ button.close {
   top: -10;
   position: relative; }
 
-.btnCharts {
-  align-items: center; }
+.sliderClass .google-visualization-controls-slider-horizontal {
+  width: 300px; }
