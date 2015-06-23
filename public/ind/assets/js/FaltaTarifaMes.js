@@ -95,7 +95,6 @@
         'chartType': 'Table',
         'containerId': 'TableChart_div',
         options: {
-            // minimize the footprint of the table in HTML
             page: 'enable',
             pageSize: 10
         }

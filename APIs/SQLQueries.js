@@ -487,8 +487,8 @@ var SQLQuery = {
                                     from\
                                     (select C.Nombre as Cliente, S.Nombre as Servicio, T.ValorHora, SUM(DRD.Horas) as Horas, T.ValorHoraAdicional,\
                                     CASE P.ID\
-                                    WHEN 2 THEN 770.56\
-                                    WHEN 3 THEN 2413.8\
+                                    WHEN 2 THEN @sol\
+                                    WHEN 3 THEN @dollar\
                                     ELSE 1\
                                     END as ConversionPeso\
                                     from [MaxTimeCHC].[dbo].[ReporteDia] RD\
@@ -500,7 +500,7 @@ var SQLQuery = {
                                     LEFT JOIN [MaxTimeCHC].[dbo].[Tarifa] T\
                                     ON\
                                     (T.Cliente = C.ID AND T.Servicio = S.ID AND T.Ano = year(RD.Fecha) AND T.Mes = MONTH(RD.Fecha))\
-                                    where year(RD.fecha) = 2015 and month(RD.fecha) = 6 and Drd.Facturable = 1\
+                                    where year(RD.fecha) = @ano and month(RD.fecha) = @mes and Drd.Facturable = 1\
                                     GROUP BY C.Nombre, S.Nombre, T.ValorHora, P.Nombre, P.ID,T.ValorHoraAdicional) AA\
                                     group by AA.Cliente, AA.Servicio, ValorHora, ConversionPeso, ValorHoraAdicional",
 
@@ -518,8 +518,8 @@ var SQLQuery = {
                                     GA.Nombre as GrupoActividad, TH.Nombre AS TipoHora, DRD.Comentario,\
                                      (T.ValorHora * SUM(DRD.Horas)) As ValorTotal,\
                                     CASE P.ID\
-                                    WHEN 2 THEN 770.56\
-                                    WHEN 3 THEN 2413.8\
+                                    WHEN 2 THEN @sol\
+                                    WHEN 3 THEN @dollar\
                                     ELSE 1\
                                     END as ConversionPeso,\
                                     case Drd.Facturable\
@@ -541,7 +541,7 @@ var SQLQuery = {
                                     inner join [MaxTimeCHC].[dbo].[Cargo] CAR ON (car.ID = A.Cargo)\
                                     LEFT JOIN [MaxTimeCHC].[dbo].[Tarifa] T ON (T.Cliente = C.ID AND \
                                     T.Servicio = S.ID AND T.Ano = year(DRD.Fecha) AND T.Mes = MONTH(DRD.Fecha))\
-                                    where year(DRD.fecha) = 2015 and month(DRD.fecha) = 6\
+                                    where year(DRD.fecha) = @ano and month(DRD.fecha) = @mes\
                                     GROUP BY C.Nombre, S.Nombre, T.ValorHora, P.Nombre, P.ID,P.Nombre, ciu.Nombre,\
                                     A.Nombre, Pr.Nombre, Se.Nombre, Drd.Facturable, A.Cedula,Car.Nombre,ACT.Nombre, GA.Nombre, TH.Nombre, Drd.Fecha, Drd.Comentario) AA\
                                     group by AA.Cliente, AA.Servicio, ValorHora, ConversionPeso, AA.Pais, AA.Ciudad, AA.Analista, AA.Proyecto, AA.Sector,\

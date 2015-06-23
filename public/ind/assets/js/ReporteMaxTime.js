@@ -13,7 +13,6 @@
         'chartType': 'Table',
         'containerId': 'TableChart_div',
         options: {
-            // minimize the footprint of the table in HTML
             page: 'enable',
             pageSize: 10
         }
@@ -59,8 +58,8 @@
 
 
     new google.visualization.Dashboard(document.getElementById("dashboard_div")).
-        bind(filtroServicio, filtroCliente).
-        bind(filtroCliente, filtroAnalista).
+        bind(filtroCliente, filtroServicio).
+        bind(filtroServicio, filtroAnalista).
         bind(filtroAnalista, tableChart).
         // Draw the dashboard
         draw(data);

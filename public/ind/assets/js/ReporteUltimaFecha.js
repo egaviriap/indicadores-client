@@ -21,7 +21,7 @@
         options: {
             // minimize the footprint of the table in HTML
             page: 'enable',
-            pageSize: 100
+            pageSize: 10
         }
     });
 
