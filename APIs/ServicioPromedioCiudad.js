@@ -5,7 +5,6 @@
 var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
-var formater = require('../node_modules/sprintf-js/src/sprintf.js');
 var connection = DBConnection.getConnection();
 var CurrencyConversion = require('./CurrencyConverter.js');
 

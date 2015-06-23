@@ -9,12 +9,10 @@
 var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
-var formater = require('../node_modules/sprintf-js/src/sprintf.js');
 var CurrencyConversion = require('./CurrencyConverter.js');
 var connection = DBConnection.getConnection();
 
 var ServicioIndicesClientes = function(){
-    this.file = 'Reporte.xlsx';
 
     this.cols = [
         {label:'IE', type:'number', format: "percentage"},
@@ -47,13 +45,7 @@ var ServicioIndicesClientes = function(){
  *
  */
 
-ServicioIndicesClientes.prototype.saveDataXls = function(jsonData){
 
-    var xls = json2xls(jsonData);
-    fs.writeFileSync(this.file, xls, 'binary');
-    return fs.readFileSync(this.file);
-    
-};
 ServicioIndicesClientes.prototype.getResults = function(callback,ano,mes){
 
     var params = [

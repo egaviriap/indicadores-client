@@ -8,13 +8,13 @@ var DBPreparedParams = require('./DBPreparedParams');
 var connection = DBConnection.getConnection();
 
 var ServicioFaltaTarifaMesGoogle = function(){
-    this.file = 'Reporte.xlsx';
-    
+
     this.cols = [
 
         {label:'Cliente', type:'string', format: null},
         {label:'Servicio', type:'string', format: null},
         {label:'ValorHora', type:'number', format: "currency"},
+        {label:'ValorHoraAdicional', type:'number', format: "currency"},
         {label:'Horas', type:'number', format: null}
 
     ];
@@ -23,13 +23,7 @@ var ServicioFaltaTarifaMesGoogle = function(){
  *  @private
  *
  */
-ServicioFaltaTarifaMesGoogle.prototype.saveDataXls = function(jsonData){
 
-    var xls = json2xls(jsonData);
-    fs.writeFileSync(this.file, xls, 'binary');
-    return fs.readFileSync(this.file);
-    
-};
 ServicioFaltaTarifaMesGoogle.prototype.getResults = function(callback,ano,mes){
 
     var params = [

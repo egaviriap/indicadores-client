@@ -5,12 +5,10 @@
 var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
-var formater = require('../node_modules/sprintf-js/src/sprintf.js');
 var CurrencyConverter = require('./CurrencyConverter.js');
 var connection = DBConnection.getConnection();
 
 var ServicioHorasCargoCiudad = function(){
-    this.file = 'Reporte.xlsx';
 
     this.cols = [
         {label:'CargoN', type:'string', format: null},
@@ -29,13 +27,7 @@ var ServicioHorasCargoCiudad = function(){
  *
  */
 
-ServicioHorasCargoCiudad.prototype.saveDataXls = function(jsonData){
 
-    var xls = json2xls(jsonData);
-    fs.writeFileSync(this.file, xls, 'binary');
-    return fs.readFileSync(this.file);
-    
-};
 ServicioHorasCargoCiudad.prototype.getResults = function(callback,ano,mes){
 
     var params = [

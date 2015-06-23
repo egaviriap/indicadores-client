@@ -9,8 +9,9 @@
         document.getElementById('dashboard_div'));
     //var formatter = new google.visualization.ArrowFormat();
     //formatter.format(data, 2); // Apply formatter to second columna
-    var trIndices = new tableRowIndices();
-    var trValorHora = new tableRowValorHora();
+
+    var trIndices = new TableRowIndices();
+    var trValorHora = new TableRowValorHora();
 
     /***
      *
@@ -64,8 +65,7 @@
 
 
 
-    addDynamicFilters("filtroCliente_div");
-    addDynamicFilters("filtroServicio_div");
+
 
 
     /**
@@ -117,7 +117,7 @@
      * @returns {google.visualization.ControlWrapper}
      */
     function filters(typeFileter,containerId, columnLabel,allowTyping,allowMultiple,caption, label){
-        var filter = new google.visualization.ControlWrapper({
+        return filter = new google.visualization.ControlWrapper({
             'controlType': typeFileter,
             'containerId': containerId,
             'options': {
@@ -130,10 +130,10 @@
                     }
 
             }
-        });
-
-        return filter;
+            });
     }
+    addDynamicFilters("filtroCliente_div");
+    addDynamicFilters("filtroServicio_div");
 
     google.visualization.events.addListener(tableChart, 'ready', function () {
         var dt = tableChart.getDataTable();
@@ -145,9 +145,8 @@
         var clientesIndicesTable = trIndices.createIndexesData(dt, 4, clientes, 8, 6, 18, 19, 9, 10);
         var serviciosIndicesTable = trIndices.createIndexesData(dt, 3, servicios, 8, 6, 18, 19, 9, 10);
 
-        var servicioValorHoraTable = trValorHora.createValorHoraData(dt, 3, servicios, 8, 6,7, 20);
-        var clientesValorHoraTable = trValorHora.createValorHoraData(dt, 4, clientes, 8, 6,7, 20);
-
+        var servicioValorHoraTable = trValorHora.createValorHoraData(dt, 3, servicios, 8, 6,7, 20,19,21);
+        var clientesValorHoraTable = trValorHora.createValorHoraData(dt, 4, clientes, 8, 6,7, 20,19,21);
 
         var groupedDataServicioSumHoras = sumaDeHoras([3]);
         var groupedDataClienteSumHoras = sumaDeHoras([4]);
@@ -275,7 +274,6 @@
         chartClienteCampos.draw();
         chartClienteValorHora.draw();
         chartServicioValorHora.draw();
-
     });
 
     new google.visualization.Dashboard(document.getElementById("dashboard_div")).

@@ -5,15 +5,13 @@ var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
 var CurrencyConversion = require('./CurrencyConverter.js');
-var fs = require('fs');
-var path = require('path');
 var connection = DBConnection.getConnection();
 var dlClass = require('./DownloadClass.js');
 
 var ServicioReporteMaxTime = function(){
 
     this.cols = [
-        {label:'Sector', type:'string', format: null},
+        {label:'UEN', type:'string', format: null},
         {label:'Cliente', type:'string', format: null},
         {label:'Pais', type:'string', format: null},
         {label:'Ciudad', type:'string', format: null},
@@ -23,15 +21,15 @@ var ServicioReporteMaxTime = function(){
         {label:'Analista', type:'string', format: null},
         {label:'Cedula', type:'number', format: null},
         {label:'Cargo', type:'string', format: null},
-        {label:'Proyecto', type:'string', format: null},
         {label:'Servicio', type:'string', format: null},
+        {label:'Proyecto', type:'string', format: null},
         {label:'Facturable', type:'string', format: null},
         {label:'Actividad', type:'string', format: null},
         {label:'GrupoActividad', type:'string', format: null},
-        {label:'TipoHora', type:'string', format: null},
-        {label:'ValorHora', type:'number', format: "currency"},
-        {label:'Horas', type:'number', format: null},
-        {label:'Comentario', type:'string', format: null},
+        {label:'Horas_Invertidas', type:'number', format: null},
+        {label:'Observaciones', type:'string', format: null},
+        {label:'Tipo_Tiempo', type:'string', format: null},
+        {label:'Tarifa', type:'number', format: "currency"},
         {label:'ValorTotal', type:'number', format: "currency"}
 
     ];

@@ -16,7 +16,7 @@
     addDivCharts("col-sm-6","chart2_div");
     addDivCharts("col-sm-12","TableChart_div");
 
-    var filtroCliente = filters("CategoryFilter","filtroCliente_div","Cliente",false,true,"Todos", "Cliente");
+    var filtroCliente = filters("CategoryFilter","filtroCliente_div","Cliente",true,true,"Todos", "Cliente");
     var filtroServicio = filters("CategoryFilter","filtroServicio_div","Servicio",false,true,"Todos","Servicio");
 
     var filtroValor =  new google.visualization.ControlWrapper({

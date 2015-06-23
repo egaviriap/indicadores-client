@@ -483,65 +483,70 @@ var SQLQuery = {
 
             FaltaTarifaMes :
                             "SELECT\
-                                AA.Cliente, AA.Servicio, ISNULL((AA.ValorHora*AA.ConversionPeso),0) as ValorHora, SUM(AA.Horas) as Horas\
-                                from\
-                                (select C.Nombre as Cliente, S.Nombre as Servicio, T.ValorHora, SUM(DRD.Horas) as Horas,\
-                                CASE P.ID\
-                                WHEN 2 THEN 770.56\
-                                WHEN 3 THEN 2413.8\
-                                ELSE 1\
-                                END as ConversionPeso\
-                                from [MaxTimeCHC].[dbo].[ReporteDia] RD\
-                                inner join [MaxTimeCHC].[dbo].[DetalleReporteDia] DRD on (RD.ID = DRD.ReporteDia)\
-                                INNER JOIN [MaxTimeCHC].[dbo].[Proyecto] PR ON (DRD.Proyecto = PR.ID)\
-                                INNER JOIN [MaxTimeCHC].[dbo].[Cliente] C ON (C.ID = PR.Cliente)\
-                                INNER JOIN [MaxTimeCHC].[dbo].[Servicio] S ON (DRD.Servicio = S.ID)\
-                                inner join [MaxTimeCHC].[dbo].[Pais] P ON (C.Pais = P.ID)\
-                                LEFT JOIN [MaxTimeCHC].[dbo].[Tarifa] T \
-                                ON \
-                                (T.Cliente = C.ID AND T.Servicio = S.ID AND T.Ano = year(RD.Fecha) AND T.Mes = MONTH(RD.Fecha))\
-                                where year(RD.fecha) = @ano and month(RD.fecha) = @mes and Drd.Facturable = 1\
-                                GROUP BY C.Nombre, S.Nombre, T.ValorHora, P.Nombre, P.ID) AA\
-                                group by AA.Cliente, AA.Servicio, ValorHora, ConversionPeso",
+                                    AA.Cliente, AA.Servicio, ISNULL((AA.ValorHora*AA.ConversionPeso),0) as ValorHora,AA.ValorHoraAdicional, SUM(AA.Horas) as Horas\
+                                    from\
+                                    (select C.Nombre as Cliente, S.Nombre as Servicio, T.ValorHora, SUM(DRD.Horas) as Horas, T.ValorHoraAdicional,\
+                                    CASE P.ID\
+                                    WHEN 2 THEN 770.56\
+                                    WHEN 3 THEN 2413.8\
+                                    ELSE 1\
+                                    END as ConversionPeso\
+                                    from [MaxTimeCHC].[dbo].[ReporteDia] RD\
+                                    inner join [MaxTimeCHC].[dbo].[DetalleReporteDia] DRD on (RD.ID = DRD.ReporteDia)\
+                                    INNER JOIN [MaxTimeCHC].[dbo].[Proyecto] PR ON (DRD.Proyecto = PR.ID)\
+                                    INNER JOIN [MaxTimeCHC].[dbo].[Cliente] C ON (C.ID = PR.Cliente)\
+                                    INNER JOIN [MaxTimeCHC].[dbo].[Servicio] S ON (DRD.Servicio = S.ID)\
+                                    inner join [MaxTimeCHC].[dbo].[Pais] P ON (C.Pais = P.ID)\
+                                    LEFT JOIN [MaxTimeCHC].[dbo].[Tarifa] T\
+                                    ON\
+                                    (T.Cliente = C.ID AND T.Servicio = S.ID AND T.Ano = year(RD.Fecha) AND T.Mes = MONTH(RD.Fecha))\
+                                    where year(RD.fecha) = 2015 and month(RD.fecha) = 6 and Drd.Facturable = 1\
+                                    GROUP BY C.Nombre, S.Nombre, T.ValorHora, P.Nombre, P.ID,T.ValorHoraAdicional) AA\
+                                    group by AA.Cliente, AA.Servicio, ValorHora, ConversionPeso, ValorHoraAdicional",
 
             MaxTimeReport:
-                        "select AA.Sector, AA.Cliente, AA.Pais, AA.Ciudad,Year(AA.Fecha) as Ano, MONTH(AA.Fecha) AS Mes, DAY(AA.Fecha) AS Dia,\
-                            AA.Analista, AA.Cedula, AA.Cargo,AA.Proyecto, AA.Servicio,\
-                            AA.Facturable,AA.Actividad, AA.GrupoActividad, AA.TipoHora, ISNULL((AA.ValorHora*AA.ConversionPeso),0) as ValorHora,\
-                            SUM(AA.Horas) as Horas, AA.Comentario, AA.ValorTotal\
-                            from\
-                            (select C.Nombre as Cliente, S.Nombre as Servicio, T.ValorHora,DRD.Fecha AS Fecha, SUM(DRD.Horas) as Horas, P.Nombre as Pais, PR.Nombre as Proyecto,\
-                            Ciu.Nombre as Ciudad, A.Nombre as Analista,SE.Nombre as Sector, A.Cedula as Cedula, Car.Nombre as Cargo, ACT.Nombre AS Actividad,\
-                            GA.Nombre as GrupoActividad, TH.Nombre AS TipoHora, DRD.Comentario, (T.ValorHora * SUM(DRD.Horas)) As ValorTotal,\
-                            CASE P.ID\
-                            WHEN 2 THEN 770.56 \
-                            WHEN 3 THEN 2413.8\
-                            ELSE 1\
-                            END as ConversionPeso,\
-                            case Drd.Facturable\
-                            when 0 then 'NO'\
-                            when 1 then 'SI'\
-                            end as Facturable\
-                            from [MaxTimeCHC].[dbo].[DetalleReporteDia] DRD\
-                            inner join [MaxTimeCHC].[dbo].[ReporteDia] RD on (RD.ID = DRD.ReporteDia)\
-                            inner JOIN [MaxTimeCHC].[dbo].[Proyecto] PR ON (DRD.Proyecto = PR.ID)\
-                            inner join [MaxTimeCHC].[dbo].[TipoHora] TH ON (DRD.TipoHora = TH.ID)\
-                            inner join [MaxTimeCHC].[dbo].[Actividad] ACT ON (DRD.Actividad = ACT.ID)\
-                            inner join [MaxTimeCHC].[dbo].[GrupoActividad] GA on (ACT.GrupoActividad = GA.ID)\
-                            inner JOIN [MaxTimeCHC].[dbo].[Cliente] C ON (C.ID = PR.Cliente)\
-                            inner JOIN [MaxTimeCHC].[dbo].[Servicio] S ON (DRD.Servicio = S.ID)\
-                            inner join [MaxTimeCHC].[dbo].[Pais] P ON (C.Pais = P.ID)\
-                            inner join [MaxTimeCHC].[dbo].[Ciudad] CIU on (CIU.ID = C.Ciudad)\
-                            inner join [MaxTimeCHC].[dbo].[Analista] A on (RD.Analista = A.ID)\
-                            left join [MaxTimeCHC].[dbo].[Sector]  SE on (C.Sector = SE.ID)\
-                            inner join [MaxTimeCHC].[dbo].[Cargo] CAR ON (car.ID = A.Cargo)\
-                            LEFT JOIN [MaxTimeCHC].[dbo].[Tarifa] T ON (T.Cliente = C.ID AND T.Servicio = S.ID AND T.Ano = year(DRD.Fecha) AND T.Mes = MONTH(DRD.Fecha))\
-                            where year(DRD.fecha) = @ano and month(DRD.fecha) = @mes\
-                            GROUP BY C.Nombre, S.Nombre, T.ValorHora, P.Nombre, P.ID,P.Nombre, ciu.Nombre, \
-                            A.Nombre, Pr.Nombre, Se.Nombre, Drd.Facturable, A.Cedula,Car.Nombre,ACT.Nombre, GA.Nombre, TH.Nombre, Drd.Fecha, Drd.Comentario) AA\
-                            group by AA.Cliente, AA.Servicio, ValorHora, ConversionPeso, AA.Pais, AA.Ciudad, AA.Analista, AA.Proyecto, AA.Sector,\
-                            AA.Facturable, AA.Cedula, AA.Cargo,AA.Actividad, AA.GrupoActividad, AA.TipoHora, AA.Fecha, AA.Comentario, AA.ValorTotal\
-                            order by AA.Cliente, AA.Fecha",
+                        "select AA.Sector as UEN, AA.Cliente, AA.Pais, AA.Ciudad,Year(AA.Fecha) as Ano, MONTH(AA.Fecha) AS Mes, DAY(AA.Fecha) AS Dia,\
+                                    AA.Analista, AA.Cedula, AA.Cargo,AA.Servicio, AA.Proyecto,\
+                                    AA.Facturable,AA.Actividad, AA.GrupoActividad,SUM(AA.Horas) as Horas_Invertidas,AA.Comentario as Observaciones,\
+                                    AA.TipoHora as Tipo_Tiempo, ISNULL((AA.ValorHora*AA.ConversionPeso),0) as Tarifa,\
+                                    AA.ValorTotal\
+                                    from\
+                                    (select C.Nombre as Cliente, S.Nombre as Servicio, T.ValorHora,DRD.Fecha AS Fecha,\
+                                     SUM(DRD.Horas) as Horas, P.Nombre as Pais, PR.Nombre as Proyecto,\
+                                    Ciu.Nombre as Ciudad, A.Nombre as Analista,SE.Nombre as Sector,\
+                                     A.Cedula as Cedula, Car.Nombre as Cargo, ACT.Nombre AS Actividad,\
+                                    GA.Nombre as GrupoActividad, TH.Nombre AS TipoHora, DRD.Comentario,\
+                                     (T.ValorHora * SUM(DRD.Horas)) As ValorTotal,\
+                                    CASE P.ID\
+                                    WHEN 2 THEN 770.56\
+                                    WHEN 3 THEN 2413.8\
+                                    ELSE 1\
+                                    END as ConversionPeso,\
+                                    case Drd.Facturable\
+                                    when 0 then 'NO'\
+                                    when 1 then 'SI'\
+                                    end as Facturable\
+                                    from [MaxTimeCHC].[dbo].[DetalleReporteDia] DRD\
+                                    inner join [MaxTimeCHC].[dbo].[ReporteDia] RD on (RD.ID = DRD.ReporteDia)\
+                                    inner JOIN [MaxTimeCHC].[dbo].[Proyecto] PR ON (DRD.Proyecto = PR.ID)\
+                                    inner join [MaxTimeCHC].[dbo].[TipoHora] TH ON (DRD.TipoHora = TH.ID)\
+                                    inner join [MaxTimeCHC].[dbo].[Actividad] ACT ON (DRD.Actividad = ACT.ID)\
+                                    inner join [MaxTimeCHC].[dbo].[GrupoActividad] GA on (ACT.GrupoActividad = GA.ID)\
+                                    inner JOIN [MaxTimeCHC].[dbo].[Cliente] C ON (C.ID = PR.Cliente)\
+                                    inner JOIN [MaxTimeCHC].[dbo].[Servicio] S ON (DRD.Servicio = S.ID)\
+                                    inner join [MaxTimeCHC].[dbo].[Pais] P ON (C.Pais = P.ID)\
+                                    inner join [MaxTimeCHC].[dbo].[Ciudad] CIU on (CIU.ID = C.Ciudad)\
+                                    inner join [MaxTimeCHC].[dbo].[Analista] A on (RD.Analista = A.ID)\
+                                    left join [MaxTimeCHC].[dbo].[Sector]  SE on (C.Sector = SE.ID)\
+                                    inner join [MaxTimeCHC].[dbo].[Cargo] CAR ON (car.ID = A.Cargo)\
+                                    LEFT JOIN [MaxTimeCHC].[dbo].[Tarifa] T ON (T.Cliente = C.ID AND \
+                                    T.Servicio = S.ID AND T.Ano = year(DRD.Fecha) AND T.Mes = MONTH(DRD.Fecha))\
+                                    where year(DRD.fecha) = 2015 and month(DRD.fecha) = 6\
+                                    GROUP BY C.Nombre, S.Nombre, T.ValorHora, P.Nombre, P.ID,P.Nombre, ciu.Nombre,\
+                                    A.Nombre, Pr.Nombre, Se.Nombre, Drd.Facturable, A.Cedula,Car.Nombre,ACT.Nombre, GA.Nombre, TH.Nombre, Drd.Fecha, Drd.Comentario) AA\
+                                    group by AA.Cliente, AA.Servicio, ValorHora, ConversionPeso, AA.Pais, AA.Ciudad, AA.Analista, AA.Proyecto, AA.Sector,\
+                                    AA.Facturable, AA.Cedula, AA.Cargo,AA.Actividad, AA.GrupoActividad, AA.TipoHora, AA.Fecha, AA.Comentario, AA.ValorTotal\
+                                    order by AA.Cliente, AA.Fecha",
 
 
             UltimaFechaReporteXAnalista:

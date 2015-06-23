@@ -6,7 +6,6 @@ var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
 var connection = DBConnection.getConnection();
-var CurrencyConverter = require('./CurrencyConverter.js');
 
 var ServicioHorasPorAnalista = function(){
 
@@ -37,13 +36,7 @@ var ServicioHorasPorAnalista = function(){
  *  @private
  *
  */
-ServicioHorasPorAnalista.prototype.saveDataXls = function(jsonData){
 
-    var xls = json2xls(jsonData);
-    fs.writeFileSync(this.file, xls, 'binary');
-    return fs.readFileSync(this.file);
-    
-};
 ServicioHorasPorAnalista.prototype.getResults = function(callback,analista){
 
     var params = [

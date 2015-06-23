@@ -8,7 +8,7 @@ function draw(jsonData) {
     var data = new google.visualization.DataTable(jsonData);
     var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));
-    var trIndices = new tableRowIndices();
+    var trIndices = new TableRowIndices();
 
 
     var chartCiudadIndices = charts("BarChart","chart1_div",
@@ -125,7 +125,7 @@ function draw(jsonData) {
     addDivCharts("col-sm-12","TableChart_div" );
 
     var filtroCiudad = filters("CategoryFilter","filtroCiudad_div","CiudadN",false,true,"Todos","Ciudad",true);
-    var filtroAnalista = filters("CategoryFilter","filtroAnalista_div","AnalistaN",true,false,"Todos", "Analista",true);
+    var filtroAnalista = filters("CategoryFilter","filtroAnalista_div","AnalistaN",true,false,"Todos", "Analista",true,"google-visualization-controls-categoryfilter");
     var filtroCargo = filters("CategoryFilter","filtroCargo_div","Cargo",false,true,"Todos","Cargo",true);
     
 
@@ -146,7 +146,7 @@ function draw(jsonData) {
      * @param {boolean} allowNone
      * @returns {google.visualization.ControlWrapper}
      */
-    function filters(typeFileter,containerId, columnLabel,allowTyping,allowMultiple,caption,label,allowNone, values){
+    function filters(typeFileter,containerId, columnLabel,allowTyping,allowMultiple,caption,label,allowNone, values, cssC){
         var filter = new google.visualization.ControlWrapper({
             'controlType': typeFileter,
             'containerId': containerId,
@@ -157,7 +157,8 @@ function draw(jsonData) {
                     'allowTyping': allowTyping,
                     'allowMultiple': allowMultiple,
                     'caption': caption,
-                    'label': label},
+                    'label': label,
+                    'cssClass': cssC},
             'values': values
             }
         });

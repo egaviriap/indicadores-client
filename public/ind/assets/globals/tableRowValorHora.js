@@ -1,12 +1,12 @@
 
 
-function tableRowValorHora(){};
+function TableRowValorHora(){}
 
 
-tableRowValorHora.prototype.tableRowsValorHora = 
+TableRowValorHora.prototype.tableRowsValorHora =
     function (dt, col, distinctedGroup,
         horasLaboralesColumn, horasFacturablesColumn, horasNoFacturablesColumn,
-        vHColumn){
+        vHColumn, HASCColumn, vHAColumn){
             var rows = [];
   			var aggr = new Aggregation();
 
@@ -28,11 +28,17 @@ tableRowValorHora.prototype.tableRowsValorHora =
                         return horasLaborales * vh;
                     },
                     [horasLaboralesColumn, vHColumn], [totalLaborales]);
+                //var valorHoraxF = aggr.customSum(dt,[{"column":col, "value":value}],
+                //    function(horasFacturables, vh){
+                //        return horasFacturables * vh;
+                //    },
+                //    [horasFacturablesColumn, vHColumn], [totalFacturable]);
+
                 var valorHoraxF = aggr.customSum(dt,[{"column":col, "value":value}],
-                    function(horasFacturables, vh){
-                        return horasFacturables * vh;
+                    function(horasFacturables, vh,  horasHASC, vhA){
+                        return (((horasFacturables - horasHASC) * vh) + (horasHASC * vhA));
                     },
-                    [horasFacturablesColumn, vHColumn], [totalFacturable]);
+                    [horasFacturablesColumn, vHColumn, HASCColumn, vHAColumn]);
 
                 var valorHoraxNF = aggr.customSum(dt,[{"column":col, "value":value}],
                     function(horasNoFacturables, vh){
@@ -47,10 +53,10 @@ tableRowValorHora.prototype.tableRowsValorHora =
             return rows;
 };
 
-tableRowValorHora.prototype.createValorHoraData = 
+TableRowValorHora.prototype.createValorHoraData =
     function (dataTable, col, distinctedGroup,
            horasLaboralesColumn, horasFacturablesColumn,horasNoFacturablesColumn,
-           vhCol){
+           vhCol, HASCColumn, vHAColumn){
         var groupedDataServicioIndices = new google.visualization.DataTable();
         groupedDataServicioIndices.addColumn("string",dataTable.getColumnLabel(col));
         groupedDataServicioIndices.addColumn("number","Total Laborales");
@@ -58,6 +64,6 @@ tableRowValorHora.prototype.createValorHoraData =
         groupedDataServicioIndices.addColumn("number","Total No Facturables");
         groupedDataServicioIndices.addRows(this.tableRowsValorHora(dataTable, col, distinctedGroup,
             horasLaboralesColumn, horasFacturablesColumn,horasNoFacturablesColumn,
-            vhCol));
+            vhCol, HASCColumn, vHAColumn));
         return groupedDataServicioIndices;
 };

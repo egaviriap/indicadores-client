@@ -5,7 +5,6 @@
 var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
-var fs = require('fs');
 var connection = DBConnection.getConnection();
 var dlClass = require('./DownloadClass.js');
 

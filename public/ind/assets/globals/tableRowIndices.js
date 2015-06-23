@@ -1,12 +1,12 @@
 
 
 
-function tableRowIndices(){
+function TableRowIndices(){
 
-};
+}
 
 
-tableRowIndices.prototype.createIndexesData = function (dataTable, col, distinctedGroup,
+TableRowIndices.prototype.createIndexesData = function (dataTable, col, distinctedGroup,
                                horasLaboralesColumn, horasFacturablesColumn,
                                hafColumn, hascColumn, incapColumn, vacColumn){
             var groupedDataServicioIndices = new google.visualization.DataTable();
@@ -21,7 +21,7 @@ tableRowIndices.prototype.createIndexesData = function (dataTable, col, distinct
         };
 
 
-tableRowIndices.prototype.tableRowsIndices = function (dt, col, distinctedGroup,
+TableRowIndices.prototype.tableRowsIndices = function (dt, col, distinctedGroup,
                     horasLaboralesColumn, horasFacturablesColumn,
                     hafColumn, hascColumn, incapColumn, vacColumn){
   		var aggr = new Aggregation();

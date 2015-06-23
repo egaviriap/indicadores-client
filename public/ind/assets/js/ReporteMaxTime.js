@@ -21,7 +21,7 @@
 
     addDivCharts("col-sm-12","TableChart_div",true);
     var filtroServicio = filters("CategoryFilter","filtroServicio_div","Servicio",false,true,"Todos","Seleccione El Servicio");
-    var filtroCliente = filters("CategoryFilter","filtroCliente_div","Cliente",false,true,"Todos","Seleccione el Cliente");
+    var filtroCliente = filters("CategoryFilter","filtroCliente_div","Cliente",true,true,"Todos","Seleccione el Cliente");
     var filtroAnalista = filters("CategoryFilter","filtroAnalista_div","Analista",true,true,"Todos","Seleccione el Analista");
 
     addDynamicFilters("filtroCliente_div");

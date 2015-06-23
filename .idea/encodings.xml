@@ -9,8 +9,11 @@
     <file url="file://$PROJECT_DIR$/passport/init.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passport/login.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passport/signup.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/ind/assets/globals/aggregations.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/ind/assets/globals/tableRowIngresos.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/ind/assets/js/HorasPorAnalista.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/ind/assets/js/IndicesAnalista.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/ind/assets/js/IndicesClientes.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/ind/assets/js/ReporteUltimaFecha.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/ind/scss/main.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/index.js" charset="UTF-8" />
