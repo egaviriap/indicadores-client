@@ -14,6 +14,7 @@
     //formatter.format(data, 2); // Apply formatter to second columna
     addDynamicFilters("filtroHorasR_div");
     addDynamicFilters("filtroDiferencia_div");
+    addDynamicFilters("filtroAnalista_div");
     addDivCharts("col-sm-12","TableChart_div",true);
     var tableChart = new google.visualization.ChartWrapper({
         'chartType': 'Table',
@@ -26,8 +27,7 @@
     });
 
 
-
-    var filtroAnalista = new google.visualization.ControlWrapper({
+    var filtroHoras = new google.visualization.ControlWrapper({
         'controlType': 'NumberRangeFilter',
         'containerId': 'filtroHorasR_div',
         'options': {
@@ -37,6 +37,21 @@
                 'cssClass': 'sliderClass'}
         }
     });
+
+    var filtroAnalista = new google.visualization.ControlWrapper({
+        'controlType': "CategoryFilter",
+        'containerId': "filtroAnalista_div",
+        'options': {
+            'filterColumnLabel': "Nombre",
+            'ui': {'labelStacking': 'vertical',
+                'allowNone': true,
+                'allowTyping': true,
+                'allowMultiple': true,
+                'caption': "Analista",
+                'label': "Analista"}
+        }
+    });
+
 
 
 
@@ -52,8 +67,9 @@
 
 
     new google.visualization.Dashboard(document.getElementById("dashboard_div")).
-        bind(filtroAnalista, filtroDiferencia).
-        bind(filtroDiferencia, tableChart).
+        bind(filtroHoras, filtroDiferencia).
+        bind(filtroDiferencia, filtroAnalista).
+        bind(filtroAnalista, tableChart).
         // Draw the dashboard
         draw(data);
         

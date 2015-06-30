@@ -109,47 +109,47 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">Decripción de Campos</h4>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <b style="font-size: medium">IE</b>
                         <b>=</b>
                         Horas Facturables / Horas Laborales
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <b style="font-size: medium">IOP</b>
                         <b>=</b>
                         (Horas Facturables - Horas Adicionales) /Horas Laborales
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <b style="font-size: medium">IF</b>
                         <b>=</b>
                         Horas Facturables / (Horas Laborales - (Incapacidades+Vacaciones))
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <b style="font-size: medium">Incap</b>
                         <b>=</b>
                         Incapacidades
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <b style="font-size: medium">Vac</b>
                         <b>=</b>
                         Vacaciones
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <b style="font-size: medium">Comp</b>
                         <b>=</b>
                         Compesantorias
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <b style="font-size: medium">HANF</b>
                         <b>=</b>
                         Horas Adicionales No Facturables
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <b style="font-size: medium">HAF</b>
                         <b>=</b>
                         Horas Adicionales Facturables
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <b style="font-size: medium">HASC</b>
                         <b>=</b>
                         Horas Adicionales Solicitadas por el Cliente
@@ -333,13 +333,80 @@
             $("#myModal").modal('show');
         });
 
+        $("button").click(function(){
+            $("p").toggle();
+        });
+
     });
 
     function changeService(service){
         document.getElementById("serviceScript")
         .setAttribute("src","./assets/js/"+service+".js")
     }
+
+
 </script>
 <script id="serviceScript"></script>
+
+    <div id="wrapperFooter" style="display:none;">
+        <div id="footer">
+            <div class="footerFloat">
+                <h5><b>Agrupador de Actividad Compensatorio</b></h5>
+                <ul>
+                    <li>Compensatorio</li>
+                    <li>Permisos</li>
+                </ul>
+            </div>
+            <div class="footerFloat">
+                <h5><b>Vacaciones</b></h5>
+                <ul>
+                    <li>Vacaciones</li>
+                    <li>Licencia Remunerada</li>
+                    <li>Licencia No Remunerada</li>
+                </ul>
+            </div>
+            <div class="footerFloat">
+                <h5><b>Información</b></h5>
+                <ul>
+                    <li>Administrativas</li>
+                    <li>Formación</li>
+                    <li>Reuniones</li>
+                    <li>Infraestructura Tecnológica</li>
+                </ul>
+            </div>
+            <div class="footerFloat">
+                <h5><b>Incapacidades</b></h5>
+                <ul>
+                    <li>Calamidad Doméstica</li>
+                    <li>Incapacidad</li>
+                    <li>Licencia Maternidad</li>
+                    <li>Licencia Paternidad</li>
+                    <li>Período Lactancia</li>
+                </ul>
+            </div>
+            <div class="footerFloat">
+                <h5><b>Preventa</b></h5>
+                <ul>
+                    <li>Prospectos</li>
+                    <li>Preventa</li>
+                </ul>
+            </div>
+            <div class="footerFloat">
+                <h5><b>Error</b></h5>
+                <ul>
+                    <li>Desperdicio</li>
+                    <li>Repetición de Pruebas</li>
+                </ul>
+            </div>
+            <div class="footerFloat">
+                <h5><b>Inducción</b></h5>
+                <ul>
+                    <li>Inducción</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
 </body>
 </html>

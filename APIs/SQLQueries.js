@@ -511,8 +511,13 @@ var SQLQuery = {
                                     AA.TipoHora as Tipo_Tiempo, ISNULL((AA.ValorHora*AA.ConversionPeso),0) as Tarifa,\
                                     AA.ValorTotal\
                                     from\
-                                    (select C.Nombre as Cliente, S.Nombre as Servicio, T.ValorHora,DRD.Fecha AS Fecha,\
-                                     SUM(DRD.Horas) as Horas, P.Nombre as Pais, PR.Nombre as Proyecto,\
+                                    (select C.Nombre as Cliente, S.Nombre as Servicio,\
+                                    case Th.nombre\
+                                    when 'Adicionales SC' then T.ValorHoraAdicional\
+                                    else T.ValorHora\
+                                    end as ValorHora,\
+                                    DRD.Fecha AS Fecha,\
+                                    SUM(DRD.Horas) as Horas, P.Nombre as Pais, PR.Nombre as Proyecto,\
                                     Ciu.Nombre as Ciudad, A.Nombre as Analista,SE.Nombre as Sector,\
                                      A.Cedula as Cedula, Car.Nombre as Cargo, ACT.Nombre AS Actividad,\
                                     GA.Nombre as GrupoActividad, TH.Nombre AS TipoHora, DRD.Comentario,\
@@ -542,66 +547,126 @@ var SQLQuery = {
                                     LEFT JOIN [MaxTimeCHC].[dbo].[Tarifa] T ON (T.Cliente = C.ID AND \
                                     T.Servicio = S.ID AND T.Ano = year(DRD.Fecha) AND T.Mes = MONTH(DRD.Fecha))\
                                     where year(DRD.fecha) = @ano and month(DRD.fecha) = @mes\
-                                    GROUP BY C.Nombre, S.Nombre, T.ValorHora, P.Nombre, P.ID,P.Nombre, ciu.Nombre,\
+                                    GROUP BY C.Nombre, S.Nombre, T.ValorHora,T.ValorHoraAdicional, P.Nombre, P.ID,P.Nombre, ciu.Nombre,\
                                     A.Nombre, Pr.Nombre, Se.Nombre, Drd.Facturable, A.Cedula,Car.Nombre,ACT.Nombre, GA.Nombre, TH.Nombre, Drd.Fecha, Drd.Comentario) AA\
                                     group by AA.Cliente, AA.Servicio, ValorHora, ConversionPeso, AA.Pais, AA.Ciudad, AA.Analista, AA.Proyecto, AA.Sector,\
                                     AA.Facturable, AA.Cedula, AA.Cargo,AA.Actividad, AA.GrupoActividad, AA.TipoHora, AA.Fecha, AA.Comentario, AA.ValorTotal\
-                                    order by AA.Cliente, AA.Fecha",
+                                    order by AA.Fecha, AA.Cliente",
 
+            //
+            //UltimaFechaReporteXAnalista:
+            //    "select  Fecha, HORAS.Nombre,horas.Cedula,\
+            //            ISNULL((HORAS.HorasLaborales*(DAY(GETDATE()) - DBX.DiaNoLaboral)),0) AS HorasLaborales,\
+            //            (HorasFacturables+HorasNoFacturables-HorasAdicionalSC-HorasAdicionalNF-HorasAdicionalF) AS HorasRegistradas,\
+            //            ABS(ISNULL(((HorasFacturables+HorasNoFacturables-HorasAdicionalSC-HorasAdicionalNF-HorasAdicionalF)-\
+            //            (HORAS.HorasLaborales*(DAY(GETDATE()) - DBX.DiaNoLaboral))),0)) as Diferencia\
+            //            from\
+            //            (SELECT MAX(A.Fecha)AS Fecha, A.Nombre, a.Cedula, Min(A.HorasLaborales) as HorasLaborales, A.pais,\
+            //            SUM(A.HorasF) as HorasFacturables,\
+            //            SUM(A.HorasNF) as HorasNoFacturables,\
+            //            SUM(A.HorasF+A.HorasNF) as HorasRegistradas,\
+            //            SUM(A.HorasNF*HoraAdicionalNF) as HorasAdicionalNF,\
+            //            SUM(A.HorasF*HoraAdicionalF) as HorasAdicionalF,\
+            //            SUM(A.HorasF*HoraAdicionalSC) as HorasAdicionalSC\
+            //            FROM\
+            //            (SELECt A.Fecha, AN.Nombre, an.Cedula, MIN(C.HorasLaborales) as HorasLaborales, A.HorasF, A.HorasNF,\
+            //            IIF(D.Fecha IS NULL AND A.Actividad NOT IN (6,8,10,12), 1, 0) as FechaLaboral,\
+            //            IIF(A.TipoHora = 11,1,0) as HoraAdicionalNF,\
+            //            IIF(A.TipoHora = 1,1,0) as HoraAdicionalF,\
+            //            IIF(A.TipoHora = 2,1,0) as HoraAdicionalSC,\
+            //            Pa.Id as Pais\
+            //            FROM\
+            //            (SELECT CAST(A.Fecha as DATE) as Fecha, B.Analista,  Ana.Ciudad, A.Actividad, A.TipoHora,\
+            //            A.Proyecto,\
+            //            SUM(IIF(A.Facturable = 1, A.Horas, 0)) as HorasF,\
+            //            SUM(IIF(A.Facturable = 0, A.Horas, 0)) as HorasNF\
+            //            FROM dbo.DetalleReporteDia A\
+            //            INNER JOIN dbo.ReporteDia B ON A.ReporteDia = B.ID\
+            //            INNER JOIN dbo.Analista Ana On Ana.id = B.Analista\
+            //            WHERE YEAR(A.Fecha) = YEAR(getdate()) AND MONTH(A.Fecha) = MONTH(getdate())\
+            //            GROUP BY A.Fecha, B.Analista, Ana.Ciudad, A.Actividad, A.TipoHora, A.Proyecto) A\
+            //            inner join dbo.Analista AN on (A.Analista = AN.ID)\
+            //            INNER JOIN dbo.Ciudad Ciu On (Ciu.Id = A.Ciudad)\
+            //            INNER JOIN dbo.Pais Pa On (Pa.Id = Ciu.Pais)\
+            //            INNER JOIN dbo.Proyecto Pr On (Pr.Id = A.Proyecto)\
+            //            INNER JOIN dbo.Cliente C on (C.Id = Pr.Cliente)\
+            //            LEFT JOIN dbo.DiaNoLaboral D ON Pa.Id = D.Pais AND CAST(D.Fecha as DATE) = A.Fecha\
+            //            LEFT JOIN dbo.Actividad E ON A.Actividad = E.ID\
+            //            group by A.Fecha, AN.Nombre, an.Cedula, A.HorasF, A.HorasNF,\
+            //            IIF(D.Fecha IS NULL AND A.Actividad NOT IN (6,8,10,12), 1, 0),\
+            //            IIF(A.TipoHora = 11,1,0),\
+            //            IIF(A.TipoHora = 1,1,0),\
+            //            IIF(A.TipoHora = 2,1,0),\
+            //            Pa.Id) A\
+            //            GROUP BY  A.Nombre, a.Cedula, A.pais) Horas\
+            //            leFT join\
+            //            (SELECT P.id, COUNT(DNL.Dia) AS DiaNoLaboral FROM DiaNoLaboral DNL\
+            //            INNER JOIN DBO.Pais P ON (DNL.Pais = P.ID)\
+            //            WHERE dnl.Ano = YEAR(getdate()) AND dnl.mes = MONTH(getdate()) AND DNL.Pais = P.ID and DNL.Dia < DAY(getdate())\
+            //            GROUP BY P.id ) DBX on (DBX.ID = Horas.Pais)\
+            //            where ((HorasFacturables+HorasNoFacturables-HorasAdicionalSC-HorasAdicionalNF-HorasAdicionalF)-\
+            //            (HORAS.HorasLaborales*(DAY(GETDATE()) - DBX.DiaNoLaboral))) < 0\
+            //            ORDER BY Horas.Nombre"
 
-            UltimaFechaReporteXAnalista:
-                "select  Fecha, HORAS.Nombre,horas.Cedula,\
-                        ISNULL((HORAS.HorasLaborales*(DAY(GETDATE()) - DBX.DiaNoLaboral)),0) AS HorasLaborales,\
-                        (HorasFacturables+HorasNoFacturables-HorasAdicionalSC-HorasAdicionalNF-HorasAdicionalF) AS HorasRegistradas,\
-                        ABS(ISNULL(((HorasFacturables+HorasNoFacturables-HorasAdicionalSC-HorasAdicionalNF-HorasAdicionalF)-\
-                        (HORAS.HorasLaborales*(DAY(GETDATE()) - DBX.DiaNoLaboral))),0)) as Diferencia\
-                        from\
-                        (SELECT MAX(A.Fecha)AS Fecha, A.Nombre, a.Cedula, Min(A.HorasLaborales) as HorasLaborales, A.pais,\
-                        SUM(A.HorasF) as HorasFacturables,\
-                        SUM(A.HorasNF) as HorasNoFacturables,\
-                        SUM(A.HorasF+A.HorasNF) as HorasRegistradas,\
-                        SUM(A.HorasNF*HoraAdicionalNF) as HorasAdicionalNF,\
-                        SUM(A.HorasF*HoraAdicionalF) as HorasAdicionalF,\
-                        SUM(A.HorasF*HoraAdicionalSC) as HorasAdicionalSC\
-                        FROM\
-                        (SELECt A.Fecha, AN.Nombre, an.Cedula, MIN(C.HorasLaborales) as HorasLaborales, A.HorasF, A.HorasNF,\
-                        IIF(D.Fecha IS NULL AND A.Actividad NOT IN (6,8,10,12), 1, 0) as FechaLaboral,\
-                        IIF(A.TipoHora = 11,1,0) as HoraAdicionalNF,\
-                        IIF(A.TipoHora = 1,1,0) as HoraAdicionalF,\
-                        IIF(A.TipoHora = 2,1,0) as HoraAdicionalSC,\
-                        Pa.Id as Pais\
-                        FROM\
-                        (SELECT CAST(A.Fecha as DATE) as Fecha, B.Analista,  Ana.Ciudad, A.Actividad, A.TipoHora,\
-                        A.Proyecto,\
-                        SUM(IIF(A.Facturable = 1, A.Horas, 0)) as HorasF,\
-                        SUM(IIF(A.Facturable = 0, A.Horas, 0)) as HorasNF\
-                        FROM dbo.DetalleReporteDia A\
-                        INNER JOIN dbo.ReporteDia B ON A.ReporteDia = B.ID\
-                        INNER JOIN dbo.Analista Ana On Ana.id = B.Analista\
-                        WHERE YEAR(A.Fecha) = YEAR(getdate()) AND MONTH(A.Fecha) = MONTH(getdate())\
-                        GROUP BY A.Fecha, B.Analista, Ana.Ciudad, A.Actividad, A.TipoHora, A.Proyecto) A\
-                        inner join dbo.Analista AN on (A.Analista = AN.ID)\
-                        INNER JOIN dbo.Ciudad Ciu On (Ciu.Id = A.Ciudad)\
-                        INNER JOIN dbo.Pais Pa On (Pa.Id = Ciu.Pais)\
-                        INNER JOIN dbo.Proyecto Pr On (Pr.Id = A.Proyecto)\
-                        INNER JOIN dbo.Cliente C on (C.Id = Pr.Cliente)\
-                        LEFT JOIN dbo.DiaNoLaboral D ON Pa.Id = D.Pais AND CAST(D.Fecha as DATE) = A.Fecha\
-                        LEFT JOIN dbo.Actividad E ON A.Actividad = E.ID\
-                        group by A.Fecha, AN.Nombre, an.Cedula, A.HorasF, A.HorasNF,\
-                        IIF(D.Fecha IS NULL AND A.Actividad NOT IN (6,8,10,12), 1, 0),\
-                        IIF(A.TipoHora = 11,1,0),\
-                        IIF(A.TipoHora = 1,1,0),\
-                        IIF(A.TipoHora = 2,1,0),\
-                        Pa.Id) A\
-                        GROUP BY  A.Nombre, a.Cedula, A.pais) Horas\
-                        leFT join\
-                        (SELECT P.id, COUNT(DNL.Dia) AS DiaNoLaboral FROM DiaNoLaboral DNL\
-                        INNER JOIN DBO.Pais P ON (DNL.Pais = P.ID)\
-                        WHERE dnl.Ano = YEAR(getdate()) AND dnl.mes = MONTH(getdate()) AND DNL.Pais = P.ID and DNL.Dia < DAY(getdate())\
-                        GROUP BY P.id ) DBX on (DBX.ID = Horas.Pais)\
-                        where ((HorasFacturables+HorasNoFacturables-HorasAdicionalSC-HorasAdicionalNF-HorasAdicionalF)-\
-                        (HORAS.HorasLaborales*(DAY(GETDATE()) - DBX.DiaNoLaboral))) < 0\
-                        ORDER BY Horas.Nombre"
+        UltimaFechaReporteXAnalista:
+                    "select  CONCAT(YEAR(FECHA),'-',MONTH(FECHA),'-',DAY(FECHA)) AS Fecha, HORAS.Nombre,horas.Cedula,\
+                    ISNULL((HORAS.HorasLaborales*(DAY(GETDATE()) - DBX.DiaNoLaboral)),0) AS HorasLaborales,\
+                    (HorasFacturables+HorasNoFacturables-HorasAdicionalSC-HorasAdicionalNF-HorasAdicionalF) AS HorasRegistradas,\
+                    ABS(ISNULL(((HorasFacturables+HorasNoFacturables-HorasAdicionalSC-HorasAdicionalNF-HorasAdicionalF)-\
+                    (HORAS.HorasLaborales*(DAY(GETDATE()) - DBX.DiaNoLaboral))),0)) as Diferencia\
+                    from\
+                    (SELECT MAX(A.Fecha) AS Fecha, A.Nombre, a.Cedula,MIN(A.HorasLaborales) as HorasLaborales, A.pais,\
+                    SUM(A.HorasF) as HorasFacturables,\
+                    SUM(A.HorasNF) as HorasNoFacturables,\
+                    SUM(A.HorasF+A.HorasNF) as HorasRegistradas,\
+                    SUM(A.HorasNF*HoraAdicionalNF) as HorasAdicionalNF,\
+                    SUM(A.HorasF*HoraAdicionalF) as HorasAdicionalF,\
+                    SUM(A.HorasF*HoraAdicionalSC) as HorasAdicionalSC\
+                    FROM\
+                    (SELECT ISNULL(MAX(A.Fecha),GETDATE()) AS Fecha, A.Nombre, a.Cedula, ISNULL(MIN(C.HorasLaborales),9) as HorasLaborales,\
+                    ISNULL(A.HorasF,0) as HorasF,\
+                    ISNULL(A.HorasNF,0) as HorasNF,\
+                    IIF(D.Fecha IS NULL AND A.Actividad NOT IN (6,8,10,12), 1, 0) as FechaLaboral,\
+                    IIF(A.TipoHora = 11,1,0) as HoraAdicionalNF,\
+                    IIF(A.TipoHora = 1,1,0) as HoraAdicionalF,\
+                    IIF(A.TipoHora = 2,1,0) as HoraAdicionalSC,\
+                    ISNULL(Pa.ID,1) as Pais\
+                    FROM\
+                    (SELECT AB.Fecha, AB.Actividad, AB.Analista,AN.Id,AN.Nombre,An.Cedula, AB.Ciudad, AB.TipoHora,HorasF,HorasNF, AB.Proyecto\
+                    from\
+                    (SELECT CAST(A.Fecha as DATE) as Fecha, B.Analista,  Ana.Ciudad, A.Actividad, A.TipoHora,\
+                    A.Proyecto,\
+                    SUM(IIF(A.Facturable = 1, A.Horas, 0)) as HorasF,\
+                    SUM(IIF(A.Facturable = 0, A.Horas, 0)) as HorasNF\
+                    FROM dbo.DetalleReporteDia A\
+                    INNER JOIN dbo.ReporteDia B ON A.ReporteDia = B.ID\
+                    INNER JOIN dbo.Analista Ana On Ana.id = B.Analista\
+                    WHERE YEAR(A.Fecha) = YEAR(getdate()) AND MONTH(A.Fecha) = MONTH(getdate())\
+                    GROUP BY A.Fecha, B.Analista, Ana.Ciudad, A.Actividad, A.TipoHora, A.Proyecto) AB\
+                    right join dbo.Analista AN on (An.ID = AB.Analista)\
+                    where An.IsActive = 1 and An.Cargo in (1,2,3,4,5,6,7,8,9,10,11,21) and An.Cedula <> '1') A\
+                    left JOIN dbo.Ciudad Ciu On (Ciu.Id = A.Ciudad)\
+                    left JOIN dbo.Pais Pa On (Pa.Id = Ciu.Pais)\
+                    left JOIN dbo.Proyecto Pr On (Pr.Id = A.Proyecto)\
+                    left JOIN dbo.Cliente C on (C.Id = Pr.Cliente)\
+                    LEFT JOIN dbo.DiaNoLaboral D ON Pa.Id = D.Pais AND CAST(D.Fecha as DATE) = A.Fecha\
+                    LEFT JOIN dbo.Actividad E ON A.Actividad = E.ID\
+                    group by A.Fecha, A.Nombre, a.Cedula, A.HorasF, A.HorasNF,\
+                    IIF(D.Fecha IS NULL AND A.Actividad NOT IN (6,8,10,12), 1, 0),\
+                    IIF(A.TipoHora = 11,1,0),\
+                    IIF(A.TipoHora = 1,1,0),\
+                    IIF(A.TipoHora = 2,1,0),\
+                    Pa.Id) A\
+                    GROUP BY  A.Nombre, a.Cedula, A.pais) Horas\
+                    leFT join\
+                    (SELECT P.id, COUNT(DNL.Dia) AS DiaNoLaboral FROM DiaNoLaboral DNL\
+                    INNER JOIN DBO.Pais P ON (DNL.Pais = P.ID)\
+                    WHERE dnl.Ano = YEAR(getdate()) AND dnl.mes = MONTH(getdate()) AND DNL.Pais = P.ID and DNL.Dia < DAY(getdate())\
+                    GROUP BY P.id ) DBX on (DBX.ID = Horas.Pais)\
+                    where ((HorasFacturables+HorasNoFacturables-HorasAdicionalSC-HorasAdicionalNF-HorasAdicionalF)-\
+                    (HORAS.HorasLaborales*(DAY(GETDATE()) - DBX.DiaNoLaboral))) < 0\
+                    ORDER BY Diferencia DESC"
+
 
 
 };

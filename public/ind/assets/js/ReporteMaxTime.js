@@ -14,7 +14,7 @@
         'containerId': 'TableChart_div',
         options: {
             page: 'enable',
-            pageSize: 10
+            pageSize: 5
         }
     });
 
@@ -51,7 +51,6 @@
 
             }
         });
-
         return filter;
     }
 

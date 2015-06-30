@@ -5,6 +5,7 @@
 
 function draw(jsonData) {
     // Create our data table out of JSON data loaded from server.
+    document.getElementById("wrapperFooter").style.display = "block";
     var data = new google.visualization.DataTable(jsonData);
     var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));
@@ -12,17 +13,18 @@ function draw(jsonData) {
 
 
     var chartCiudadIndices = charts("BarChart","chart1_div",
-        "Indices IF / IOP POR CIUDAD",
+        "Indices IF / IOP / IE Por Ciudad",
         "porcentaje","Ciudad","#,###%",400,"horizontal");
     addDivCharts("col-sm-6","chart1_div", true);
     var chartCargoIndices  = charts("BarChart","chart2_div",
-        "Indices IF / IOP POR CARGO",
+        "Indices IF / IOP / IE Por Cargo",
         "porcentaje","Cargo","#,###%",400,"horizontal");
     addDivCharts("col-sm-6","chart2_div" );
-    var chartAnalistaIndices  = chartsAnalistas("BarChart","chart3_div",
-        "Indices IF / IOP POR Analista",
+    var chartAnalistaIndices  = charts("BarChart","chart3_div",
+        "Indices IF / IOP / IE Por Analista",
         "Analista","porcentaje","#,###%",800,"vertical");
     addDivCharts("col-sm-12","chart3_div" );
+    addDivCharts("col-sm-12","filterRange_div" );
 
     var chartCiudadSUMIngresos  = charts("BarChart","chart4_div",
         "Suma Ingresos/No Ingresos Por Ciudad",
@@ -36,6 +38,7 @@ function draw(jsonData) {
         "Suma Ingresos/No Ingresos Por Analista",
         "Analista","Cantidad","$#,###.###",800,"vertical",["#5e8043","#F15854"]);
     addDivCharts("col-sm-12","chart6_div" );
+
     var chartCiudadSumHoras  = charts("BarChart","chart7_div",
         "Suma Horas Laborales/Facturables/No Facturables Por Ciudad",
         "Cantidad","Ciudad","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]);
@@ -49,39 +52,20 @@ function draw(jsonData) {
         "Analista","Cantidad","decimal",800,"vertical",["#5DA5DA","#60BD68","#FAA43A"]);
     addDivCharts("col-sm-12","chart9_div" );
     var chartCiudadCampos  = charts("BarChart","chart10_div",
-        "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC",
+        "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Ciudad",
         "Cantidad","Ciudad","decimal",400,"horizontal",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
     addDivCharts("col-sm-6","chart10_div" );
     var chartCargosCampos  = charts("BarChart","chart11_div",
-        "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC",
+        "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Cargo",
         "Cantidad","Cargo","decimal",400,"horizontal",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
     addDivCharts("col-sm-6","chart11_div" );
     var chartAnalistaCampos  = charts("BarChart","chart12_div",
-        "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC",
+        "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Analista",
         "Analista","Cantidad","decimal",800,"vertical",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
     addDivCharts("col-sm-12","chart12_div" );
-
-    function chartsAnalistas(chartType,containerId, title,vAxisTitle, hAxisTitle,format,height, orientation, colors){
-        var chart = new google.visualization.ChartWrapper({
-            'chartType': chartType,
-            'containerId': containerId,
-            'options': {
-                title: title,
-                vAxis: {title: vAxisTitle, minValue: 0, format: format},
-                hAxis: {title: hAxisTitle, minValue: 0, format: format},
-                //hAxis: {title: hAxisTitle, minValue: 0, format: format, viewWindow: {min:0, max:10}},
-                height: height,
-                colors: colors,
-                orientation: orientation
-            }
-        });
-        return chart;
-    }
-
-
 
     /**
      * @param {string} chartType
@@ -98,7 +82,7 @@ function draw(jsonData) {
      */
 
     function charts(chartType,containerId, title,vAxisTitle, hAxisTitle,format,height, orientation, colors){
-        var chart = new google.visualization.ChartWrapper({
+        return chart = new google.visualization.ChartWrapper({
             'chartType': chartType,
             'containerId': containerId,
             'options': {
@@ -110,7 +94,6 @@ function draw(jsonData) {
                 orientation: orientation
             }
         });
-        return chart;
     }
 
     var tableChart = new google.visualization.ChartWrapper({
@@ -125,7 +108,7 @@ function draw(jsonData) {
     addDivCharts("col-sm-12","TableChart_div" );
 
     var filtroCiudad = filters("CategoryFilter","filtroCiudad_div","CiudadN",false,true,"Todos","Ciudad",true);
-    var filtroAnalista = filters("CategoryFilter","filtroAnalista_div","AnalistaN",true,false,"Todos", "Analista",true,"google-visualization-controls-categoryfilter");
+    var filtroAnalista = filters("CategoryFilter","filtroAnalista_div","AnalistaN",true,false,"Todos", "Analista",true);
     var filtroCargo = filters("CategoryFilter","filtroCargo_div","Cargo",false,true,"Todos","Cargo",true);
     
 
@@ -146,8 +129,8 @@ function draw(jsonData) {
      * @param {boolean} allowNone
      * @returns {google.visualization.ControlWrapper}
      */
-    function filters(typeFileter,containerId, columnLabel,allowTyping,allowMultiple,caption,label,allowNone, values, cssC){
-        var filter = new google.visualization.ControlWrapper({
+    function filters(typeFileter,containerId, columnLabel,allowTyping,allowMultiple,caption,label,allowNone, values){
+        return filter = new google.visualization.ControlWrapper({
             'controlType': typeFileter,
             'containerId': containerId,
             'options': {
@@ -157,13 +140,11 @@ function draw(jsonData) {
                     'allowTyping': allowTyping,
                     'allowMultiple': allowMultiple,
                     'caption': caption,
-                    'label': label,
-                    'cssClass': cssC},
+                    'label': label},
             'values': values
             }
         });
 
-        return filter;
     }
 
         var filtroHoras = new google.visualization.ControlWrapper({
@@ -203,7 +184,7 @@ function draw(jsonData) {
         var groupedDataAnalistaSumIngresos = groupDataSumIngresos([0]);
 
         function groupDataSumIngresos(groupColumn) {
-            var groupedDataTable = google.visualization.data.group(dt, groupColumn, [{
+            return groupedDataTable = google.visualization.data.group(dt, groupColumn, [{
                 column: 26,
                 type: 'number',
                 label: 'Ingresos',
@@ -214,8 +195,6 @@ function draw(jsonData) {
                 type: 'number' ,
                 aggregation: google.visualization.data.sum
             }]);
-
-            return groupedDataTable;
         }
 
         var groupedDataCiudadSumHoras = groupDataSumHoras([24]);
@@ -223,7 +202,7 @@ function draw(jsonData) {
         var groupedDataAnalistaSumHoras = groupDataSumHoras([0]);
 
         function groupDataSumHoras(groupColumn) {
-            var groupedDataTable = google.visualization.data.group(dt, groupColumn, [{
+            return groupedDataTable = google.visualization.data.group(dt, groupColumn, [{
                 column: 6,
                 label: 'Horas Laborales',
                 aggregation: google.visualization.data.sum,
@@ -242,7 +221,6 @@ function draw(jsonData) {
 
             }
             ]);
-            return groupedDataTable;
         }
 
         var groupedDataCiudadCampos = groupDataDetalleHoras([24]);
@@ -250,7 +228,7 @@ function draw(jsonData) {
         var groupedDataAnalistasCampos = groupDataDetalleHoras([0]);
 
         function groupDataDetalleHoras(groupColumn) {
-            var groupedDataTable = google.visualization.data.group(dt, groupColumn, [{
+            return groupedDataTable = google.visualization.data.group(dt, groupColumn, [{
                 column: 7,
                 label: 'Incap',
                 aggregation: google.visualization.data.sum,
@@ -317,56 +295,22 @@ function draw(jsonData) {
 
             }
             ]);
-            return groupedDataTable;
         }
 
-        var options = {
-            animation: {
-                duration: 1000,
-                easing: 'in'
-            },
-            hAxis: {viewWindow: {min:0, max:10}}
 
-        };
-        //var MAX = 400;
-        //var prevButton = document.getElementById('btnPrev1');
-        //var nextButton = document.getElementById('btnNext1');
-        //prevButton.disabled = true;
-        //nextButton.disabled = true;
-        //
-        //google.visualization.events.addListener(chartAnalistaIndices, 'ready',
-        //    function() {
-        //        prevButton.disabled = options.hAxis.viewWindow.min <= 0;
-        //        nextButton.disabled = options.hAxis.viewWindow.max >= MAX;
-        //    });
-        //
-        //prevButton.onclick = function() {
-        //    options.hAxis.viewWindow.min -= 1;
-        //    options.hAxis.viewWindow.max -= 1;
-        //    drawChart();
-        //};
-        //nextButton.onclick = function() {
-        //    options.hAxis.viewWindow.min += 1;
-        //    options.hAxis.viewWindow.max += 1;
-        //    drawChart();
-        //};
 
         chartCiudadIndices.setDataTable(gca.convertColsToPercentage(ciudadIndicesTable,[1,2,3]));
         chartAnalistaIndices.setDataTable(gca.convertColsToPercentage(analistaIndicesTable,[1,2,3]));
         chartCargoIndices.setDataTable(gca.convertColsToPercentage(cargoIndicesTable,[1,2,3]));
-
         chartCiudadSUMIngresos.setDataTable(gca.convertColsToCurrency(groupedDataCiudadSumIngresos,[1,2]));
         chartCargoSUMIngresos.setDataTable(gca.convertColsToCurrency(groupedDataCargoSumIngresos,[1,2]));
         chartAnalistaSUMIngresos.setDataTable(gca.convertColsToCurrency(groupedDataAnalistaSumIngresos,[1,2]));
-
         chartCiudadSumHoras.setDataTable(groupedDataCiudadSumHoras);
         chartCargoSumHoras.setDataTable(groupedDataCargoSumHoras);
         chartAnalistaSumHoras.setDataTable(groupedDataAnalistaSumHoras);
-
         chartCiudadCampos.setDataTable(groupedDataCiudadCampos);
         chartCargosCampos.setDataTable(groupedDataCargosCampos);
         chartAnalistaCampos.setDataTable(groupedDataAnalistasCampos);
-
         chartCiudadIndices.draw();
         chartCargoIndices.draw();
         chartAnalistaIndices.draw();

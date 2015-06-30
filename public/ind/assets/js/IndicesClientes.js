@@ -4,6 +4,7 @@
 
 ;function draw(jsonData) {
     // Create our data table out of JSON data loaded from server.
+    document.getElementById("wrapperFooter").style.display = "block";
     var data = new google.visualization.DataTable(jsonData);
     var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));
@@ -27,15 +28,15 @@
         }
     });
     var chartServicioIndices= charts("BarChart","chart1_div",
-        "Indices IF / IOP POR Servicio",
+        "Indices IF / IOP / IE POR Servicio",
         "porcentaje","Servicio","#,###%",400,"horizontal");
     addDivCharts("col-sm-6","chart1_div", true);
     var chartClienteIndices = charts("BarChart","chart2_div",
-        "Indices IF / IOP POR Cliente",
+        "Indices IF / IOP / IE POR Cliente",
         "porcentaje","Cliente","#,###%",400,"horizontal");
     addDivCharts("col-sm-6","chart2_div");
     var chartServicioSumHoras = charts("BarChart","chart3_div",
-        "Suma Horas Laborales/Facturables/No Facturables Por Cliente",
+        "Suma Horas Laborales/Facturables/No Facturables Por Servicio",
         "Cantidad","Servicio","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]);
     addDivCharts("col-sm-6","chart3_div" );
     var chartClienteSumHoras = charts("BarChart","chart4_div",
@@ -43,12 +44,12 @@
         "Cantidad","Cliente","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]);
     addDivCharts("col-sm-6","chart4_div" );
     var chartServicioCampos = charts("BarChart","chart5_div",
-        "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC",
+        "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Servicio",
         "Cantidad","Servicio","decimal",400,"horizontal",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
     addDivCharts("col-sm-6","chart5_div" );
     var chartClienteCampos = charts("BarChart","chart6_div",
-        "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC",
+        "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Cliente",
         "Cantidad","Cliente","decimal",400,"horizontal",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
     addDivCharts("col-sm-6","chart6_div" );
@@ -62,10 +63,6 @@
     addDivCharts("col-sm-6","chart8_div" );
 
     addDivCharts("col-sm-12","TableChart_div" );
-
-
-
-
 
 
     /**
@@ -82,7 +79,7 @@
      * @returns {google.visualization.ChartWrapper}
      */
     function charts(chartType,containerId, title,vAxisTitle, hAxisTitle,format, height, orientation, colors){
-        var chart = new google.visualization.ChartWrapper({
+        return chart = new google.visualization.ChartWrapper({
             'chartType': chartType,
             'containerId': containerId,
             'options': {
@@ -94,7 +91,6 @@
                 orientation: orientation
             }
         });
-        return chart;
     }
 
 
@@ -156,7 +152,7 @@
          * @param {Array<number>} groupColumn
          */
         function sumaDeHoras(groupColumn) {
-            var groupedDataTable = google.visualization.data.group(dt, groupColumn, [{
+            return groupedDataTable = google.visualization.data.group(dt, groupColumn, [{
                 column: 8,
                 label: 'Horas Laborales',
                 aggregation: google.visualization.data.sum,
@@ -175,8 +171,6 @@
 
             }
             ]);
-            return groupedDataTable;
-
         }
 
         var groupedDataServicioCampos = detallesDeHoras([3]);
@@ -187,7 +181,7 @@
              * @param {Array<number>} groupColumn
              */
         function detallesDeHoras(groupColumn){
-            var groupedDataTable = google.visualization.data.group(dt, groupColumn, [{
+            return groupedDataTable = google.visualization.data.group(dt, groupColumn, [{
                 column: 9,
                 label: 'Incap',
                 aggregation: google.visualization.data.sum,
@@ -254,8 +248,6 @@
 
             }
             ]);
-
-            return groupedDataTable;
         }
 
         chartServicioIndices.setDataTable(gca.convertColsToPercentage(serviciosIndicesTable,[3,2,1]));
