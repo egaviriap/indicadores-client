@@ -34,7 +34,9 @@
             'filterColumnLabel': 'HorasRegistradas',
             'ui': {'labelStacking': 'vertical',
                 'label': 'Horas Registradas',
-                'cssClass': 'sliderClass'}
+                'cssClass': 'sliderClass'},
+            'minValue': 0,
+            'maxValue': 200
         }
     });
 
@@ -61,7 +63,9 @@
         'options': {
             'filterColumnLabel': 'Diferencia',
             'ui': {'labelStacking': 'vertical',
-                'cssClass': 'sliderClass'}
+                'cssClass': 'sliderClass'},
+            'minValue': 0,
+            'maxValue': 200
         }
     });
 
