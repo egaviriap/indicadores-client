@@ -53,6 +53,8 @@ DBConecction.prototype.prepare = function(query, params, callback){
 
 
     ps.prepare( query , function(err) {
+        //console.log(query);
+
         // ... error checks
         ps.execute(paramsQuery, function(err, recordset) {
             // ... error check

@@ -30,7 +30,10 @@
                 'format':{
                     'pattern': '$#,###'
                 }
-            }
+            },
+            'minValue': 0,
+            'maxValue': 200000
+
         }
     });
 
@@ -54,11 +57,8 @@
     }
 
 
-    var chartCiudadHoras = charts("BarChart","chart1_div",
-        "Horas","Porcentage","Ciudad","decimal",400,"horizontal");
-    var chartServicioHoras  = charts("BarChart","chart2_div",
-        "Indices IF / IOP POR CARGO",
-        "Porcentage","Servicio","decimal",400,"horizontal");
+    var chartCiudadHoras = charts("BarChart","chart1_div","Horas","Porcentage","Ciudad","decimal",400,"horizontal");
+    var chartServicioHoras  = charts("BarChart","chart2_div","Indices IF / IOP POR CARGO","Porcentage","Servicio","decimal",400,"horizontal");
 
 
     /**
@@ -111,14 +111,12 @@
     var groupedDataServicioHora = groupDataSumIngresos([1]);
 
     function groupDataSumIngresos(groupColumn) {
-        var groupedDataTable = google.visualization.data.group(dt, groupColumn, [{
-            column: 3,
+        return groupedDataTable = google.visualization.data.group(dt, groupColumn, [{
+            column: 4,
             type: 'number',
             label: 'Horas',
             aggregation: google.visualization.data.sum
         }]);
-
-        return groupedDataTable;
     }
 
 

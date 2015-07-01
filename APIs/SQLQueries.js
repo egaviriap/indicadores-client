@@ -483,7 +483,9 @@ var SQLQuery = {
 
             FaltaTarifaMes :
                             "SELECT\
-                                    AA.Cliente, AA.Servicio, ISNULL((AA.ValorHora*AA.ConversionPeso),0) as ValorHora,AA.ValorHoraAdicional, SUM(AA.Horas) as Horas\
+                                    AA.Cliente, AA.Servicio, ISNULL((AA.ValorHora*AA.ConversionPeso),0) as ValorHora,\
+                                    ISNULL((AA.ValorHoraAdicional * AA.ConversionPeso),0) as ValorHoraAdicional,\
+                                    SUM(AA.Horas) as Horas\
                                     from\
                                     (select C.Nombre as Cliente, S.Nombre as Servicio, T.ValorHora, SUM(DRD.Horas) as Horas, T.ValorHoraAdicional,\
                                     CASE P.ID\
@@ -505,26 +507,34 @@ var SQLQuery = {
                                     group by AA.Cliente, AA.Servicio, ValorHora, ConversionPeso, ValorHoraAdicional",
 
             MaxTimeReport:
-                        "select AA.Sector as UEN, AA.Cliente, AA.Pais, AA.Ciudad,Year(AA.Fecha) as Ano, MONTH(AA.Fecha) AS Mes, DAY(AA.Fecha) AS Dia,\
-                                    AA.Analista, AA.Cedula, AA.Cargo,AA.Servicio, AA.Proyecto,\
-                                    AA.Facturable,AA.Actividad, AA.GrupoActividad,SUM(AA.Horas) as Horas_Invertidas,AA.Comentario as Observaciones,\
+                            "select AA.Sector as UEN,\
+                                    [ControlCO].[dbo].[RemoveNonAlphaCharacters] (AA.Cliente) as Cliente,\
+                                    AA.Pais, AA.Ciudad,\
+                                    Year(AA.Fecha) as Ano,\
+                                    MONTH(AA.Fecha) AS Mes,\
+                                    DAY(AA.Fecha) AS Dia,\
+                                    AA.Analista,\
+                                    AA.Cedula,\
+                                    AA.Cargo,\
+                                    AA.Servicio,\
+                                    [ControlCO].[dbo].[RemoveNonAlphaCharacters] (AA.Proyecto) AS Proyecto,\
+                                    AA.Facturable,\
+                                    [ControlCO].[dbo].[RemoveNonAlphaCharacters] (AA.Actividad) as Actividad,\
+                                    [ControlCO].[dbo].[RemoveNonAlphaCharacters] (AA.GrupoActividad) as GrupoActividad,\
+                                    SUM(AA.Horas) as Horas_Invertidas,\
+                                    [ControlCO].[dbo].[RemoveNonAlphaCharacters] (AA.Comentario) as Observaciones,\
                                     AA.TipoHora as Tipo_Tiempo, ISNULL((AA.ValorHora*AA.ConversionPeso),0) as Tarifa,\
                                     AA.ValorTotal\
                                     from\
-                                    (select C.Nombre as Cliente, S.Nombre as Servicio,\
-                                    case Th.nombre\
-                                    when 'Adicionales SC' then T.ValorHoraAdicional\
-                                    else T.ValorHora\
-                                    end as ValorHora,\
-                                    DRD.Fecha AS Fecha,\
+                                    (select C.Nombre as Cliente, S.Nombre as Servicio, T.ValorHora,DRD.Fecha AS Fecha,\
                                     SUM(DRD.Horas) as Horas, P.Nombre as Pais, PR.Nombre as Proyecto,\
                                     Ciu.Nombre as Ciudad, A.Nombre as Analista,SE.Nombre as Sector,\
-                                     A.Cedula as Cedula, Car.Nombre as Cargo, ACT.Nombre AS Actividad,\
+                                    A.Cedula as Cedula, Car.Nombre as Cargo, ACT.Nombre AS Actividad,\
                                     GA.Nombre as GrupoActividad, TH.Nombre AS TipoHora, DRD.Comentario,\
-                                     (T.ValorHora * SUM(DRD.Horas)) As ValorTotal,\
+                                    (T.ValorHora * SUM(DRD.Horas)) As ValorTotal,\
                                     CASE P.ID\
-                                    WHEN 2 THEN @sol\
-                                    WHEN 3 THEN @dollar\
+                                    WHEN 2 THEN 770\
+                                    WHEN 3 THEN 2413\
                                     ELSE 1\
                                     END as ConversionPeso,\
                                     case Drd.Facturable\
@@ -544,14 +554,14 @@ var SQLQuery = {
                                     inner join [MaxTimeCHC].[dbo].[Analista] A on (RD.Analista = A.ID)\
                                     left join [MaxTimeCHC].[dbo].[Sector]  SE on (C.Sector = SE.ID)\
                                     inner join [MaxTimeCHC].[dbo].[Cargo] CAR ON (car.ID = A.Cargo)\
-                                    LEFT JOIN [MaxTimeCHC].[dbo].[Tarifa] T ON (T.Cliente = C.ID AND \
+                                    LEFT JOIN [MaxTimeCHC].[dbo].[Tarifa] T ON (T.Cliente = C.ID AND\
                                     T.Servicio = S.ID AND T.Ano = year(DRD.Fecha) AND T.Mes = MONTH(DRD.Fecha))\
-                                    where year(DRD.fecha) = @ano and month(DRD.fecha) = @mes\
-                                    GROUP BY C.Nombre, S.Nombre, T.ValorHora,T.ValorHoraAdicional, P.Nombre, P.ID,P.Nombre, ciu.Nombre,\
+                                    where year(DRD.fecha) = 2015 and MONTH(DRD.Fecha)=4\
+                                    GROUP BY C.Nombre, S.Nombre, T.ValorHora, P.Nombre, P.ID,P.Nombre, ciu.Nombre,\
                                     A.Nombre, Pr.Nombre, Se.Nombre, Drd.Facturable, A.Cedula,Car.Nombre,ACT.Nombre, GA.Nombre, TH.Nombre, Drd.Fecha, Drd.Comentario) AA\
                                     group by AA.Cliente, AA.Servicio, ValorHora, ConversionPeso, AA.Pais, AA.Ciudad, AA.Analista, AA.Proyecto, AA.Sector,\
                                     AA.Facturable, AA.Cedula, AA.Cargo,AA.Actividad, AA.GrupoActividad, AA.TipoHora, AA.Fecha, AA.Comentario, AA.ValorTotal\
-                                    order by AA.Fecha, AA.Cliente",
+                                    order by AA.Fecha,  AA.Cliente",
 
             //
             //UltimaFechaReporteXAnalista:
@@ -665,7 +675,112 @@ var SQLQuery = {
                     GROUP BY P.id ) DBX on (DBX.ID = Horas.Pais)\
                     where ((HorasFacturables+HorasNoFacturables-HorasAdicionalSC-HorasAdicionalNF-HorasAdicionalF)-\
                     (HORAS.HorasLaborales*(DAY(GETDATE()) - DBX.DiaNoLaboral))) < 0\
-                    ORDER BY Diferencia DESC"
+                    ORDER BY Diferencia DESC",
+
+    IndicesAnalistas:
+"SELECT C.Nombre as ClienteN, D.Nombre as ServicioN, A.*,\
+        A.HorasFacturables*B.ValorHora as Ingresos,\
+        A.HorasLaborales*IIF(A.InFac < 1 AND A.CargoID NOT IN (7,11,12), 1-A.InFac, 0)*B.ValorHora as NoIngresos FROM (\
+        SELECT CAST(IIF(HorasLaborales = 0, HorasFacturables/1, HorasFacturables/HorasLaborales) as DECIMAL(6,2)) as 'IE',\
+        CAST(IIF(HorasLaborales = 0, (HorasFacturables-(HAF+HASC))/1, (HorasFacturables-(HAF+HASC))/HorasLaborales) as DECIMAL(6,2)) as 'IOP',\
+        CAST(IIF(HorasLaborales = 0 OR (HorasLaborales-(Incap+Vac)) = 0, HorasFacturables/1,\
+        HorasFacturables/(HorasLaborales-(Incap+Vac))) as DECIMAL(6,2)) as InFac,\
+        A.* FROM (\
+        SELECT B.Nombre as AnalistaN, C.Nombre as Cargo,\
+        A.*,\
+        B.Cargo as CargoID,\
+        A.HorasFacturables+A.HorasNoFacturables as HorasRegistradas,\
+        A.HorasFacturables+A.HorasNoFacturables-A.HANF-A.HASC-A.HANF as HorasLaborales,\
+        B.Ciudad,\
+        D.Nombre as CiudadN,\
+        E.Nombre as Pais\
+        FROM\
+        (SELECT Cliente,\
+        Servicio,\
+        A.Analista,\
+        SUM(A.Incap) as Incap,\
+        SUM(A.Vac) as Vac,\
+        SUM(A.Comp) as Comp,\
+        SUM(A.Preventa) as Preventa,\
+        SUM(A.Induccion) as Induccion,\
+        SUM(A.Informacion) as Informacion,\
+        SUM(A.Error) as Error,\
+        SUM(A.ProyectoChoucair) as ProyectoChoucair,\
+        SUM(A.HorasFacturables) as HorasFacturables,\
+        SUM(A.HorasNoFacturables) as HorasNoFacturables,\
+        SUM(A.HorasAdicionalesNF) as HANF,\
+        SUM(A.HorasAdicionalesF) as HAF,\
+        SUM(A.HorasAdicionalesSC) as HASC\
+        FROM\
+        (SELECT A.Fecha, A.Analista,\
+        SUM(A.HorasF) as HorasFacturables,\
+        SUM(A.HorasNF) as HorasNoFacturables,\
+        SUM(A.HorasNF*Incap) as Incap,\
+        SUM(A.HorasNF*Vac) as Vac,\
+        SUM(A.HorasNF*Comp) as Comp,\
+        SUM(A.HorasNF*Preventa) as Preventa,\
+        SUM(A.HorasNF*Induccion) as Induccion,\
+        SUM(A.HorasNF*Informacion) as Informacion,\
+        SUM(A.HorasNF*Error) as Error,\
+        SUM(A.HorasNF*ProyectoChoucair) as ProyectoChoucair,\
+        SUM(A.HorasNF*HoraAdicionalNF) as HorasAdicionalesNF,\
+        SUM(A.HorasF*HoraAdicionalF) as HorasAdicionalesF,\
+        SUM(A.HorasF*HoraAdicionalSC) as HorasAdicionalesSC,\
+        Cliente,\
+        Servicio\
+        FROM\
+        (SELECT A.Actividad, A.Fecha, A.Analista, C.HorasLaborales, A.HorasF, A.HorasNF,\
+        IIF(E.GrupoActividad IN (4,5,6,7,8),1,0) as Incap,\
+        IIF(E.GrupoActividad IN (19,20,21),1,0) as Vac,\
+        IIF(E.GrupoActividad IN (3,11),1,0) as Comp,\
+        IIF(E.GrupoActividad IN (16,25),1,0) as Preventa,\
+        IIF(E.GrupoActividad = 24,1,0) as Induccion,\
+        IIF(E.GrupoActividad IN (9,10,13,14),1,0) as Informacion,\
+        IIF(E.GrupoActividad IN (15,17),1,0) as Error,\
+        IIF(E.GrupoActividad IN (12),1,0) as ProyectoChoucair,\
+        IIF(A.TipoHora = 11,1,0) as HoraAdicionalNF,\
+        IIF(A.TipoHora = 1,1,0) as HoraAdicionalF,\
+        IIF(A.TipoHora = 2,1,0) as HoraAdicionalSC,\
+        C.ID as Cliente,\
+        A.Servicio as Servicio\
+        FROM\
+        (SELECT CAST(A.Fecha as DATE) as Fecha, B.Analista, A.Servicio, A.Proyecto, A.Actividad, A.TipoHora,\
+        SUM(IIF(A.Facturable = 1, A.Horas, 0)) as HorasF,\
+        SUM(IIF(A.Facturable = 0, A.Horas, 0)) as HorasNF\
+        FROM dbo.DetalleReporteDia A\
+        LEFT JOIN dbo.ReporteDia B ON A.ReporteDia = B.ID\
+        WHERE YEAR(A.Fecha) = @ano AND MONTH(A.Fecha) = @mes\
+        GROUP BY A.Fecha, B.Analista, A.Servicio, A.Proyecto, A.Actividad, A.TipoHora) A\
+        LEFT JOIN dbo.Proyecto B ON A.Proyecto = B.ID\
+        LEFT JOIN dbo.Cliente C ON B.Cliente = C.ID\
+        LEFT JOIN dbo.Actividad E ON A.Actividad = E.ID) A\
+        GROUP BY A.Fecha, A.Analista, Cliente, Servicio) A\
+        GROUP BY A.Analista, Cliente, Servicio) A\
+        LEFT JOIN dbo.Analista B ON A.Analista = B.ID\
+        LEFT JOIN dbo.Cargo C ON B.Cargo = C.ID\
+        LEFT JOIN dbo.Ciudad D ON B.Ciudad = D.ID\
+        LEFT JOIN dbo.Pais E ON E.ID = D.Pais\
+        ) A\
+        )A\
+        INNER JOIN (\
+        SELECT Cliente, Servicio,\
+        ValorHora*ConversionPeso as ValorHora,\
+        ValorHoraAdicional*ConversionPeso as ValorHoraAdicional FROM (\
+        SELECT Cliente, Servicio,\
+        CASE B.Pais\
+        WHEN 2 THEN 770.56\
+        WHEN 3 THEN 2413.8\
+        ELSE 1\
+        END as ConversionPeso,\
+        ValorHora,\
+        ValorHoraAdicional\
+        FROM dbo.Tarifa     A\
+        INNER JOIN dbo.Cliente B ON A.Cliente = B.ID\
+        WHERE Mes = @mes AND Ano = @ano) A\
+        ) B ON A.Cliente = B.Cliente AND B.Servicio = A.Servicio\
+        INNER JOIN dbo.Cliente C ON A.Cliente = C.ID\
+        INNER JOIN dbo.Servicio D ON A.Servicio = D.ID\
+        ORDER BY 'IE' DESC, Analista"
 
 
 

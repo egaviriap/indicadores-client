@@ -10,7 +10,6 @@ var connection = DBConnection.getConnection();
 
 var ServicioIndicesAnalista = function(){
 
-
     this.cols = [
         {label:'AnalistaN', type:'string', format: null},
         {label:'Cargo', type:'string', format: null},

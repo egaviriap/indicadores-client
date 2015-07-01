@@ -333,7 +333,5 @@ function draw(jsonData) {
         bind(filtroHoras, tableChart).
         // Draw the dashboard
         draw(data);
-
-
 }
 

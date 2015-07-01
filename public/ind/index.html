@@ -265,7 +265,7 @@
 
     //fill the dynamically the analysts <select>
     $.getJSON(config.apiEndpoint + 'IdNombreAnalista', function(data){
-        $('#AnalistaSelect').append('<option value="' + '0' + '">' + "Selecctione Uno" + '</option>');
+//        $('#AnalistaSelect').append('<option value="' + '0' + '">' + "Selecctione Uno" + '</option>');
         $.each(data, function(key, val){
             $('#AnalistaSelect').append('<option value="' + val.Id + '">' + val.Nombre + '</option>');
         })
@@ -333,10 +333,6 @@
             $("#myModal").modal('show');
         });
 
-        $("button").click(function(){
-            $("p").toggle();
-        });
-
     });
 
     function changeService(service){
@@ -344,14 +340,14 @@
         .setAttribute("src","./assets/js/"+service+".js")
     }
 
-
 </script>
 <script id="serviceScript"></script>
 
     <div id="wrapperFooter" style="display:none;">
         <div id="footer">
+            <h1><p>Agrupador de Actividades</p></h1>
             <div class="footerFloat">
-                <h5><b>Agrupador de Actividad Compensatorio</b></h5>
+                <h5><b>Compensatorios</b></h5>
                 <ul>
                     <li>Compensatorio</li>
                     <li>Permisos</li>
@@ -384,15 +380,16 @@
                     <li>Período Lactancia</li>
                 </ul>
             </div>
+            <hr/>
             <div class="footerFloat">
-                <h5><b>Preventa</b></h5>
+                <h5><b>Preventas</b></h5>
                 <ul>
                     <li>Prospectos</li>
                     <li>Preventa</li>
                 </ul>
             </div>
             <div class="footerFloat">
-                <h5><b>Error</b></h5>
+                <h5><b>Errores</b></h5>
                 <ul>
                     <li>Desperdicio</li>
                     <li>Repetición de Pruebas</li>
@@ -402,6 +399,32 @@
                 <h5><b>Inducción</b></h5>
                 <ul>
                     <li>Inducción</li>
+                </ul>
+            </div>
+            <div class="footerFloat">
+                <h5><b>Proyecto Choucair</b></h5>
+                <ul>
+                    <li>Proyecto Choucair</li>
+                    <p>&nbsp;</p>
+                </ul>
+            </div>
+            <br/>
+            <div class="footerFloat">
+                <h5><b>(HANF)</b></h5>
+                <ul>
+                    <li>Hora Adicional No Facturable </li>
+                </ul>
+            </div>
+            <div class="footerFloat">
+                <h5><b>(HAF)</b></h5>
+                <ul>
+                    <li>Hora Adicional Facturable </li>
+                </ul>
+            </div>
+            <div class="footerFloat">
+                <h5><b>(HASC)</b></h5>
+                <ul>
+                    <li>Hora Adicional Solicitada Por El Cliente</li>
                 </ul>
             </div>
         </div>
