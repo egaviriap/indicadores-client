@@ -680,12 +680,12 @@ var SQLQuery = {
 
     Dashboard:
                     "SELECT C.Nombre as ClienteN, D.Nombre as ServicioN,\
-                        A.IE, A.IOP, A.InFac,A.AnalistaN,A.Cargo,A.Incap,A.Vac,A.Comp,\
-                        A.Preventa,A.Induccion,A.Informacion,\
-                        A.Error,A.ProyectoChoucair,A.HorasFacturables,A.HorasNoFacturables,A.HANF,A.HAF,A.HASC,\
-                        A.HorasRegistradas,\
-                        A.HorasLaborales,A.CiudadN,A.Pais,\
-                        A.HorasFacturables*B.ValorHora as Ingresos,\
+                            A.IE, A.IOP, A.InFac,A.AnalistaN,A.Cargo,A.Incap,A.Vac,A.Comp,\
+                            A.Preventa,A.Induccion,A.Informacion,\
+                            A.Error,A.ProyectoChoucair,A.HorasFacturables,A.HorasNoFacturables,A.HANF,A.HAF,A.HASC,\
+                            A.HorasRegistradas,\
+                            A.HorasLaborales,E.Nombre as CiudadN,F.Nombre as Pais,\
+                            A.HorasFacturables*B.ValorHora as Ingresos,\
                             A.HorasLaborales*IIF(A.InFac < 1 AND A.CargoID NOT IN (7,11,12), 1-A.InFac, 0)*B.ValorHora as NoIngresos FROM (\
                             SELECT CAST(IIF(HorasLaborales = 0, HorasFacturables/1, HorasFacturables/HorasLaborales) as DECIMAL(6,2)) as 'IE',\
                             CAST(IIF(HorasLaborales = 0, (HorasFacturables-(HAF+HASC))/1, (HorasFacturables-(HAF+HASC))/HorasLaborales) as DECIMAL(6,2)) as 'IOP',\
@@ -696,10 +696,7 @@ var SQLQuery = {
                             A.*,\
                             B.Cargo as CargoID,\
                             A.HorasFacturables+A.HorasNoFacturables as HorasRegistradas,\
-                            A.HorasFacturables+A.HorasNoFacturables-A.HANF-A.HASC-A.HAF as HorasLaborales,\
-                            B.Ciudad,\
-                            D.Nombre as CiudadN,\
-                            E.Nombre as Pais\
+                            A.HorasFacturables+A.HorasNoFacturables-A.HANF-A.HASC-A.HAF as HorasLaborales\
                             FROM\
                             (SELECT Cliente,\
                             Servicio,\
@@ -764,8 +761,6 @@ var SQLQuery = {
                             GROUP BY A.Analista, Cliente, Servicio) A\
                             LEFT JOIN dbo.Analista B ON A.Analista = B.ID\
                             LEFT JOIN dbo.Cargo C ON B.Cargo = C.ID\
-                            LEFT JOIN dbo.Ciudad D ON B.Ciudad = D.ID\
-                            LEFT JOIN dbo.Pais E ON E.ID = D.Pais\
                             ) A\
                             )A\
                             INNER JOIN (\
@@ -786,6 +781,8 @@ var SQLQuery = {
                             ) B ON A.Cliente = B.Cliente AND B.Servicio = A.Servicio\
                             INNER JOIN dbo.Cliente C ON A.Cliente = C.ID\
                             INNER JOIN dbo.Servicio D ON A.Servicio = D.ID\
+                            INNER JOIN dbo.Ciudad E ON C.Ciudad = E.ID\
+                            INNER JOIN dbo.Pais F ON F.ID = E.Pais\
                             ORDER BY 'IE' DESC, Analista"
 
 

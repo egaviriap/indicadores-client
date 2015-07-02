@@ -151,7 +151,7 @@ function draw(jsonData) {
     var filtroAnalista = filters("CategoryFilter","filtroAnalista_div","AnalistaN",true,false,"Todos", "Analista",true);
     var filtroCargo = filters("CategoryFilter","filtroCargo_div","Cargo",false,true,"Todos","Cargo",true);
     var filtroServicio = filters("CategoryFilter","filtroServicio_div","ServicioN",false,true,"Todos","Servicio",true);
-    var filtroCliente = filters("CategoryFilter","filtroCliente_div","ClienteN",false,true,"Todos","Cliente",true);
+    var filtroCliente = filters("CategoryFilter","filtroCliente_div","ClienteN",true,true,"Todos","Cliente",true);
 
 
     addDynamicFilters("filtroCiudad_div");
