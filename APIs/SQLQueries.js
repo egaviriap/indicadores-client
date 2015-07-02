@@ -509,14 +509,15 @@ var SQLQuery = {
             MaxTimeReport:
                             "select AA.Sector as UEN,\
                                     [ControlCO].[dbo].[RemoveNonAlphaCharacters] (AA.Cliente) as Cliente,\
-                                    AA.Pais, AA.Ciudad,\
+                                    AA.Pais,\
+                                    AA.Ciudad,\
                                     Year(AA.Fecha) as Ano,\
                                     MONTH(AA.Fecha) AS Mes,\
                                     DAY(AA.Fecha) AS Dia,\
-                                    AA.Analista,\
-                                    AA.Cedula,\
-                                    AA.Cargo,\
-                                    AA.Servicio,\
+                                    [ControlCO].[dbo].[RemoveNonAlphaCharacters] (AA.Analista) as Analista,\
+                                    [ControlCO].[dbo].[RemoveNonAlphaCharacters] (AA.Cedula) as Cedula,\
+                                    [ControlCO].[dbo].[RemoveNonAlphaCharacters] (AA.Cargo) as Cargo,\
+                                    [ControlCO].[dbo].[RemoveNonAlphaCharacters] (AA.Servicio) as Servicio,\
                                     [ControlCO].[dbo].[RemoveNonAlphaCharacters] (AA.Proyecto) AS Proyecto,\
                                     AA.Facturable,\
                                     [ControlCO].[dbo].[RemoveNonAlphaCharacters] (AA.Actividad) as Actividad,\

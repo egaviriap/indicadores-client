@@ -35,21 +35,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SQLQueries.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SQLQueries.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/APIs/SQLQueries.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="519" column="108" selection-start-line="519" selection-start-column="108" selection-end-line="519" selection-end-column="108" />
+            <state vertical-scroll-proportion="0.31982633">
+              <caret line="511" column="44" selection-start-line="511" selection-start-column="44" selection-end-line="511" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FaltaTarifaMes.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FaltaTarifaMes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/ind/assets/js/FaltaTarifaMes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.58176553">
-              <caret line="34" column="25" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="44" column="39" selection-start-line="44" selection-start-column="39" selection-end-line="44" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -167,8 +167,8 @@
         <option value="$PROJECT_DIR$/APIs/WebServer.js" />
         <option value="$PROJECT_DIR$/APIs/ServicioDashboard.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/globals/config.js" />
-        <option value="$PROJECT_DIR$/APIs/SQLQueries.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/js/FaltaTarifaMes.js" />
+        <option value="$PROJECT_DIR$/APIs/SQLQueries.js" />
       </list>
     </option>
   </component>
@@ -805,18 +805,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIs/SQLQueries.js">
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/FaltaTarifaMes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="519" column="108" selection-start-line="519" selection-start-column="108" selection-end-line="519" selection-end-column="108" />
+          <caret line="44" column="39" selection-start-line="44" selection-start-column="39" selection-end-line="44" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/FaltaTarifaMes.js">
+    <entry file="file://$PROJECT_DIR$/APIs/SQLQueries.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.58176553">
-          <caret line="34" column="25" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.31982633">
+          <caret line="511" column="44" selection-start-line="511" selection-start-column="44" selection-end-line="511" selection-end-column="44" />
           <folding />
         </state>
       </provider>
