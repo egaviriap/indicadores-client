@@ -32,7 +32,7 @@
                 }
             },
             'minValue': 0,
-            'maxValue': 200000
+            'maxValue': 600000
 
         }
     });
