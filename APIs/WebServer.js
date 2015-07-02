@@ -4,7 +4,7 @@ var app = require("../app");
 
 var ServicioHorasCargoCiudad = require('./ServicioHorasCargoCiudad.js');
 var ServicioIndicesAnalista = require('./ServicioIndicesAnalista.js');
-var ServicioIndicesAnalistas = require('./ServicioIndicesAnalistas.js');
+var ServicioDashboard = require('./ServicioDashboard.js');
 var GoogleChartAdapter = require('./GoogleChartAdapter.js');
 var ServicioIdNombreAnalista = require('./ServicioIdNombreAnalista.js');
 var ServicioHorasPorAnalista = require('./ServicioHorasPorAnalista.js');
@@ -32,8 +32,8 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioIndicesAnalista();
         servicio.getResults(writeData(servicio),ano,mes);
     }
-    if (/^\/api\/IndicesAnalistas2/.test(req.url)) {
-        servicio = new ServicioIndicesAnalistas();
+    if (/^\/api\/Dashboard/.test(req.url)) {
+        servicio = new ServicioDashboard();
         servicio.getResults(writeData(servicio),ano,mes);
     }
     if (/^\/api\/IdNombreAnalista/.test(req.url)) {

@@ -39,6 +39,7 @@
                             <label for="servicioselect">Servicio</label><br/>
                             <select  class="selectpicker span2" title='Seleccione El Servicio'
                                      id="ServicioSelect">
+                                <option label="Dashboard" value="Dashboard">Dashboard</option>
                                 <option label="IndicesAnalista" value="IndicesAnalista">Panorama Por Analista</option>
                                 <option label="IndicesClientes" value="IndicesClientes">Panorama Por Cliente</option>
                                 <option label="HorasPorAnalista" value="HorasPorAnalista">Acompañamiento Diario</option>
@@ -263,6 +264,19 @@
         window.location.reload();
     }
 
+    /**
+     *
+     * @param rows
+     * @param chart
+     * @param heightPerRow
+     */
+    function setOptionsCharts(rows, chart, heightPerRow){
+        var numberRows = rows.getNumberOfRows();
+        chart.setOption('height',numberRows*heightPerRow+ 120);
+        chart.setOption('chartArea.height', numberRows*heightPerRow);
+        chart.setOption('fontSize',12);
+    }
+
     //fill the dynamically the analysts <select>
     $.getJSON(config.apiEndpoint + 'IdNombreAnalista', function(data){
 //        $('#AnalistaSelect').append('<option value="' + '0' + '">' + "Selecctione Uno" + '</option>');
@@ -339,6 +353,7 @@
         document.getElementById("serviceScript")
         .setAttribute("src","./assets/js/"+service+".js")
     }
+
 
 </script>
 <script id="serviceScript"></script>

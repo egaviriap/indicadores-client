@@ -24,8 +24,6 @@ function draw(jsonData) {
         "Indices IF / IOP / IE Por Analista",
         "Analista","porcentaje","#,###%",800,"vertical");
     addDivCharts("col-sm-12","chart3_div" );
-    addDivCharts("col-sm-12","filterRange_div" );
-
     var chartCiudadSUMIngresos  = charts("BarChart","chart4_div",
         "Suma Ingresos/No Ingresos Por Ciudad",
         "Cantidad","Ciudad","$#,###.###",400,"horizontal",["#5e8043","#F15854"]);
