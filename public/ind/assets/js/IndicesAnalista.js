@@ -37,32 +37,33 @@ function draw(jsonData) {
         "Analista","Cantidad","$#,###.###",800,"vertical",["#5e8043","#F15854"]);
     addDivCharts("col-sm-12","chart6_div" );
 
-    var chartCiudadSumHoras  = charts("BarChart","chart7_div",
+    var chartCiudadSumHoras  = comboCharts("ComboChart","chart7_div",
         "Suma Horas Laborales/Facturables/No Facturables Por Ciudad",
-        "Cantidad","Ciudad","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]);
+        "Cantidad","Ciudad","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A","#A0805A","#D9C039","#F17CB0"]);
     addDivCharts("col-sm-6","chart7_div" );
-    var chartCargoSumHoras  = charts("BarChart","chart8_div",
+    var chartCargoSumHoras  = comboCharts("ComboChart","chart8_div",
         "Suma Horas Laborales/Facturables/No Facturables Por Cargo",
-        "Cantidad","Cargo","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]);
+        "Cantidad","Cargo","decimal",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A","#A0805A","#D9C039","#F17CB0"]);
     addDivCharts("col-sm-6","chart8_div" );
-    var chartAnalistaSumHoras  = charts("BarChart","chart9_div",
+    var chartAnalistaSumHoras  = comboCharts("ComboChart","chart9_div",
         "Suma Horas Laborales/Facturables/No Facturables Por Analista",
-        "Analista","Cantidad","decimal",800,"vertical",["#5DA5DA","#60BD68","#FAA43A"]);
+        "Analista","Cantidad","decimal",800,"vertical",["#5DA5DA","#60BD68","#FAA43A","#A0805A","#D9C039","#F17CB0"]);
     addDivCharts("col-sm-12","chart9_div" );
-    var chartCiudadCampos  = charts("BarChart","chart10_div",
+
+    var chartCiudadDesperdicios  = charts("BarChart","chart10_div",
         "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Ciudad",
         "Cantidad","Ciudad","decimal",400,"horizontal",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
-            "#888888","#A0805A","#D9C039","#F17CB0"]);
+            "#888888"]);
     addDivCharts("col-sm-6","chart10_div" );
-    var chartCargosCampos  = charts("BarChart","chart11_div",
+    var chartCargosDesperdicios  = charts("BarChart","chart11_div",
         "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Cargo",
         "Cantidad","Cargo","decimal",400,"horizontal",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
-            "#888888","#A0805A","#D9C039","#F17CB0"]);
+            "#888888"]);
     addDivCharts("col-sm-6","chart11_div" );
-    var chartAnalistaCampos  = charts("BarChart","chart12_div",
+    var chartAnalistaDesperdicios  = charts("BarChart","chart12_div",
         "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Analista",
         "Analista","Cantidad","decimal",800,"vertical",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
-            "#888888","#A0805A","#D9C039","#F17CB0"]);
+            "#888888"]);
     addDivCharts("col-sm-12","chart12_div" );
 
     /**
@@ -217,13 +218,31 @@ function draw(jsonData) {
                 type: 'number',
                 aggregation: google.visualization.data.sum
 
+            }, {
+                column: 17,
+                label: 'HANF',
+                type: 'number' ,
+                aggregation: google.visualization.data.sum
+
+            }, {
+                column: 18,
+                label: 'HAF',
+                type: 'number' ,
+                aggregation: google.visualization.data.sum
+
+            }, {
+                column: 19,
+                label: 'HASC',
+                type: 'number' ,
+                aggregation: google.visualization.data.sum
+
             }
             ]);
         }
 
-        var groupedDataCiudadCampos = groupDataDetalleHoras([24]);
-        var groupedDataCargosCampos = groupDataDetalleHoras([1]);
-        var groupedDataAnalistasCampos = groupDataDetalleHoras([0]);
+        var groupedDataCiudadDesperdicios = groupDataDetalleHoras([24]);
+        var groupedDataCargosDesperdicios = groupDataDetalleHoras([1]);
+        var groupedDataAnalistasDesperdicios = groupDataDetalleHoras([0]);
 
         function groupDataDetalleHoras(groupColumn) {
             return groupedDataTable = google.visualization.data.group(dt, groupColumn, [{
@@ -273,24 +292,6 @@ function draw(jsonData) {
                 type: 'number' ,
                 aggregation: google.visualization.data.sum
 
-            }, {
-                column: 17,
-                label: 'HANF',
-                type: 'number' ,
-                aggregation: google.visualization.data.sum
-
-            }, {
-                column: 18,
-                label: 'HAF',
-                type: 'number' ,
-                aggregation: google.visualization.data.sum
-
-            }, {
-                column: 19,
-                label: 'HASC',
-                type: 'number' ,
-                aggregation: google.visualization.data.sum
-
             }
             ]);
         }
@@ -306,9 +307,14 @@ function draw(jsonData) {
         chartCiudadSumHoras.setDataTable(groupedDataCiudadSumHoras);
         chartCargoSumHoras.setDataTable(groupedDataCargoSumHoras);
         chartAnalistaSumHoras.setDataTable(groupedDataAnalistaSumHoras);
-        chartCiudadCampos.setDataTable(groupedDataCiudadCampos);
-        chartCargosCampos.setDataTable(groupedDataCargosCampos);
-        chartAnalistaCampos.setDataTable(groupedDataAnalistasCampos);
+        chartCiudadDesperdicios.setDataTable(groupedDataCiudadDesperdicios);
+        chartCargosDesperdicios.setDataTable(groupedDataCargosDesperdicios);
+        chartAnalistaDesperdicios.setDataTable(groupedDataAnalistasDesperdicios);
+
+        setOptionsCharts(analistaIndicesTable,chartAnalistaIndices,50);
+        setOptionsCharts(groupedDataAnalistaSumIngresos,chartAnalistaSUMIngresos,50);
+        setOptionsCharts(groupedDataAnalistaSumHoras,chartAnalistaSumHoras,140);
+        setOptionsCharts(groupedDataAnalistasDesperdicios,chartAnalistaDesperdicios,150);
         chartCiudadIndices.draw();
         chartCargoIndices.draw();
         chartAnalistaIndices.draw();
@@ -318,9 +324,9 @@ function draw(jsonData) {
         chartCiudadSumHoras.draw();
         chartCargoSumHoras.draw();
         chartAnalistaSumHoras.draw();
-        chartCiudadCampos.draw();
-        chartCargosCampos.draw();
-        chartAnalistaCampos.draw();
+        chartCiudadDesperdicios.draw();
+        chartCargosDesperdicios.draw();
+        chartAnalistaDesperdicios.draw();
 
     });
 

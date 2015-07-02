@@ -534,8 +534,8 @@ var SQLQuery = {
                                     GA.Nombre as GrupoActividad, TH.Nombre AS TipoHora, DRD.Comentario,\
                                     (T.ValorHora * SUM(DRD.Horas)) As ValorTotal,\
                                     CASE P.ID\
-                                    WHEN 2 THEN 770\
-                                    WHEN 3 THEN 2413\
+                                    WHEN 2 THEN @sol\
+                                    WHEN 3 THEN @dollar\
                                     ELSE 1\
                                     END as ConversionPeso,\
                                     case Drd.Facturable\
@@ -557,7 +557,7 @@ var SQLQuery = {
                                     inner join [MaxTimeCHC].[dbo].[Cargo] CAR ON (car.ID = A.Cargo)\
                                     LEFT JOIN [MaxTimeCHC].[dbo].[Tarifa] T ON (T.Cliente = C.ID AND\
                                     T.Servicio = S.ID AND T.Ano = year(DRD.Fecha) AND T.Mes = MONTH(DRD.Fecha))\
-                                    where year(DRD.fecha) = 2015 and MONTH(DRD.Fecha)=4\
+                                    where year(DRD.fecha) = @ano and MONTH(DRD.Fecha)=@mes\
                                     GROUP BY C.Nombre, S.Nombre, T.ValorHora, P.Nombre, P.ID,P.Nombre, ciu.Nombre,\
                                     A.Nombre, Pr.Nombre, Se.Nombre, Drd.Facturable, A.Cedula,Car.Nombre,ACT.Nombre, GA.Nombre, TH.Nombre, Drd.Fecha, Drd.Comentario) AA\
                                     group by AA.Cliente, AA.Servicio, ValorHora, ConversionPeso, AA.Pais, AA.Ciudad, AA.Analista, AA.Proyecto, AA.Sector,\
@@ -696,7 +696,7 @@ var SQLQuery = {
                             A.*,\
                             B.Cargo as CargoID,\
                             A.HorasFacturables+A.HorasNoFacturables as HorasRegistradas,\
-                            A.HorasFacturables+A.HorasNoFacturables-A.HANF-A.HASC-A.HANF as HorasLaborales,\
+                            A.HorasFacturables+A.HorasNoFacturables-A.HANF-A.HASC-A.HAF as HorasLaborales,\
                             B.Ciudad,\
                             D.Nombre as CiudadN,\
                             E.Nombre as Pais\

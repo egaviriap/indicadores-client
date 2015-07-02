@@ -8,12 +8,12 @@
     var data = new google.visualization.DataTable(jsonData);
     var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));
-    addDivCharts("col-sm-4","chart1_div", true);
-    addDivCharts("col-sm-4","chart2_div");
-    addDivCharts("col-sm-4","chart3_div");
-    addDivCharts("col-sm-4","chart4_div");
-    addDivCharts("col-sm-4","chart5_div");
-    addDivCharts("col-sm-4","chart6_div");
+    addDivCharts("col-sm-6","chart1_div", true);
+    addDivCharts("col-sm-6","chart2_div");
+    addDivCharts("col-sm-6","chart3_div");
+    addDivCharts("col-sm-6","chart4_div");
+    addDivCharts("col-sm-6","chart5_div");
+    addDivCharts("col-sm-6","chart6_div");
     addDivCharts("col-sm-12","TableChart_div");
 
 
@@ -57,22 +57,21 @@
     var chartCiudadHoras = charts("BarChart","chart1_div",
         "Totales de Horas Por Ciudad",
         "Horas","Ciudad","decimal",400,"horizontal");
-
-    var chartCargoHoras = charts("BarChart","chart2_div",
-        "Totales de Horas Por Cargo",
-        "Horas","Cargo","decimal",400,"horizontal");
-
-    var chartServicioHoras = charts("BarChart","chart3_div",
-        "Totales de Horas Por Servicio",
-        "Horas","Servicio","decimal",400,"horizontal");
-
-    var chartCiudadIngesos = charts("BarChart","chart4_div",
+    var chartCiudadIngesos = charts("BarChart","chart2_div",
         "Total Ingresos Por Ciudad",
         "Ingresos","Ciudad","$#,###.###",400,"horizontal",["#5e8043"]);
 
-    var chartCargoIngesos = charts("BarChart","chart5_div",
+    var chartCargoHoras = charts("BarChart","chart3_div",
+        "Totales de Horas Por Cargo",
+        "Horas","Cargo","decimal",400,"horizontal");
+    var chartCargoIngesos = charts("BarChart","chart4_div",
         "Total Ingresos Por Cargo",
         "Ingresos","Cargo","$#,###.###",400,"horizontal",["#5e8043"]);
+
+
+    var chartServicioHoras = charts("BarChart","chart5_div",
+        "Totales de Horas Por Servicio",
+        "Horas","Servicio","decimal",400,"horizontal");
 
     var chartServicioIngesos = charts("BarChart","chart6_div",
         "Total Ingresos Por Servicio",
@@ -145,10 +144,12 @@
         chartServicioIngesos.setDataTable(gca.convertColsToCurrency(groupedDataServicioIngresos,[1]));
         chartCargoIngesos.setDataTable(gca.convertColsToCurrency(groupedDataCargoIngresos,[1]));
         chartCiudadHoras.draw();
-        chartCargoHoras.draw();
-        chartServicioHoras.draw();
         chartCiudadIngesos.draw();
+
+        chartCargoHoras.draw();
         chartCargoIngesos.draw();
+
+        chartServicioHoras.draw();
         chartServicioIngesos.draw();
 
     });

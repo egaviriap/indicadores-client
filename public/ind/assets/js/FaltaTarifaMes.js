@@ -57,8 +57,8 @@
     }
 
 
-    var chartCiudadHoras = charts("BarChart","chart1_div","Horas","Porcentage","Ciudad","decimal",400,"horizontal");
-    var chartServicioHoras  = charts("BarChart","chart2_div","Indices IF / IOP POR CARGO","Porcentage","Servicio","decimal",400,"horizontal");
+    var chartCiudadHoras = charts("BarChart","chart1_div","Horas","Horas","Cliente","decimal",400,"horizontal");
+    var chartServicioHoras  = charts("BarChart","chart2_div","Horas","Horas","Servicio","decimal",400,"horizontal");
 
 
     /**

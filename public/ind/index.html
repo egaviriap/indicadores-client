@@ -272,10 +272,11 @@
      */
     function setOptionsCharts(rows, chart, heightPerRow){
         var numberRows = rows.getNumberOfRows();
-        chart.setOption('height',numberRows*heightPerRow+ 120);
+        chart.setOption('height',numberRows*heightPerRow + 120);
         chart.setOption('chartArea.height', numberRows*heightPerRow);
         chart.setOption('fontSize',12);
     }
+
 
     //fill the dynamically the analysts <select>
     $.getJSON(config.apiEndpoint + 'IdNombreAnalista', function(data){
@@ -354,6 +355,26 @@
         .setAttribute("src","./assets/js/"+service+".js")
     }
 
+    function comboCharts(chartType,containerId, title,vAxisTitle, hAxisTitle,format,height, orientation, colors){
+        return chart = new google.visualization.ChartWrapper({
+            'chartType': chartType,
+            'containerId': containerId,
+            'options': {
+                title: title,
+                vAxis: {title: vAxisTitle, minValue: 0, format: format},
+                hAxis: {title: hAxisTitle, minValue: 0, format: format},
+                height: height,
+                colors: colors,
+                orientation: orientation,
+                seriesType: "bars",
+                series: {
+                    3: {type: "line"},
+                    4: {type: "line"},
+                    5: {type: "line"}
+                }
+            }
+        });
+    }
 
 </script>
 <script id="serviceScript"></script>
