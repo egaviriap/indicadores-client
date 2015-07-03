@@ -367,12 +367,119 @@
                 colors: colors,
                 orientation: orientation,
                 seriesType: "bars",
-                series: {
-                    3: {type: "line"},
-                    4: {type: "line"},
-                    5: {type: "line"}
-                }
+                displayAnnotations: true
+//                series: {
+//                    3: {type: "line",
+//                        pointShape: 'circle',
+//                        pointSize: 8
+//                    },
+//                    4: {type: "line",
+//                        pointShape: 'triangle',
+//                        pointSize: 8},
+//                    5: {type: "line",
+//                        pointShape: 'square',
+//                        pointSize: 8}
+//                }
             }
+        });
+    }
+    function setViewIngresos(chart){
+        chart.setView({
+            columns: ([0,
+                1,
+                { calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation" },
+                2,
+                { calc: "stringify",
+                    sourceColumn: 2,
+                    type: "string",
+                    role: "annotation" }
+            ])
+        });
+    }
+
+    function setViewSumHoras(chart){
+        chart.setView({
+            columns: ([0,
+                1,
+                { calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation" },
+                2,
+                { calc: "stringify",
+                    sourceColumn: 2,
+                    type: "string",
+                    role: "annotation" },
+                3,
+                { calc: "stringify",
+                    sourceColumn: 3,
+                    type: "string",
+                    role: "annotation" },
+                4,
+                { calc: "stringify",
+                    sourceColumn: 4,
+                    type: "string",
+                    role: "annotation" },
+                5,
+                { calc: "stringify",
+                    sourceColumn: 5,
+                    type: "string",
+                    role: "annotation" },
+                6,
+                { calc: "stringify",
+                    sourceColumn: 6,
+                    type: "string",
+                    role: "annotation" }
+            ])
+        });
+    }
+    function setViewSumDesperdicioHoras(chart){
+        chart.setView({
+            columns: ([0,
+                1,
+                { calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation" },
+                2,
+                { calc: "stringify",
+                    sourceColumn: 2,
+                    type: "string",
+                    role: "annotation" },
+                3,
+                { calc: "stringify",
+                    sourceColumn: 3,
+                    type: "string",
+                    role: "annotation" },
+                4,
+                { calc: "stringify",
+                    sourceColumn: 4,
+                    type: "string",
+                    role: "annotation" },
+                5,
+                { calc: "stringify",
+                    sourceColumn: 5,
+                    type: "string",
+                    role: "annotation" },
+                6,
+                { calc: "stringify",
+                    sourceColumn: 6,
+                    type: "string",
+                    role: "annotation" },
+                7,
+                { calc: "stringify",
+                    sourceColumn: 7,
+                    type: "string",
+                    role: "annotation" },
+                8,
+                { calc: "stringify",
+                    sourceColumn: 8,
+                    type: "string",
+                    role: "annotation" }
+            ])
         });
     }
 

@@ -310,7 +310,9 @@ function draw(jsonData) {
         chartCiudadDesperdicios.setDataTable(groupedDataCiudadDesperdicios);
         chartCargosDesperdicios.setDataTable(groupedDataCargosDesperdicios);
         chartAnalistaDesperdicios.setDataTable(groupedDataAnalistasDesperdicios);
-
+        setViewSumDesperdicioHoras(chartAnalistaDesperdicios);
+        setViewSumHoras(chartAnalistaSumHoras);
+        setViewIngresos(chartAnalistaSUMIngresos);
         setOptionsCharts(analistaIndicesTable,chartAnalistaIndices,50);
         setOptionsCharts(groupedDataAnalistaSumIngresos,chartAnalistaSUMIngresos,50);
         setOptionsCharts(groupedDataAnalistaSumHoras,chartAnalistaSumHoras,140);
