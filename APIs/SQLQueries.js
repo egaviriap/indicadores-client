@@ -672,7 +672,7 @@ var SQLQuery = {
                     leFT join\
                     (SELECT P.id, count(DNL.Dia)- 1 AS DiaNoLaboral\
                      FROM DiaNoLaboral DNL, DBO.Pais P\
-                    WHERE dnl.Ano = YEAR(getdate()) AND dnl.mes = 7 and DNL.Dia < DAY(getdate()) and (DNL.Pais = P.Id) or  (DNL.Pais is null)\
+                    WHERE dnl.Ano = YEAR(getdate()) AND dnl.mes = MONTH(getdate()) and DNL.Dia < DAY(getdate()) and (DNL.Pais = P.Id) or  (DNL.Pais is null)\
                     GROUP BY P.id ) DBX on (DBX.ID = Horas.Pais)\
                     where ((HorasFacturables+HorasNoFacturables-HorasAdicionalSC-HorasAdicionalNF-HorasAdicionalF)-\
                     (HORAS.HorasLaborales*(DAY(GETDATE()) - DBX.DiaNoLaboral))) < 0\
