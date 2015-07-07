@@ -37,7 +37,7 @@
         }
     });
 
-
+//http://jsfiddle.net/yfLng7y1/      -------------------------performace -------------------------
 
     function filters(typeFileter,containerId, columnLabel,allowTyping,allowMultiple,caption,label){
         var filter = new google.visualization.ControlWrapper({

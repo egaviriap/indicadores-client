@@ -13,6 +13,7 @@ function draw(jsonData) {
     var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));
     var trIndices = new TableRowIndices();
+    var gca = new GoogleChartAdapter();
 
 //---------------------Ciudad-------------------------------------
     var chartCiudadIndices = charts("BarChart","chart1_div",
@@ -23,89 +24,89 @@ function draw(jsonData) {
         "Suma Ingresos/No Ingresos Por Ciudad",
         "Cantidad","Ciudad","$#,###.###",400,"horizontal",["#5e8043","#F15854"]);
     addDivCharts("col-sm-6","chart2_div" );
-    var chartCiudadSumHoras  = comboCharts("ComboChart","chart20_div",
+    var chartCiudadSumHoras  = comboCharts("ComboChart","chart3_div",
         "Suma Horas Por Ciudad",
         "Ciudad","Cantidad","decimal",400,"vertical",["#5DA5DA","#60BD68","#FAA43A","#A0805A","#D9C039","#F17CB0"]);
-    addDivCharts("col-sm-12","chart20_div" );
-    var chartCiudadDesperdicio  = charts("BarChart","chart3_div",
+    addDivCharts("col-sm-12","chart3_div" );
+    var chartCiudadDesperdicio  = charts("BarChart","chart4_div",
         "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Ciudad",
         "Ciudad","Cantidad","decimal",400,"vertical",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
-    addDivCharts("col-sm-12","chart3_div" );
+    addDivCharts("col-sm-12","chart4_div" );
 //-----------------------------cliente-----------------------
-    var chartClienteIndices = charts("BarChart","chart4_div",
+    var chartClienteIndices = charts("BarChart","chart5_div",
         "Indices IF / IOP / IE Por Cliente",
         "porcentaje","Cliente","#,###%",400,"horizontal");
-    addDivCharts("col-sm-6","chart4_div");
-    var chartClienteSUMIngresos  = charts("BarChart","chart5_div",
+    addDivDelayCharts("col-sm-6","chart5_div");
+    var chartClienteSUMIngresos  = charts("BarChart","chart6_div",
         "Suma Ingresos/No Ingresos Por Cliente",
         "Cantidad","Cliente","$#,###.###",400,"horizontal",["#5e8043","#F15854"]);
-    addDivCharts("col-sm-6","chart5_div" );
-    var chartClienteSumHoras  = comboCharts("ComboChart","chart21_div",
+    addDivDelayCharts("col-sm-6","chart6_div" );
+    var chartClienteSumHoras  = comboCharts("ComboChart","chart7_div",
         "Suma Horas Por Cliente","Cliente","Cantidad","decimal",400,"vertical",
         ["#5DA5DA","#60BD68","#FAA43A","#A0805A","#D9C039","#F17CB0"]);
-    addDivCharts("col-sm-12","chart21_div" );
-    var chartClienteDesperdicio  = charts("BarChart","chart6_div",
+    addDivDelayCharts("col-sm-12","chart7_div" );
+    var chartClienteDesperdicio  = charts("BarChart","chart8_div",
         "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Cliente",
         "Cliente","Cantidad","decimal",400,"vertical",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
-    addDivCharts("col-sm-12","chart6_div" );
+    addDivDelayCharts("col-sm-12","chart8_div" );
 //-----------------------------servicio----------------------------------------------------
-    var chartServicioIndices = charts("BarChart","chart7_div",
+    var chartServicioIndices = charts("BarChart","chart9_div",
         "Indices IF / IOP / IE Por Servicio",
         "porcentaje","Servicio","#,###%",400,"horizontal");
-    addDivCharts("col-sm-6","chart7_div");
-    var chartServicioSUMIngresos  = charts("BarChart","chart8_div",
+    addDivDelayCharts("col-sm-6","chart9_div");
+    var chartServicioSUMIngresos  = charts("BarChart","chart10_div",
         "Suma Ingresos/No Ingresos Por Servicio",
         "Cantidad","Servicio","$#,###.###",400,"horizontal",["#5e8043","#F15854"]);
-    addDivCharts("col-sm-6","chart8_div" );
-    var chartServicioSumHoras  = comboCharts("ComboChart","chart22_div",
+    addDivDelayCharts("col-sm-6","chart10_div" );
+    var chartServicioSumHoras  = comboCharts("ComboChart","chart11_div",
         "Suma Horas Por Servicio","Servicio","Cantidad","decimal",400,"vertical",
         ["#5DA5DA","#60BD68","#FAA43A","#A0805A","#D9C039","#F17CB0"]);
-    addDivCharts("col-sm-12","chart22_div" );
-    var chartServicioDesperdicio  = charts("BarChart","chart9_div",
+    addDivDelayCharts("col-sm-12","chart11_div" );
+    var chartServicioDesperdicio  = charts("BarChart","chart12_div",
         "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Servicio",
         "Servicio","Cantidad","decimal",400,"vertical",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
-    addDivCharts("col-sm-12","chart9_div" );
+    addDivDelayCharts("col-sm-12","chart12_div" );
 
 //-----------------------------Cargo----------------------------------------------------
-    var chartCargoIndices = charts("BarChart","chart10_div",
+    var chartCargoIndices = charts("BarChart","chart13_div",
         "Indices IF / IOP / IE Por Cargo",
         "porcentaje","Cargo","#,###%",400,"horizontal");
-    addDivCharts("col-sm-6","chart10_div");
-    var chartCargoSUMIngresos  = charts("BarChart","chart11_div",
+    addDivDelayCharts("col-sm-6","chart13_div");
+    var chartCargoSUMIngresos  = charts("BarChart","chart14_div",
         "Suma Ingresos/No Ingresos Por Cargo",
         "Cantidad","Cargo","$#,###.###",400,"horizontal",["#5e8043","#F15854"]);
-    addDivCharts("col-sm-6","chart11_div" );
-    var chartCargoSumHoras  = comboCharts("ComboChart","chart23_div",
+    addDivDelayCharts("col-sm-6","chart14_div" );
+    var chartCargoSumHoras  = comboCharts("ComboChart","chart15_div",
         "Suma Horas Por Cargo","Cargo","Cantidad","decimal",400,"vertical",
         ["#5DA5DA","#60BD68","#FAA43A","#A0805A","#D9C039","#F17CB0"]);
-    addDivCharts("col-sm-12","chart23_div" );
-    var chartCargoDesperdicio  = charts("BarChart","chart12_div",
+    addDivDelayCharts("col-sm-12","chart15_div" );
+    var chartCargoDesperdicio  = charts("BarChart","chart16_div",
         "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Cargo",
         "Cargo","Cantidad","decimal",400,"vertical",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
-    addDivCharts("col-sm-12","chart12_div" );
+    addDivDelayCharts("col-sm-12","chart16_div" );
 
 //-----------------------------Analista----------------------------------------------------
-    var chartAnalistaIndices = charts("BarChart","chart13_div",
+    var chartAnalistaIndices = charts("BarChart","chart17_div",
         "Indices IF / IOP / IE Por Analista",
         "Analista","porcentaje","#,###%",400,"vertical");
-    addDivCharts("col-sm-12","chart13_div");
-    var chartAnalistaSUMIngresos  = charts("BarChart","chart14_div",
+    addDivDelayCharts("col-sm-12","chart17_div");
+    var chartAnalistaSUMIngresos  = charts("BarChart","chart18_div",
         "Suma Ingresos/No Ingresos Por Analista",
         "Analista","Cantidad","$#,###.###",400,"vertical",["#5e8043","#F15854"]);
-    addDivCharts("col-sm-12","chart14_div" );
-    var chartAnalistaSumHoras  = comboCharts("ComboChart","chart24_div",
+    addDivDelayCharts("col-sm-12","chart18_div" );
+    var chartAnalistaSumHoras  = comboCharts("ComboChart","chart19_div",
         "Suma Horas Por Analista","Analista","Cantidad","decimal",400,"vertical",
         ["#5DA5DA","#60BD68","#FAA43A","#A0805A","#D9C039","#F17CB0"]);
-    addDivCharts("col-sm-12","chart24_div" );
-    var chartAnalistaDesperdicio  = charts("BarChart","chart15_div",
+    addDivDelayCharts("col-sm-12","chart19_div" );
+    var chartAnalistaDesperdicio  = charts("BarChart","chart20_div",
         "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Analista",
         "Analista","Cantidad","decimal",400,"vertical",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
             "#888888","#A0805A","#D9C039","#F17CB0"]);
-    addDivCharts("col-sm-12","chart15_div" );
+    addDivDelayCharts("col-sm-12","chart20_div" );
     /**
      * @param {string} chartType
      * @param {string} containerId
@@ -191,7 +192,7 @@ function draw(jsonData) {
 
     google.visualization.events.addListener(tableChart, 'ready', function () {
         var dt = tableChart.getDataTable();
-        var gca = new GoogleChartAdapter();
+
 
         var ciudad = dt.getDistinctValues(22);
         var cliente = dt.getDistinctValues(0);
@@ -333,8 +334,6 @@ function draw(jsonData) {
             ]);
         }
 
-
-
 //------------------------------ciudades-------------------------------------------------------------------
         chartCiudadIndices.setDataTable(gca.convertColsToPercentage(ciudadIndicesTable,[1,2,3]));
         chartCiudadSUMIngresos.setDataTable(gca.convertColsToCurrency(groupedDataCiudadSumIngresos,[1,2]));
@@ -375,18 +374,18 @@ function draw(jsonData) {
         chartServicioSumHoras.draw();
         chartServicioDesperdicio.draw();
 //----------------------------Cargo----------------------------------------------------------------------
-        chartCargoIndices.setDataTable(gca.convertColsToPercentage(CargoIndicesTable,[1,2,3]));
-        chartCargoSUMIngresos.setDataTable(gca.convertColsToCurrency(groupedDataCargoSumIngresos,[1,2]));
-        setViewSumDesperdicioHoras(chartCargoDesperdicio);
-        chartCargoDesperdicio.setDataTable(groupedDataCargoDesperdicio);
-        setViewSumHoras(chartCargoSumHoras);
-        chartCargoSumHoras.setDataTable(groupedDataCargoSumHoras);
-        setOptionsCharts(groupedDataCargoDesperdicio,chartCargoDesperdicio,150);
-        setOptionsCharts(groupedDataCargoSumHoras,chartCargoSumHoras,110);
-        chartCargoIndices.draw();
-        chartCargoSUMIngresos.draw();
-        chartCargoSumHoras.draw();
-        chartCargoDesperdicio.draw();
+//        chartCargoIndices.setDataTable(gca.convertColsToPercentage(CargoIndicesTable,[1,2,3]));
+//        chartCargoSUMIngresos.setDataTable(gca.convertColsToCurrency(groupedDataCargoSumIngresos,[1,2]));
+//        setViewSumDesperdicioHoras(chartCargoDesperdicio);
+//        chartCargoDesperdicio.setDataTable(groupedDataCargoDesperdicio);
+//        setViewSumHoras(chartCargoSumHoras);
+//        chartCargoSumHoras.setDataTable(groupedDataCargoSumHoras);
+//        setOptionsCharts(groupedDataCargoDesperdicio,chartCargoDesperdicio,150);
+//        setOptionsCharts(groupedDataCargoSumHoras,chartCargoSumHoras,110);
+//        chartCargoIndices.draw();
+//        chartCargoSUMIngresos.draw();
+//        chartCargoSumHoras.draw();
+//        chartCargoDesperdicio.draw();
 //----------------------------Analista----------------------------------------------------------------------
         chartAnalistaIndices.setDataTable(gca.convertColsToPercentage(AnalistaIndicesTable,[1,2,3]));
         chartAnalistaSUMIngresos.setDataTable(gca.convertColsToCurrency(groupedDataAnalistaSumIngresos,[1,2]));
@@ -408,10 +407,19 @@ function draw(jsonData) {
         chartAnalistaSumHoras.draw();
         chartAnalistaDesperdicio.draw();
 
-
-
     });
 
+    google.visualization.events.addListener(chart, 'ready', function () {
+        //$("#chart1_div").fadeIn(2000);
+        //
+        //setTimeout(function(){
+        //    $("#chart5_div").fadeIn(2000);
+        //    $("#chart6_div").fadeIn(2000);
+        //    $("#chart7_div").fadeIn(2000);
+        //    $("#chart8_div").fadeIn(2000);
+        //}, 10000 );
+
+    });
     new google.visualization.Dashboard(document.getElementById("dashboard_div")).
         bind(filtroCiudad, filtroCliente).
         bind(filtroCliente, filtroServicio).

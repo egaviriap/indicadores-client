@@ -39,7 +39,7 @@
                             <label for="servicioselect">Servicio</label><br/>
                             <select  class="selectpicker span2" title='Seleccione El Servicio'
                                      id="ServicioSelect">
-                                <option label="Dashboard" value="Dashboard">Dashboard</option>
+                                <option label="Dashboard" value="Dashboard">Reporte General</option>
                                 <option label="IndicesAnalista" value="IndicesAnalista">Panorama Por Analista</option>
                                 <option label="IndicesClientes" value="IndicesClientes">Panorama Por Cliente</option>
                                 <option label="HorasPorAnalista" value="HorasPorAnalista">Acompañamiento Diario</option>
@@ -101,8 +101,12 @@
                 <div id="dashboard_div" style="height: 20px; align-content: center"></div>
             </div>
         </div>
-
-
+        <!--<div id="buttonCharts" align="center">-->
+            <!--<input type="button" class="btn btn-default exportar" id="draw-chartClientes" value="Clientes" />-->
+            <!--<input type="button" class="btn btn-default exportar" id="draw-chartServicios" value="Servicio" />-->
+            <!--<input type="button" class="btn btn-default exportar" id="draw-chartCargo" value="Cargo" />-->
+            <!--<input type="button" class="btn btn-default exportar" id="draw-chartAnalista" value="Analista" />-->
+        <!--</div>-->
         <div id="myModal" class="modal fade">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -188,10 +192,10 @@
 
         return obj;
     }
-    // Load the Visualization API and the piechart package.
-    google.load('visualization', '1', {'packages':['corechart','controls','table', 'calendar']});
+    // Load the Visualization API and the charts package.
+    google.load('visualization', '1.1', {'packages':['corechart','controls','table', 'calendar']});
     // Set a callback to run when the Google Visualization API is loaded.
-    //google.setOnLoadCallback(drawChart);
+    google.setOnLoadCallback(drawChart);
 
     /**
      *
@@ -203,18 +207,16 @@
         list.innerHTML = (erase ? "" : list.innerHTML) + '<div class=' + classText  + '> <div id=' + idText + '></div></div>';
     }
 
+    function addDivDelayCharts(classText, idText) {
+        var list = document.getElementById('charts');
+        list.innerHTML = list.innerHTML + '<div class=' + classText  + '> <div id=' + idText + ' style="display:none;" ></div></div>';
+    }
+
     function addDynamicFilters(idText) {
         var list = document.getElementById('dashboard_div');
         list.innerHTML = list.innerHTML + '<div id=' + idText  + ' style="float:left; padding-left: 30px;"' + '> </div>';
     }
 
-    function addDynacimButtons(id,value){
-        var list = document.getElementById('charts');
-        list.innerHTML = list.innerHTML +
-        '<div align="center"> ' +
-             '<input type="button" class="btn btn-default btnCharts" id='+id+' value='+value+'> ' +
-        '</div>';
-    }
 
     var now = new Date();
 
@@ -348,6 +350,28 @@
             $("#myModal").modal('show');
         });
 
+        setTimeout(function(){
+            $("#chart5_div").fadeIn(2000);
+            $("#chart6_div").fadeIn(2000);
+            $("#chart7_div").fadeIn(2000);
+            $("#chart8_div").fadeIn(2000);
+        }, 10000 );
+
+        setTimeout(function(){
+            $("#chart9_div").fadeIn(2000);
+            $("#chart10_div").fadeIn(2000);
+            $("#chart11_div").fadeIn(2000);
+            $("#chart12_div").fadeIn(2000);
+
+        }, 15000 );
+
+        setTimeout(function(){
+            $("#chart17_div").fadeIn(2000);
+            $("#chart18_div").fadeIn(2000);
+            $("#chart19_div").fadeIn(2000);
+            $("#chart20_div").fadeIn(2000)
+        }, 25000 );
+
     });
 
     function changeService(service){
@@ -368,18 +392,6 @@
                 orientation: orientation,
                 seriesType: "bars",
                 displayAnnotations: true
-//                series: {
-//                    3: {type: "line",
-//                        pointShape: 'circle',
-//                        pointSize: 8
-//                    },
-//                    4: {type: "line",
-//                        pointShape: 'triangle',
-//                        pointSize: 8},
-//                    5: {type: "line",
-//                        pointShape: 'square',
-//                        pointSize: 8}
-//                }
             }
         });
     }

@@ -45,9 +45,9 @@
 .footerFloat {
   width: 100%;
 }
-@media all and (min-width: 950px) {
+@media all {
   #footer {
-    width: 980px;
+    width: 100%;
     margin: auto;
   }
   .footerFloat {

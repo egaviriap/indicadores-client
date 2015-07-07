@@ -33,7 +33,10 @@ ServicioUltimaFechaReporteXAnalista.prototype.saveDataXls = function(jsonData, q
 
 
 ServicioUltimaFechaReporteXAnalista.prototype.getResults = function(callback,ano,mes){
-    var params = null;
+    var params = [
+        new DBPreparedParams('ano',ano,'number'),
+        new DBPreparedParams('mes',mes,'number')
+    ];
     DBConnection.prepare(SQLQuery.UltimaFechaReporteXAnalista, params, callback);
 };
 

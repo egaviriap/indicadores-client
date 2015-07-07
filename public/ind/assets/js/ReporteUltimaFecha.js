@@ -5,13 +5,10 @@
 ;function draw(jsonData) {
     // Create our data table out of JSON data loaded from server.
     document.getElementById("btnExport").style.display = "block";
-    document.getElementById("anoLI").style.display = "none";
-    document.getElementById("mesLI").style.display = "none";
     var data = new google.visualization.DataTable(jsonData);
     var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));
-    //var formatter = new google.visualization.ArrowFormat();
-    //formatter.format(data, 2); // Apply formatter to second columna
+
     addDynamicFilters("filtroHorasR_div");
     addDynamicFilters("filtroDiferencia_div");
     addDynamicFilters("filtroAnalista_div");
