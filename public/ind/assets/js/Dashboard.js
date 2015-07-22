@@ -670,36 +670,40 @@
 
     //function reDraw(jsonData) {
     //    var dashboard = new Dashboard(jsonData, 'dashboard_div', 'charts');
+    //    dashboard.draw();
     //    for (section in dashboard.sections) {
     //        var sectionObject = dashboard.sections[section];
+    //        if (document.getElementById('checkbox' + section).checked)
+    //            sectionObject.isActive = true;
+    //        else sectionObject.isActive = false;
+    //    }
+    //    for (section in dashboard.sections) {
+    //        sectionObject = dashboard.sections[section];
     //        for (chart in dashboard.charts) {
-    //            if (document.getElementById('checkbox' + section).checked &&
-    //                sectionObject[chart].state  == "active") {
-    //                sectionObject[chart].isActive = true;
+    //            if (sectionObject.isActive && sectionObject[chart].state  == "active") {
     //                sectionObject[chart].state = "activated";
     //            }
-    //            if (document.getElementById('checkbox' + section).checked &&
+    //            if (sectionObject.isActive &&
     //                sectionObject[chart].state  == null) {
-    //                sectionObject[chart].isActive = true;
     //                sectionObject[chart].state = "active";
     //            }
-    //            if (!document.getElementById('checkbox' + section).checked) {
-    //                sectionObject[chart].isActive = false;
+    //            if (!sectionObject.isActive) {
     //                sectionObject[chart].state = null;
     //            }
-    //            if(sectionObject[chart].isActive && sectionObject[chart].state === "active")
+    //            setTimeout(3000);
+    //            if(sectionObject.isActive && sectionObject[chart].state === "active"){
     //                sectionObject[chart].chartWrapper.draw();
-    //            console.log(sectionObject[chart],sectionObject[chart].state);
+    //                console.log("im here");
+    //            }
     //        }
     //    }
     //
-    //    //dashboard.draw();
     //    document.getElementById("wrapperFooter").style.display = "block";
     //    return dashboard.controls;
     //}
 
     window.draw = draw;
-    //window.reDraw = reDraw;
+    window.reDraw = reDraw;
 
 })(window,GoogleChartAdapter, Aggregation);
 
