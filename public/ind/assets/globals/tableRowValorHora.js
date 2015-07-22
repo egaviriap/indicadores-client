@@ -28,11 +28,6 @@ TableRowValorHora.prototype.tableRowsValorHora =
                         return horasLaborales * vh;
                     },
                     [horasLaboralesColumn, vHColumn], [totalLaborales]);
-                //var valorHoraxF = aggr.customSum(dt,[{"column":col, "value":value}],
-                //    function(horasFacturables, vh){
-                //        return horasFacturables * vh;
-                //    },
-                //    [horasFacturablesColumn, vHColumn], [totalFacturable]);
 
                 var valorHoraxF = aggr.customSum(dt,[{"column":col, "value":value}],
                     function(horasFacturables, vh,  horasHASC, vhA){

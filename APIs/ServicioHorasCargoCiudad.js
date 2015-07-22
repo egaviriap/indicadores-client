@@ -5,8 +5,8 @@
 var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
-var CurrencyConverter = require('./CurrencyConverter.js');
 var connection = DBConnection.getConnection();
+var dlClass = require('./DownloadClass.js');
 
 var ServicioHorasCargoCiudad = function(){
 
@@ -22,19 +22,19 @@ var ServicioHorasCargoCiudad = function(){
         {label:'TotalHorasServicioCiudad', type:'number', format: null}
     ];
 };
-/*
- *  @private
- *
- */
 
+ServicioHorasCargoCiudad.prototype.saveDataXls = function(jsonData, query){
+
+    descarga = new dlClass('/../reports/ReportMaxTime.xlsx');
+    return descarga.getFile(jsonData, query);
+
+};
 
 ServicioHorasCargoCiudad.prototype.getResults = function(callback,ano,mes){
 
     var params = [
         new DBPreparedParams('ano',ano,'number'),
-        new DBPreparedParams('mes',mes,'number'),
-        new DBPreparedParams('sol',CurrencyConverter.PENtoCOP,'double'),
-        new DBPreparedParams('dollar',CurrencyConverter.USDtoCOP,'double')
+        new DBPreparedParams('mes',mes,'number')
     ];
     DBConnection.prepare(SQLQuery.HorasServicioCargoCiudad, params, callback);
 };

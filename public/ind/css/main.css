@@ -4169,7 +4169,7 @@ button.close {
 .footerFloat {
   width: 100%; }
 
-@media all {
+@media all and (min-width: 950px) {
   #footer {
     width: 100%;
     margin: auto; }
@@ -4184,3 +4184,11 @@ button.close {
   overflow: hidden;
   padding-left: 20%;
   padding-right: 20%; }
+
+.filter {
+  display: inline-block;
+  padding-left: 30px;
+  align-content: center; }
+
+.checkbox {
+  margin-left: 20%; }

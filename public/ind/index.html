@@ -1,4 +1,3 @@
-
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -9,17 +8,17 @@
 
     <title>Indicadores De Choucair</title>
 </head>
-<body data-ano="2015" data-mes="1" data-url="IndicesClientes" data-analista="1">
+<body data-ano="2015" data-mes="1" data-url="Dashboard" data-analista="1">
 
     <div class="container main-content">
         <div class="jumbotron">
             <img class="img-rounded" id="img" src="../../common/img/logochoucair.png" alt="" width="262" height="66">
         </div>
-       <div align="right">
-           <a href="/signout">
-            <div class="btn btn-warning signout">Sign Out</div>
-        </a>
-       </div>
+        <div align="right">
+            <a href="/signout">
+                <div class="btn btn-warning signout">Sign Out</div>
+            </a>
+        </div>
         <!-- Navigation -->
         <nav class="navbar navbar-default">
             <div class="container">
@@ -40,13 +39,12 @@
                             <select  class="selectpicker span2" title='Seleccione El Servicio'
                                      id="ServicioSelect">
                                 <option label="Dashboard" value="Dashboard">Reporte General</option>
-                                <option label="IndicesAnalista" value="IndicesAnalista">Panorama Por Analista</option>
-                                <option label="IndicesClientes" value="IndicesClientes">Panorama Por Cliente</option>
                                 <option label="HorasPorAnalista" value="HorasPorAnalista">Acompañamiento Diario</option>
                                 <option label="HorasPorCargoPorCiudad" value="HorasCargoCiudad">Horas Por Servicio/Cargo</option>
-                                <option label="FaltaTarifames" value="FaltaTarifaMes">Reporte De Tarifas </option>
+                                <option label="ReporteDeTarifas" value="ReporteDeTarifas">Reporte De Tarifas </option>
                                 <option label="ReporteMaxTime" value="ReporteMaxTime">Reporte De MaxTime </option>
                                 <option label="ReporteUltimaFecha" value="ReporteUltimaFecha">Reporte Ultima Fecha </option>
+                                <option label="reporteHorasAdicionales" value="reporteHorasAdicionales">Reporte Horas Adicionales </option>
                             </select>
                         </li>
                         <li class="page-scroll" id="anoLI" style="margin: 1em;">
@@ -84,29 +82,44 @@
                             </select>
                         </li>
                     </ul>
+
                 </div>
+
                 <!-- /.navbar-collapse -->
             </div>
             <!-- /.container-fluid -->
         </nav>
-       <div align="left">
-           <button type="button" id="btnModal" class="btn btn-primary btn-sm exportar"style="float:right;">
-               <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-           </button>
-       </div>
+            <div id="checkboxesCharts" class="checkbox">
+                <label>
+                    <input id="checkboxciudad"  class="checkbox-inline" type="checkbox" name="Ciudad" value="Ciudad">Ciudad
+                </label>
+                <label>
+                    <input id="checkboxcliente" class="checkbox-inline" type="checkbox" name="Cliente" value="Cliente">Cliente
+                </label>
+                <label>
+                    <input id="checkboxservicio" class="checkbox" type="checkbox" name="Servicio" value="Servicio">Servicio
+                </label>
+                <label>
+                    <input id="checkboxcargo" class="checkbox" type="checkbox" name="Cargo" value="Servicio">Cargo
+                </label>
+                <label>
+                    <input id="checkboxanalista" class="checkbox" type="checkbox" name="Analista" value="Analista">Analista
+                </label>
+            </div>
+        <div align="left">
+            <button type="button" id="btnModal" class="btn btn-primary btn-sm exportar"style="float:right;">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </button>
+        </div>
 
         <H3>FILTROS</H3>
         <div class="panel panel-primary">
             <div class="panel-body">
-                <div id="dashboard_div" style="height: 20px; align-content: center"></div>
+                <div id="dashboard_div"></div>
             </div>
         </div>
-        <!--<div id="buttonCharts" align="center">-->
-            <!--<input type="button" class="btn btn-default exportar" id="draw-chartClientes" value="Clientes" />-->
-            <!--<input type="button" class="btn btn-default exportar" id="draw-chartServicios" value="Servicio" />-->
-            <!--<input type="button" class="btn btn-default exportar" id="draw-chartCargo" value="Cargo" />-->
-            <!--<input type="button" class="btn btn-default exportar" id="draw-chartAnalista" value="Analista" />-->
-        <!--</div>-->
+
+
         <div id="myModal" class="modal fade">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -164,17 +177,18 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="buttonDiv" align="right">
-            <input type="button" class="btn btn-default exportar" id="btnExport" value="Exportar a Excel" style="display:none;" />
-        </div>
-        <div id="charts">
-           <div align="middle"><img src="assets/img/preloader.gif" alt=""/></div>
-        </div>
+    </div>
+    <div id="buttonDiv" align="right">
+        <input type="button" class="btn btn-default exportar" id="btnExport" value="Exportar a Excel"  />
+    </div>
+    <div id="imgGif" align="middle"><img src="assets/img/preloader.gif" alt=""/></div>
+        <div id="charts"></div>
+
     </div>
 
 
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src="lib/all.min.js"></script>
 
 <script type="text/javascript">
@@ -193,67 +207,53 @@
         return obj;
     }
     // Load the Visualization API and the charts package.
-    google.load('visualization', '1.1', {'packages':['corechart','controls','table', 'calendar']});
+    google.load('visualization', '1', {'packages':['corechart','controls','table', 'calendar']});
     // Set a callback to run when the Google Visualization API is loaded.
-    google.setOnLoadCallback(drawChart);
+//    google.setOnLoadCallback(drawChart);
 
-    /**
-     *
-     * @param <String> classText
-     * @param <String>idText
-     */
-    function addDivCharts(classText, idText, erase) {
-        var list = document.getElementById('charts');
-        list.innerHTML = (erase ? "" : list.innerHTML) + '<div class=' + classText  + '> <div id=' + idText + '></div></div>';
+
+    function addDivCharts(classText, idText) {
+        return '<div class="' + classText  + '"> <div id="' + idText + '"></div></div>';
     }
-
-    function addDivDelayCharts(classText, idText) {
+    function addChartstoHTML(text) {
         var list = document.getElementById('charts');
-        list.innerHTML = list.innerHTML + '<div class=' + classText  + '> <div id=' + idText + ' style="display:none;" ></div></div>';
+        list.innerHTML = text;
     }
-
     function addDynamicFilters(idText) {
-        var list = document.getElementById('dashboard_div');
-        list.innerHTML = list.innerHTML + '<div id=' + idText  + ' style="float:left; padding-left: 30px;"' + '> </div>';
+        return '<div id=' + idText  + ' style="float:left; padding-left: 30px;"' + '> </div>';
     }
-
-
+    function addFilterstoHTML(text) {
+        var list = document.getElementById('dashboard_div');
+        list.innerHTML = text;
+    }
     var now = new Date();
-
     $("#mesSelect").on("change", function(e){
         $.data(document.body, "mes", this.value);
         onChange();
     });
-
     $("#anoSelect").on("change", function(e){
         $.data(document.body, "ano", this.value);
         onChange();
     });
-
     $("#ServicioSelect").on("change", function(e){
         $.data(document.body, "url", this.value);
         onChange();
     });
-
     $("#AnalistaSelect").on("change", function(e){
         $.data(document.body, "analista", this.value);
         onChange();
     });
-
     $('#btnExport').click(function(){
+        var urls = $.data(document.body, "url");
+        download(urls);
+    });
+    function download(service){
         var data = {
             ano: $.data(document.body, "ano"),
             mes: $.data(document.body, "mes")
         };
-        var urls = $.data(document.body, "url");
-        if(urls == 'ReporteMaxTime'){
-            window.open(config.apiEndpoint + 'reporteMaxTime?'+$.param(data));
-        }
-        else {
-            window.open(config.apiEndpoint + 'reporteUltimaFecha?' + $.param(data));
-        }
-    });
-
+        window.open(config.apiEndpoint + 'download'+service+ '?' +$.param(data));
+    }
     function onChange(){
         // actualizar el ano y mes
         var data = {
@@ -265,21 +265,6 @@
         window.location.hash = "#?"+$.param(data);
         window.location.reload();
     }
-
-    /**
-     *
-     * @param rows
-     * @param chart
-     * @param heightPerRow
-     */
-    function setOptionsCharts(rows, chart, heightPerRow){
-        var numberRows = rows.getNumberOfRows();
-        chart.setOption('height',numberRows*heightPerRow + 120);
-        chart.setOption('chartArea.height', numberRows*heightPerRow);
-        chart.setOption('fontSize',12);
-    }
-
-
     //fill the dynamically the analysts <select>
     $.getJSON(config.apiEndpoint + 'IdNombreAnalista', function(data){
 //        $('#AnalistaSelect').append('<option value="' + '0' + '">' + "Selecctione Uno" + '</option>');
@@ -287,7 +272,26 @@
             $('#AnalistaSelect').append('<option value="' + val.Id + '">' + val.Nombre + '</option>');
         })
     });
+    $(document).ready(function(){
+        var searchObj = searchToObject(window.location.hash.substring(1)),
+                servicio = searchObj.url || "Dashboard",
+                ano = searchObj.ano || now.getFullYear(),
+                mes = searchObj.mes || (now.getMonth()+1);
+        changeService(servicio);
+        $("#mesSelect").val(mes);
+        $.data(document.body, "mes", mes);
+        $("#anoSelect").val(ano);
+        $.data(document.body, "ano", ano);
+        $("#ServicioSelect").val(servicio);
+        $.data(document.body, "url", servicio);
+        $("#AnalistaSelect").val(searchObj.analista);
+        $.data(document.body, "analista", searchObj.analista);
+        drawChart(null, ano, mes, servicio, parseInt(searchObj.analista));
 
+        $("#btnModal").click(function(){
+            $("#myModal").modal('show');
+        });
+    });
     function convertToDate(data){
         var dateIndexes = [];
         data['cols'].forEach(function(col, i){
@@ -308,11 +312,10 @@
         });
         return data;
     }
-
     function drawChart(e, ano, mes, url, analista) {
         var ano = ano || now.getFullYear();
         var mes = mes || now.getMonth()+1;
-        var urls = url || "IndicesClientes";
+        var urls = url || "Dashboard";
         var analista = analista || 0;
         var jsonData = $.ajax({
             url: config.apiEndpoint + urls,
@@ -321,66 +324,25 @@
         }).then(function(data, textStatus){
             if(url){
                 changeService(urls);
-                draw(convertToDate(data));
-            }
+                var dashboard = draw(convertToDate(data));
+                google.visualization.events.addListener(dashboard, "ready", function(){
+                    $("input[type='checkbox']").on('change', function(){
+                        draw(convertToDate(data));
+                    });
+                    document.getElementById("imgGif").style.display = "none";
 
+                });
+            }
         }, function(xhr, textStatus){
             console.log("ERROR 123");
         });
     }
-
-    $(document).ready(function(){
-        var searchObj = searchToObject(window.location.hash.substring(1)),
-                servicio = searchObj.url || "IndicesClientes",
-                ano = searchObj.ano || now.getFullYear(),
-                mes = searchObj.mes || (now.getMonth()+1);
-        changeService(servicio);
-        $("#mesSelect").val(mes);
-        $.data(document.body, "mes", mes);
-        $("#anoSelect").val(ano);
-        $.data(document.body, "ano", ano);
-        $("#ServicioSelect").val(servicio);
-        $.data(document.body, "url", servicio);
-        $("#AnalistaSelect").val(searchObj.analista);
-        $.data(document.body, "analista", searchObj.analista);
-        drawChart(null, ano, mes, servicio, parseInt(searchObj.analista));
-
-
-        $("#btnModal").click(function(){
-            $("#myModal").modal('show');
-        });
-
-        setTimeout(function(){
-            $("#chart5_div").fadeIn(2000);
-            $("#chart6_div").fadeIn(2000);
-            $("#chart7_div").fadeIn(2000);
-            $("#chart8_div").fadeIn(2000);
-        }, 10000 );
-
-        setTimeout(function(){
-            $("#chart9_div").fadeIn(2000);
-            $("#chart10_div").fadeIn(2000);
-            $("#chart11_div").fadeIn(2000);
-            $("#chart12_div").fadeIn(2000);
-
-        }, 15000 );
-
-        setTimeout(function(){
-            $("#chart17_div").fadeIn(2000);
-            $("#chart18_div").fadeIn(2000);
-            $("#chart19_div").fadeIn(2000);
-            $("#chart20_div").fadeIn(2000)
-        }, 25000 );
-
-    });
-
     function changeService(service){
         document.getElementById("serviceScript")
         .setAttribute("src","./assets/js/"+service+".js")
     }
-
-    function comboCharts(chartType,containerId, title,vAxisTitle, hAxisTitle,format,height, orientation, colors){
-        return chart = new google.visualization.ChartWrapper({
+    function setChartWrapper(chartType,containerId, title,vAxisTitle, hAxisTitle,format,height, orientation, colors, width){
+        var chart = new google.visualization.ChartWrapper({
             'chartType': chartType,
             'containerId': containerId,
             'options': {
@@ -388,119 +350,47 @@
                 vAxis: {title: vAxisTitle, minValue: 0, format: format},
                 hAxis: {title: hAxisTitle, minValue: 0, format: format},
                 height: height,
+                width: width,
                 colors: colors,
-                orientation: orientation,
-                seriesType: "bars",
-                displayAnnotations: true
+                orientation: orientation
             }
         });
+        return chart;
     }
-    function setViewIngresos(chart){
+    function setChartAnnotation(chart,cols){
+        var columnsToAnnotate = [];
+        var columnCounter = 0 ;
+        var len = cols.length;
+        for(var i = 0; i<=len ; i++) {
+            if (columnCounter === 0){
+                columnsToAnnotate.push(columnCounter);
+            }
+            else {
+                columnsToAnnotate.push(columnCounter);
+                columnsToAnnotate.push({
+                    calc: "stringify",
+                    sourceColumn: columnCounter,
+                    type: "string",
+                    role: "annotation"
+                });
+            }
+            columnCounter++;
+        }
         chart.setView({
-            columns: ([0,
-                1,
-                { calc: "stringify",
-                    sourceColumn: 1,
-                    type: "string",
-                    role: "annotation" },
-                2,
-                { calc: "stringify",
-                    sourceColumn: 2,
-                    type: "string",
-                    role: "annotation" }
-            ])
-        });
+            columns: (columnsToAnnotate)});
     }
-
-    function setViewSumHoras(chart){
-        chart.setView({
-            columns: ([0,
-                1,
-                { calc: "stringify",
-                    sourceColumn: 1,
-                    type: "string",
-                    role: "annotation" },
-                2,
-                { calc: "stringify",
-                    sourceColumn: 2,
-                    type: "string",
-                    role: "annotation" },
-                3,
-                { calc: "stringify",
-                    sourceColumn: 3,
-                    type: "string",
-                    role: "annotation" },
-                4,
-                { calc: "stringify",
-                    sourceColumn: 4,
-                    type: "string",
-                    role: "annotation" },
-                5,
-                { calc: "stringify",
-                    sourceColumn: 5,
-                    type: "string",
-                    role: "annotation" },
-                6,
-                { calc: "stringify",
-                    sourceColumn: 6,
-                    type: "string",
-                    role: "annotation" }
-            ])
-        });
+    function setChartsOptions(rows, chart, heightPerRow){
+        var numberRows = rows.getNumberOfRows ? rows.getNumberOfRows() : rows.rows.length;
+        chart.setOption('height',numberRows*heightPerRow + 120);
+        chart.setOption('chartArea.height', numberRows*heightPerRow);
+        chart.setOption('fontSize',8);
     }
-    function setViewSumDesperdicioHoras(chart){
-        chart.setView({
-            columns: ([0,
-                1,
-                { calc: "stringify",
-                    sourceColumn: 1,
-                    type: "string",
-                    role: "annotation" },
-                2,
-                { calc: "stringify",
-                    sourceColumn: 2,
-                    type: "string",
-                    role: "annotation" },
-                3,
-                { calc: "stringify",
-                    sourceColumn: 3,
-                    type: "string",
-                    role: "annotation" },
-                4,
-                { calc: "stringify",
-                    sourceColumn: 4,
-                    type: "string",
-                    role: "annotation" },
-                5,
-                { calc: "stringify",
-                    sourceColumn: 5,
-                    type: "string",
-                    role: "annotation" },
-                6,
-                { calc: "stringify",
-                    sourceColumn: 6,
-                    type: "string",
-                    role: "annotation" },
-                7,
-                { calc: "stringify",
-                    sourceColumn: 7,
-                    type: "string",
-                    role: "annotation" },
-                8,
-                { calc: "stringify",
-                    sourceColumn: 8,
-                    type: "string",
-                    role: "annotation" }
-            ])
-        });
-    }
-
 </script>
 <script id="serviceScript"></script>
 
     <div id="wrapperFooter" style="display:none;">
         <div id="footer">
-            <h1><p>Agrupador de Actividades</p></h1>
+            <h1>Agrupador de Actividades</h1>
             <div class="footerFloat">
                 <h5><b>Compensatorios</b></h5>
                 <ul>

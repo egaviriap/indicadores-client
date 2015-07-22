@@ -2,7 +2,7 @@
  * Created by egaviria on 08/05/2015.
  */
 
-function Aggregation(){};
+var Aggregation = {};
 /**
  * @param {Array<Object>} filters
  * @param {string number} Object.value
@@ -12,7 +12,7 @@ function Aggregation(){};
  * @param {Array<number>=} cols
  * @param {Array<number>=} values
  */
-Aggregation.prototype.customAggregation = function(dataTable, filters, rowAggregation, colAggregation, cols, values){
+Aggregation.customAggregation = function(dataTable, filters, rowAggregation, colAggregation, cols, values){
     var rowsIndex = dataTable.getFilteredRows(filters);
     var aggregatedValue = 0;
     var cols = cols || [];
@@ -31,8 +31,8 @@ Aggregation.prototype.customAggregation = function(dataTable, filters, rowAggreg
     return aggregatedValue;
 };
 
-Aggregation.prototype.customSum = function(dataTable,filters, rowAggregation, cols, values){
-    var sum = this.customAggregation(dataTable,filters, rowAggregation, sumValues, cols, values);
+Aggregation.customSum = function(dataTable,filters, rowAggregation, cols, values){
+    var sum = Aggregation.customAggregation(dataTable,filters, rowAggregation, sumValues, cols, values);
     function sumValues(rowAggregation, accumulatedValue){
         return rowAggregation + accumulatedValue;
     };

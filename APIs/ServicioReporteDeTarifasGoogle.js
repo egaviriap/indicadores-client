@@ -7,8 +7,9 @@ var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
 var connection = DBConnection.getConnection();
 var CurrencyConversion = require('./CurrencyConverter.js');
+var dlClass = require('./DownloadClass.js');
 
-var ServicioFaltaTarifaMesGoogle = function(){
+var ServicioReporteDeTarifasGoogle = function(){
 
     this.cols = [
 
@@ -20,12 +21,15 @@ var ServicioFaltaTarifaMesGoogle = function(){
 
     ];
 };
-/*
- *  @private
- *
- */
 
-ServicioFaltaTarifaMesGoogle.prototype.getResults = function(callback,ano,mes){
+ServicioReporteDeTarifasGoogle.prototype.saveDataXls = function(jsonData, query){
+
+    descarga = new dlClass('/../reports/ReportMaxTime.xlsx');
+    return descarga.getFile(jsonData, query);
+
+};
+
+ServicioReporteDeTarifasGoogle.prototype.getResults = function(callback,ano,mes){
 
     var params = [
         new DBPreparedParams('ano',ano,'number'),
@@ -33,8 +37,8 @@ ServicioFaltaTarifaMesGoogle.prototype.getResults = function(callback,ano,mes){
         new DBPreparedParams('sol',CurrencyConversion.PENtoCOP,'double'),
         new DBPreparedParams('dollar',CurrencyConversion.USDtoCOP,'double')
     ];
-    DBConnection.prepare(SQLQuery.FaltaTarifaMes, params, callback);
+    DBConnection.prepare(SQLQuery.ReporteDeTarifas, params, callback);
 };
 
 
-module.exports = ServicioFaltaTarifaMesGoogle;
+module.exports = ServicioReporteDeTarifasGoogle;

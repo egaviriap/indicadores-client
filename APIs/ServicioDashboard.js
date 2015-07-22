@@ -10,8 +10,9 @@ var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
 var CurrencyConversion = require('./CurrencyConverter.js');
 var connection = DBConnection.getConnection();
+var dlClass = require('./DownloadClass.js');
 
-var ServicioIndicesAnalistas = function(){
+var ServicioDashboard = function(){
         this.cols = [
             {label:'ClienteN', type:'string', format: null},
             {label:'ServicioN', type:'string', format: null},
@@ -48,12 +49,15 @@ var ServicioIndicesAnalistas = function(){
 
     ];
 };
-/*
- *  @private
- *
- */
 
-ServicioIndicesAnalistas.prototype.getResults = function(callback,ano,mes){
+ServicioDashboard.prototype.saveDataXls = function(jsonData, query){
+
+    descarga = new dlClass('/../reports/ReportMaxTime.xlsx');
+    return descarga.getFile(jsonData, query);
+
+};
+
+ServicioDashboard.prototype.getResults = function(callback,ano,mes){
 
     var params = [
         new DBPreparedParams('ano',ano,'number'),
@@ -65,5 +69,5 @@ ServicioIndicesAnalistas.prototype.getResults = function(callback,ano,mes){
 };
 
 
-module.exports = ServicioIndicesAnalistas;
+module.exports = ServicioDashboard;
 

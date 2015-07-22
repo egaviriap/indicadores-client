@@ -3,16 +3,14 @@ var url = require('url');
 var app = require("../app");
 
 var ServicioHorasCargoCiudad = require('./ServicioHorasCargoCiudad.js');
-var ServicioIndicesAnalista = require('./ServicioIndicesAnalista.js');
 var ServicioDashboard = require('./ServicioDashboard.js');
 var GoogleChartAdapter = require('./GoogleChartAdapter.js');
 var ServicioIdNombreAnalista = require('./ServicioIdNombreAnalista.js');
 var ServicioHorasPorAnalista = require('./ServicioHorasPorAnalista.js');
-var ServicioIndiceClientes = require('./ServicioIndicesClientes.js');
-var ServicioFaltaTarifaMes = require('./ServicioFaltaTarifaMes.js');
-var ServicioFaltaTarifaMesGoogle = require('./ServicioFaltaTarifaMesGoogle.js');
+var ServicioReporteDeTarifas = require('./ServicioReporteDeTarifasGoogle.js');
 var ServicioReporteMaxTime = require('./ServicioReporteMaxTime.js');
 var ServicioUltimaFechaReporteXAnalista = require('./ServicioUltimaFechaReporteXAnalista.js');
+var ServicioReporteHorasAdicionales = require('./ServicioHorasAdicionales.js');
 
 var server2 = http.createServer(app);
 server2.listen(3000);
@@ -28,10 +26,6 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioHorasCargoCiudad();
         servicio.getResults(writeData(servicio),ano,mes);
     }
-    if (/^\/api\/IndicesAnalista/.test(req.url)) {
-        servicio = new ServicioIndicesAnalista();
-        servicio.getResults(writeData(servicio),ano,mes);
-    }
     if (/^\/api\/Dashboard/.test(req.url)) {
         servicio = new ServicioDashboard();
         servicio.getResults(writeData(servicio),ano,mes);
@@ -44,16 +38,8 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioHorasPorAnalista();
         servicio.getResults(writeData(servicio), analista);
     }
-    if (/^\/api\/IndicesClientes/.test(req.url)) {
-        servicio = new ServicioIndiceClientes();
-        servicio.getResults(writeData(servicio),ano,mes);
-    }
-    if (/^\/api\/FaltaTarifaMesInterno/.test(req.url)) {
-        servicio = new ServicioFaltaTarifaMes();
-        servicio.getResults(writeDataNoGoogle(),ano, mes);
-    }
-    if (/^\/api\/FaltaTarifaMes/.test(req.url)) {
-        servicio = new ServicioFaltaTarifaMesGoogle();
+    if (/^\/api\/ReporteDeTarifas/.test(req.url)) {
+        servicio = new ServicioReporteDeTarifas();
         servicio.getResults(writeData(servicio),ano, mes);
     }
     if (/^\/api\/ReporteMaxTime/.test(req.url)) {
@@ -64,16 +50,36 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioUltimaFechaReporteXAnalista();
         servicio.getResults(writeData(servicio),ano, mes);
     }
-    if (/^\/api\/reporteMaxTime/.test(req.url)) {
+    if (/^\/api\/reporteHorasAdicionales/.test(req.url)) {
+        servicio = new ServicioReporteHorasAdicionales();
+        servicio.getResults(writeData(servicio, parsedUrl.query), ano, mes);
+    }
+    //download Reports--------
+
+    if (/^\/api\/downloadReporteMaxTime/.test(req.url)) {
         servicio = new ServicioReporteMaxTime();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
-
-    if (/^\/api\/reporteUltimaFecha/.test(req.url)) {
+    if (/^\/api\/downloadReporteUltimaFecha/.test(req.url)) {
         servicio = new ServicioUltimaFechaReporteXAnalista();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
-
+    if (/^\/api\/downloadReporteHorasAdicionales/.test(req.url)) {
+        servicio = new ServicioReporteHorasAdicionales();
+        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
+    }
+    if (/^\/api\/downloadDashboard/.test(req.url)) {
+        servicio = new ServicioDashboard();
+        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
+    }
+    if (/^\/api\/downloadHorasCargoCiudad/.test(req.url)) {
+        servicio = new ServicioHorasCargoCiudad();
+        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
+    }
+    if (/^\/api\/downloadReporteDeTarifas/.test(req.url)) {
+        servicio = new ServicioReporteDeTarifas();
+        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
+    }
     function writeData(servicio){
         return function(data){
             var Charts = new GoogleChartAdapter();

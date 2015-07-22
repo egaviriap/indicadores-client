@@ -6,6 +6,7 @@
     console.log(jsonData);
     var gca = new GoogleChartAdapter();
 
+    document.getElementById("charts").style.display = "block";
 
     // Create our data table out of JSON data loaded from server.
     var data = new google.visualization.DataTable(jsonData);

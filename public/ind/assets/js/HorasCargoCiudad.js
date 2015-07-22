@@ -2,163 +2,286 @@
  * Created by egaviria on 28/04/2015.
  */
 
+(function(globals, GoogleChartAdapter){
+    var HorasCargoCiudad = function(jsonData, controlsID, chartsID){
 
-;function draw(jsonData) {
-    // Create our data table out of JSON data loaded from server.
-    var data = new google.visualization.DataTable(jsonData);
-    var dashboard = new google.visualization.Dashboard(
-        document.getElementById('dashboard_div'));
-    addDivCharts("col-sm-6","chart1_div", true);
-    addDivCharts("col-sm-6","chart2_div");
-    addDivCharts("col-sm-6","chart3_div");
-    addDivCharts("col-sm-6","chart4_div");
-    addDivCharts("col-sm-6","chart5_div");
-    addDivCharts("col-sm-6","chart6_div");
-    addDivCharts("col-sm-12","TableChart_div");
+        var proxyColumns = HorasCargoCiudad.proxy.columns,
+            gca = GoogleChartAdapter;
+        this.data = new google.visualization.DataTable(jsonData);
+        this.controls = new google.visualization.Dashboard(document.getElementById(controlsID));
+        this.filters = HorasCargoCiudad.filters;
+        this.sections = {
+            ciudad: HorasCargoCiudad.ciudad,
+            servicio: HorasCargoCiudad.servicio,
+            cargo: HorasCargoCiudad.cargo
+        };
+        this.charts = {
+            ingresos: {
+                transform: {
+                    fx: gca.convertColsToCurrency,
+                    columns: [1]
+                },
+                scale: 0.5,
+                columns: [
+                    proxyColumns.ingresosPorServicioPorCargo
+                ]
 
+            },
+            horas: {
+                transform: null,
+                scale: 0.5,
+                columns: [
+                    proxyColumns.totalHorasServicioporCargo
+                ]
+            }
+        };
+        this.tableChart = {
+            transform: null,
+            scale: 1
+        };
+        this.createTemplate(controlsID, chartsID);
+    };
+    HorasCargoCiudad.proxy = {
+        columns: {
+            cargo:{
+                index: 0,
+                label: 'CargoN'
+            },
+            servicio:{
+                index: 1,
+                label: 'ServicioN'
+            },
+            ciudadCliente: {
+                index:2,
+                label: 'CiudadClienteN'
+            },
+            totalHorasServicioporCargo: {
+                index:3,
+                label: 'HorasServicioCargo'
+            },
+            ingresosPorServicioPorCargo: {
+                index:4,
+                label: 'Ingresos'
+            },
+            promedioValorHora: {
+                index:5,
+                label: 'promedioValorHora'
+            },
+            totalHorasPorCargo: {
+                index: 6,
+                label: 'TotalHorasCargo'
+            },
+            indiceServicioCargo:{
+                index:  7,
+                label: 'indiceServicioCargo'
+            },
+            totalHorasServicioCiudad:{
+                index:  8,
+                label: 'TotalHorasCiudad'
+            }
+        }
+    };
+    HorasCargoCiudad.filters = {
+        ciudad: {
+            elemID: "filterCiudad",
+            columnName: "CiudadClienteN",
+            allowWrite: false,
+            allowMultiple: true,
+            label: "Ciudad"
+        },
+        servicio: {
+            elemID: "filterServicio",
+            columnName: "ServicioN",
+            allowWrite: false,
+            allowMultiple: true,
+            label: "Servicio"
+        },
+        cargo: {
+            elemID: "filterCargo",
+            columnName: "CargoN",
+            allowWrite: false,
+            allowMultiple: true,
+            label: "Cargo"
+        }
+    };
+    HorasCargoCiudad.ciudad = {
+        column: HorasCargoCiudad.proxy.columns.ciudadCliente.index,
+        ingresos: {
+            elemID: "chart1_div",
+            chartOptions: ["BarChart","chart1_div","Total Ingresos Por Ciudad",
+                "Ingresos","Ciudad","$#,###.###",400,"vertical",["#5e8043"]],
+            chartWrapper: {}
+        },
+        horas: {
+            elemID:"chart2_div",
+            chartOptions:["BarChart","chart2_div","Totales de Horas Por Ciudad",
+                "Horas","Ciudad","decimal",400,"vertical"],
+            chartWrapper: {}
+        }
 
-    var filtroCargo = filters("CategoryFilter","filtroCargo_div","CargoN",false,true,"Todos","Cargo");
-    var filtroServicio = filters("CategoryFilter","filtroServicio_div","ServicioN",false,true,"Todos","Servicio");
-    var filtroCiudad = filters("CategoryFilter","filtroCiudad_div","CiudadClienteN",false,true,"Todos","Ciudad");
-
-    addDynamicFilters("filtroCiudad_div");
-    addDynamicFilters("filtroCargo_div");
-    addDynamicFilters("filtroServicio_div");
-
-
-    /**
-     *
-     * @param {string} typeFileter
-     * @param {string} containerId
-     * @param {string} columnLabel
-     * @param {boolean} allowTyping
-     * @param {boolean} allowMultiple
-     * @param {string} caption
-     * @returns {google.visualization.ControlWrapper}
-     */
-    function filters(typeFileter,containerId, columnLabel,allowTyping,allowMultiple,caption, label){
-        var filter = new google.visualization.ControlWrapper({
-            'controlType': typeFileter,
+    };
+    HorasCargoCiudad.servicio = {
+        column: HorasCargoCiudad.proxy.columns.servicio.index,
+        ingresos: {
+            elemID: "chart3_div",
+            chartOptions: ["BarChart","chart3_div","Total Ingresos Por Servicio",
+                "Ingresos","Servicio","$#,###.###",400,"vertical",["#5e8043"]],
+            chartWrapper: {}
+        },
+        horas: {
+            elemID:"chart4_div",
+            chartOptions:["BarChart","chart4_div","Totales de Horas Por Servicio",
+                "Horas","Servicio","decimal",400,"vertical"],
+            chartWrapper: {}
+        }
+    };
+    HorasCargoCiudad.cargo = {
+        column: HorasCargoCiudad.proxy.columns.cargo.index,
+        ingresos: {
+            elemID: "chart5_div",
+            chartOptions: ["BarChart","chart5_div","Total Ingresos Por Cargo",
+                "Ingresos","Cargo","$#,###.###",400,"vertical",["#5e8043"]],
+            chartWrapper: {}
+        },
+        horas: {
+            elemID:"chart6_div",
+            chartOptions:["BarChart","chart6_div","Totales de Horas Por Cargo",
+                "Horas","Cargo","decimal",400,"vertical"],
+            chartWrapper: {}
+        }
+    };
+    HorasCargoCiudad.transformToClass = function(scale){
+        var classname = "";
+        switch(scale){
+            case 0.3:
+                classname = "col-sm-4";
+                break;
+            case 0.5:
+                classname = "col-sm-6";
+                break;
+            case 1:
+            default:
+                classname = "col-sm-12";
+        }
+        return classname;
+    };
+    HorasCargoCiudad.createFilter = function(containerId,columnLabel,allowTyping,allowMultiple,label){
+        return new google.visualization.ControlWrapper({
+            'controlType': "CategoryFilter",
             'containerId': containerId,
             'options': {
                 'filterColumnLabel': columnLabel,
                 'ui': {'labelStacking': 'vertical',
+                    'allowNone': true,
                     'allowTyping': allowTyping,
                     'allowMultiple': allowMultiple,
-                    'caption': caption,
+                    'caption': 'Todos',
                     'label': label}
-
             }
         });
-
-        return filter;
-    }
-
-    var chartCiudadHoras = charts("BarChart","chart1_div",
-        "Totales de Horas Por Ciudad",
-        "Horas","Ciudad","decimal",400,"horizontal");
-    var chartCiudadIngesos = charts("BarChart","chart2_div",
-        "Total Ingresos Por Ciudad",
-        "Ingresos","Ciudad","$#,###.###",400,"horizontal",["#5e8043"]);
-
-    var chartCargoHoras = charts("BarChart","chart3_div",
-        "Totales de Horas Por Cargo",
-        "Horas","Cargo","decimal",400,"horizontal");
-    var chartCargoIngesos = charts("BarChart","chart4_div",
-        "Total Ingresos Por Cargo",
-        "Ingresos","Cargo","$#,###.###",400,"horizontal",["#5e8043"]);
-
-
-    var chartServicioHoras = charts("BarChart","chart5_div",
-        "Totales de Horas Por Servicio",
-        "Horas","Servicio","decimal",400,"horizontal");
-
-    var chartServicioIngesos = charts("BarChart","chart6_div",
-        "Total Ingresos Por Servicio",
-        "Ingresos","Servicio","$#,###.###",400,"horizontal",["#5e8043"]);
-
-    function charts(chartType,containerId, title,vAxisTitle, hAxisTitle,format, height, orientation,  colors){
-        var chart = new google.visualization.ChartWrapper({
-            'chartType': chartType,
-            'containerId': containerId,
-            'options': {
-                title: title,
-                vAxis: {title: vAxisTitle, minValue: 0, format: format},
-                hAxis: {title: hAxisTitle, format: format},
-                height: height,
-                colors: colors,
-                orientation: orientation
+    };
+    HorasCargoCiudad.createTableChart = function(){
+        return new google.visualization.ChartWrapper({
+            chartType: 'Table',
+            containerId: 'tableChart_div',
+            options: {
+                page: 'enable',
+                pageSize: 5,
+                height: "250px"
             }
         });
-        return chart;
-    }
-
-
-    var tableChart = new google.visualization.ChartWrapper({
-        'chartType': 'Table',
-        'containerId': 'TableChart_div',
-        options: {
-            // minimize the footprint of the table in HTML
-            page: 'enable',
-            pageSize: 10
+    };
+    HorasCargoCiudad.prototype.draw = function(){
+        var tableChart = HorasCargoCiudad.createTableChart();
+        var dashboard = this;
+        google.visualization.events.addListener(tableChart, 'ready', function () {
+            var dt = tableChart.getDataTable();
+            dashboard._fillData(dt);
+        });
+        this._createDashboard(tableChart);
+    };
+    HorasCargoCiudad.prototype._fillData = function(tableChart){
+        for (section in this.sections) {
+            var sectionObject = this.sections[section], dataTable;
+            for (chart in this.charts) {
+                var chartObject = this.charts[chart],
+                    transformedDataTable;
+                sectionObject[chart].chartWrapper = globals.setChartWrapper.apply({},
+                    sectionObject[chart].chartOptions);
+                    dataTable = this._getAgrupatedDataSum(tableChart,
+                        [sectionObject.column], chartObject.columns);
+                transformedDataTable = chartObject.transform ?
+                    chartObject.transform.fx(dataTable,
+                        chartObject.transform.columns) : dataTable;
+                sectionObject[chart].chartWrapper.setDataTable(transformedDataTable);
+                globals.setChartAnnotation(sectionObject[chart].chartWrapper,
+                    chartObject.columns);
+                globals.setChartsOptions(transformedDataTable,
+                    sectionObject[chart].chartWrapper, 50);
+                sectionObject[chart].chartWrapper.draw();
+            }
         }
-    });
-
-    google.visualization.events.addListener(tableChart, 'ready', function () {
-        var dt = tableChart.getDataTable();
-        var gca = new GoogleChartAdapter();
-
-        var groupedDataCiudadHoras = groupDataHoras([2]);
-        var groupedDataCargoHoras = groupDataHoras([0]);
-        var groupedDataServicioHoras = groupDataHoras([1]);
-        function groupDataHoras(groupColumn) {
-            var groupedDataTableHoras = google.visualization.data.group(dt, groupColumn, [{
-                column: 3,
-                label: 'Total Horas',
-                aggregation: google.visualization.data.sum,
-                type: 'number'
-
-            }]);
-            return groupedDataTableHoras;
+    };
+    HorasCargoCiudad.prototype._createDashboard = function(tableChart){
+        var lastCreatedFilter = null;
+        var filtersCounter = 1;
+        for (filter in this.filters){
+            var filterElement = this.filters[filter];
+            var currentCreatedFilter = HorasCargoCiudad.createFilter(filterElement.elemID,
+                filterElement.columnName,filterElement.allowWrite,
+                filterElement.allowMultiple, filterElement.label);
+            if (filtersCounter > 1){
+                this.controls.bind(
+                    lastCreatedFilter, currentCreatedFilter
+                );
+            }
+            filtersCounter++;
+            lastCreatedFilter = currentCreatedFilter;
         }
-
-        var groupedDataCiudadIngresos = groupDataIngresos([2]);
-        var groupedDataCargoIngresos = groupDataIngresos([0]);
-        var groupedDataServicioIngresos = groupDataIngresos([1]);
-        function groupDataIngresos(groupColumn) {
-            var groupedDataTableIngresos = google.visualization.data.group(dt, groupColumn, [{
-                column: 4,
-                label: 'Total Ingesos',
-                aggregation: google.visualization.data.sum,
-                type: 'number'
-
-            }]);
-
-            return groupedDataTableIngresos;
+        this.controls.bind(lastCreatedFilter, tableChart).draw(this.data);
+    };
+    HorasCargoCiudad.prototype._getAgrupatedDataSum = function(dt, groupColumn, cols){
+        var agregatedData = [], groupedData;
+        cols.forEach(function (column) {
+            agregatedData.push({
+                column: column.index,
+                label: column.label,
+                type: 'number',
+                aggregation: google.visualization.data.sum
+            });
+        });
+        groupedData = google.visualization.data.group(dt, groupColumn, agregatedData);
+        return groupedData;
+    };
+    HorasCargoCiudad.prototype.createTemplate = function(controlsID, chartsID){
+        var chartsFragment = "", filtersFragment = "", tableChartFragment="";
+        for (filter in this.filters){
+            filtersFragment += '<div id="' + this.filters[filter].elemID +
+            '" class="filter"></div>';
         }
+        for (section in this.sections){
+            for (chart in this.charts){
+                chartsFragment += '<div id="' +
+                this.sections[section][chart].elemID + '" class="' +
+                HorasCargoCiudad.transformToClass(this.charts[chart].scale) +
+                '"></div>';
+            }
+        }
+        tableChartFragment += '<div id="' + "tableChart_div" + '" class="' +
+        HorasCargoCiudad.transformToClass(this.tableChart.scale) +
+        '"></div>';
+        globals.document.getElementById(controlsID).innerHTML = filtersFragment;
+        globals.document.getElementById(chartsID).innerHTML = chartsFragment + " " + tableChartFragment ;
+    };
 
-        chartCiudadHoras.setDataTable(groupedDataCiudadHoras);
-        chartServicioHoras.setDataTable(groupedDataServicioHoras);
-        chartCargoHoras.setDataTable(groupedDataCargoHoras);
-        chartCiudadIngesos.setDataTable(gca.convertColsToCurrency(groupedDataCiudadIngresos,[1]));
-        chartServicioIngesos.setDataTable(gca.convertColsToCurrency(groupedDataServicioIngresos,[1]));
-        chartCargoIngesos.setDataTable(gca.convertColsToCurrency(groupedDataCargoIngresos,[1]));
-        chartCiudadHoras.draw();
-        chartCiudadIngesos.draw();
-
-        chartCargoHoras.draw();
-        chartCargoIngesos.draw();
-
-        chartServicioHoras.draw();
-        chartServicioIngesos.draw();
-
-    });
-
-    new google.visualization.Dashboard(document.getElementById("dashboard_div")).
-        bind(filtroCiudad, filtroCargo).
-        bind(filtroCargo,filtroServicio).
-        bind(filtroServicio, tableChart).
-        // Draw the dashboard
-        draw(data);
-
+    function draw(jsonData) {
+    // Create our data table out of JSON data loaded from server.
+        document.getElementById("checkboxesCharts").style.display = "none";
+        var dashboard = new HorasCargoCiudad(jsonData, 'dashboard_div', 'charts');
+        dashboard.draw();
+        return dashboard.controls;
 }
+    window.draw = draw;
+
+})(window,GoogleChartAdapter);
+

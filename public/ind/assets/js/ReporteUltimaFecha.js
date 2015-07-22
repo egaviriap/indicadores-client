@@ -5,14 +5,22 @@
 ;function draw(jsonData) {
     // Create our data table out of JSON data loaded from server.
     document.getElementById("btnExport").style.display = "block";
+    document.getElementById("checkboxesCharts").style.display = "none";
     var data = new google.visualization.DataTable(jsonData);
     var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));
 
-    addDynamicFilters("filtroHorasR_div");
-    addDynamicFilters("filtroDiferencia_div");
-    addDynamicFilters("filtroAnalista_div");
-    addDivCharts("col-sm-12","TableChart_div",true);
+    var innerHTML = "";
+    var filtersInnerHTML = "";
+
+    filtersInnerHTML = filtersInnerHTML + addDynamicFilters("filtroHorasR_div");
+    filtersInnerHTML = filtersInnerHTML + addDynamicFilters("filtroDiferencia_div");
+    filtersInnerHTML = filtersInnerHTML + addDynamicFilters("filtroAnalista_div");
+    innerHTML = innerHTML + addDivCharts("col-sm-12","TableChart_div");
+
+    addChartstoHTML(innerHTML);
+    addFilterstoHTML(filtersInnerHTML);
+
     var tableChart = new google.visualization.ChartWrapper({
         'chartType': 'Table',
         'containerId': 'TableChart_div',
@@ -22,7 +30,6 @@
             pageSize: 10
         }
     });
-
 
     var filtroHoras = new google.visualization.ControlWrapper({
         'controlType': 'NumberRangeFilter',
@@ -51,9 +58,6 @@
         }
     });
 
-
-
-
     var filtroDiferencia = new google.visualization.ControlWrapper({
         'controlType': 'NumberRangeFilter',
         'containerId': 'filtroDiferencia_div',
@@ -66,14 +70,13 @@
         }
     });
 
-
-    new google.visualization.Dashboard(document.getElementById("dashboard_div")).
+    dashboard.
         bind(filtroHoras, filtroDiferencia).
         bind(filtroDiferencia, filtroAnalista).
         bind(filtroAnalista, tableChart).
         // Draw the dashboard
         draw(data);
-        
+    return dashboard;
 
 }
 

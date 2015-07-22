@@ -1,12 +1,9 @@
 
 
 
-function TableRowIndices(){
+var TableRowIndices={};
 
-}
-
-
-TableRowIndices.prototype.createIndexesData = function (dataTable, col, distinctedGroup,
+TableRowIndices.createIndexesData = function (dataTable, col, distinctedGroup,
                                horasLaboralesColumn, horasFacturablesColumn,
                                hafColumn, hascColumn, incapColumn, vacColumn){
             var groupedDataServicioIndices = new google.visualization.DataTable();
@@ -21,7 +18,7 @@ TableRowIndices.prototype.createIndexesData = function (dataTable, col, distinct
         };
 
 
-TableRowIndices.prototype.tableRowsIndices = function (dt, col, distinctedGroup,
+TableRowIndices.tableRowsIndices = function (dt, col, distinctedGroup,
                     horasLaboralesColumn, horasFacturablesColumn,
                     hafColumn, hascColumn, incapColumn, vacColumn){
   		var aggr = new Aggregation();
@@ -31,11 +28,13 @@ TableRowIndices.prototype.tableRowsIndices = function (dt, col, distinctedGroup,
             var total = aggr.customSum(dt,[{"column":col, "value":value}],function(horasLaborales){
                     return horasLaborales;
                 },[horasLaboralesColumn]);
+
             var ie = aggr.customSum(dt,[{"column":col, "value":value}],
                 function(horasFacturables, horasLaborales){
                     return horasFacturables/horasLaborales;
                 },
                 [horasFacturablesColumn], [total]);
+
             var iop = aggr.customSum(dt,[{"column":col, "value":value}],
                 function(horasFacturables, haf, hasc, horasLaborales){
                     return (horasFacturables-haf-hasc)/horasLaborales;
