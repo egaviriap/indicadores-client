@@ -509,32 +509,32 @@
         this._createDashboard(tableChart);
     };
     Dashboard.prototype._fillData = function(tableChart){
-            for (section in this.sections) {
-                var sectionObject = this.sections[section], dataTable;
-                for (chart in this.charts) {
-                    var chartObject = this.charts[chart],
-                        transformedDataTable;
-                    sectionObject[chart].chartWrapper = globals.setChartWrapper.apply({},
-                        sectionObject[chart].chartOptions);
-                    if (chartObject.dynamicAggregation === true) {
-                        dataTable = this._createDynamicDataTable(tableChart,
-                            sectionObject, chartObject);
-                    }
-                    else {
-                        dataTable = this._getAgrupatedDataSum(tableChart,
-                            [sectionObject.column], chartObject.columns);
-                    }
-                    transformedDataTable = chartObject.transform ?
-                        chartObject.transform.fx(dataTable,
-                            chartObject.transform.columns) : dataTable;
-                    sectionObject[chart].chartWrapper.setDataTable(transformedDataTable);
-                    globals.setChartAnnotation(sectionObject[chart].chartWrapper,
-                        chartObject.columns);
-                    globals.setChartsOptions(transformedDataTable,
-                        sectionObject[chart].chartWrapper, 150);
-                    if (document.getElementById('checkbox' + section).checked) {
-                        sectionObject[chart].chartWrapper.draw();
-                    }
+        for (section in this.sections) {
+            var sectionObject = this.sections[section], dataTable;
+            for (chart in this.charts) {
+                var chartObject = this.charts[chart],
+                    transformedDataTable;
+                sectionObject[chart].chartWrapper = globals.setChartWrapper.apply({},
+                    sectionObject[chart].chartOptions);
+                if (chartObject.dynamicAggregation === true) {
+                    dataTable = this._createDynamicDataTable(tableChart,
+                        sectionObject, chartObject);
+                }
+                else {
+                    dataTable = this._getAgrupatedDataSum(tableChart,
+                        [sectionObject.column], chartObject.columns);
+                }
+                transformedDataTable = chartObject.transform ?
+                    chartObject.transform.fx(dataTable,
+                        chartObject.transform.columns) : dataTable;
+                sectionObject[chart].chartWrapper.setDataTable(transformedDataTable);
+                globals.setChartAnnotation(sectionObject[chart].chartWrapper,
+                    chartObject.columns);
+                globals.setChartsOptions(transformedDataTable,
+                    sectionObject[chart].chartWrapper, 150);
+                if (document.getElementById('checkbox' + section).checked) {
+                    sectionObject[chart].chartWrapper.draw();
+                }
             }
         }
     };
@@ -668,42 +668,8 @@
         return dashboard.controls;
     }
 
-    //function reDraw(jsonData) {
-    //    var dashboard = new Dashboard(jsonData, 'dashboard_div', 'charts');
-    //    dashboard.draw();
-    //    for (section in dashboard.sections) {
-    //        var sectionObject = dashboard.sections[section];
-    //        if (document.getElementById('checkbox' + section).checked)
-    //            sectionObject.isActive = true;
-    //        else sectionObject.isActive = false;
-    //    }
-    //    for (section in dashboard.sections) {
-    //        sectionObject = dashboard.sections[section];
-    //        for (chart in dashboard.charts) {
-    //            if (sectionObject.isActive && sectionObject[chart].state  == "active") {
-    //                sectionObject[chart].state = "activated";
-    //            }
-    //            if (sectionObject.isActive &&
-    //                sectionObject[chart].state  == null) {
-    //                sectionObject[chart].state = "active";
-    //            }
-    //            if (!sectionObject.isActive) {
-    //                sectionObject[chart].state = null;
-    //            }
-    //            setTimeout(3000);
-    //            if(sectionObject.isActive && sectionObject[chart].state === "active"){
-    //                sectionObject[chart].chartWrapper.draw();
-    //                console.log("im here");
-    //            }
-    //        }
-    //    }
-    //
-    //    document.getElementById("wrapperFooter").style.display = "block";
-    //    return dashboard.controls;
-    //}
 
     window.draw = draw;
-    window.reDraw = reDraw;
 
 })(window,GoogleChartAdapter, Aggregation);
 

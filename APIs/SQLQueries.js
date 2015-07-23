@@ -254,7 +254,7 @@ var SQLQuery = {
                 A.Error,A.ProyectoChoucair,A.HorasFacturables,A.HorasNoFacturables,A.HANF,A.HAF,A.HASC,\
                 A.HorasRegistradas,\
                 A.HorasLaborales,E.Nombre as CiudadN,F.Nombre as Pais,\
-                (A.HorasFacturables-HAF-HASC)*B.ValorHora+(HAF+HASC)*B.ValorHoraAdicional as Ingresos,\
+                ((A.HorasFacturables-HASC)*B.ValorHora)+((HASC)*B.ValorHoraAdicional) as Ingresos,\
                 A.HorasLaborales*IIF(A.InFac < 1 AND A.CargoID NOT IN (7,11,12), 1-A.InFac, 0)*B.ValorHora as NoIngresos FROM (\
                 SELECT CAST(IIF(HorasLaborales = 0, HorasFacturables/1, HorasFacturables/HorasLaborales) as DECIMAL(6,2)) as 'IE',\
                 CAST(IIF(HorasLaborales = 0, (HorasFacturables-(HAF+HASC))/1, (HorasFacturables-(HAF+HASC))/HorasLaborales) as DECIMAL(6,2)) as 'IOP',\
