@@ -64,7 +64,7 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioUltimaFechaReporteXAnalista();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
-    if (/^\/api\/downloadReporteHorasAdicionales/.test(req.url)) {
+    if (/^\/api\/downloadreporteHorasAdicionales/.test(req.url)) {
         servicio = new ServicioReporteHorasAdicionales();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
