@@ -11,7 +11,7 @@ var ServicioReporteDeTarifas = require('./ServicioReporteDeTarifasGoogle.js');
 var ServicioReporteMaxTime = require('./ServicioReporteMaxTime.js');
 var ServicioUltimaFechaReporteXAnalista = require('./ServicioUltimaFechaReporteXAnalista.js');
 var ServicioReporteHorasAdicionales = require('./ServicioHorasAdicionales.js');
-var ServicioTendencias = require('./ServicioTendencias.js');
+var ServicioTendencias = require('./servicioTendencias.js');
 
 var server2 = http.createServer(app);
 server2.listen(3000);
