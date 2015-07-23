@@ -8,7 +8,6 @@
 var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
-var CurrencyConversion = require('./CurrencyConverter.js');
 var connection = DBConnection.getConnection();
 var dlClass = require('./DownloadClass.js');
 
@@ -45,8 +44,6 @@ var ServicioDashboard = function(){
             {label:'Pais', type:'string', format: null},
             {label:'Ingresos', type:'number', format: "currency"},
             {label:'NoIngresos', type:'number', format: "currency"}
-
-
     ];
 };
 
@@ -61,9 +58,7 @@ ServicioDashboard.prototype.getResults = function(callback,ano,mes){
 
     var params = [
         new DBPreparedParams('ano',ano,'number'),
-        new DBPreparedParams('mes',mes,'number'),
-        new DBPreparedParams('sol',CurrencyConversion.PENtoCOP,'double'),
-        new DBPreparedParams('dollar',CurrencyConversion.USDtoCOP,'double')
+        new DBPreparedParams('mes',mes,'number')
     ];
     DBConnection.prepare(SQLQuery.Dashboard, params, callback);
 };

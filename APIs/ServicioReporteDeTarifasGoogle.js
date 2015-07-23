@@ -6,7 +6,6 @@ var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
 var connection = DBConnection.getConnection();
-var CurrencyConversion = require('./CurrencyConverter.js');
 var dlClass = require('./DownloadClass.js');
 
 var ServicioReporteDeTarifasGoogle = function(){
@@ -33,9 +32,7 @@ ServicioReporteDeTarifasGoogle.prototype.getResults = function(callback,ano,mes)
 
     var params = [
         new DBPreparedParams('ano',ano,'number'),
-        new DBPreparedParams('mes',mes,'number'),
-        new DBPreparedParams('sol',CurrencyConversion.PENtoCOP,'double'),
-        new DBPreparedParams('dollar',CurrencyConversion.USDtoCOP,'double')
+        new DBPreparedParams('mes',mes,'number')
     ];
     DBConnection.prepare(SQLQuery.ReporteDeTarifas, params, callback);
 };

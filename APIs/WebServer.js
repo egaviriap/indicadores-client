@@ -11,6 +11,7 @@ var ServicioReporteDeTarifas = require('./ServicioReporteDeTarifasGoogle.js');
 var ServicioReporteMaxTime = require('./ServicioReporteMaxTime.js');
 var ServicioUltimaFechaReporteXAnalista = require('./ServicioUltimaFechaReporteXAnalista.js');
 var ServicioReporteHorasAdicionales = require('./ServicioHorasAdicionales.js');
+var ServicioTendencias = require('./ServicioTendencias.js');
 
 var server2 = http.createServer(app);
 server2.listen(3000);
@@ -22,6 +23,10 @@ var server = http.createServer(function (req, res) {
     var analista=parsedUrl.query.analista;
     var servicio;
 
+    if (/^\/api\/tendencias/.test(req.url)) {
+        servicio = new ServicioTendencias();
+        servicio.getResults(writeData(servicio),ano,mes);
+    }
     if (/^\/api\/HorasCargoCiudad/.test(req.url)) {
         servicio = new ServicioHorasCargoCiudad();
         servicio.getResults(writeData(servicio),ano,mes);
