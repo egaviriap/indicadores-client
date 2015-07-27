@@ -321,7 +321,7 @@ var SQLQuery = {
                 SUM(IIF(A.Facturable = 0, A.Horas, 0)) as HorasNF\
                 FROM dbo.DetalleReporteDia A\
                 LEFT JOIN dbo.ReporteDia B ON A.ReporteDia = B.ID\
-                WHERE YEAR(A.Fecha) = @ano AND MONTH(A.Fecha) = @mes\
+                WHERE YEAR(A.Fecha) = @ano AND MONTH(A.Fecha) = (@mes)\
                 GROUP BY A.Fecha, B.Analista, A.Servicio, A.Proyecto, A.Actividad, A.TipoHora) A\
                 LEFT JOIN dbo.Proyecto B ON A.Proyecto = B.ID\
                 LEFT JOIN dbo.Cliente C ON B.Cliente = C.ID\
@@ -341,7 +341,7 @@ var SQLQuery = {
                 ValorHoraAdicional\
                 FROM dbo.Tarifa     A\
                 INNER JOIN dbo.Cliente B ON A.Cliente = B.ID\
-                WHERE Mes = @mes AND Ano = @ano) A\
+                WHERE Mes in (@mes) AND Ano = @ano) A\
                 ) B ON A.Cliente = B.Cliente AND B.Servicio = A.Servicio\
                 INNER JOIN dbo.Cliente C ON A.Cliente = C.ID\
                 INNER JOIN dbo.Servicio D ON A.Servicio = D.ID\
@@ -419,7 +419,7 @@ var SQLQuery = {
             SUM(IIF(A.Facturable = 0, A.Horas, 0)) as HorasNF\
             FROM dbo.DetalleReporteDia A\
             LEFT JOIN dbo.ReporteDia B ON A.ReporteDia = B.ID\
-            WHERE YEAR(A.Fecha) = @ano AND MONTH(A.Fecha) = @mes\
+            WHERE YEAR(A.Fecha) = @ano AND MONTH(A.Fecha) = MONTH(GETDATE())-1\
             GROUP BY A.Fecha, B.Analista, A.Servicio, A.Proyecto, A.Actividad, A.TipoHora) A\
             LEFT JOIN dbo.Proyecto B ON A.Proyecto = B.ID\
             LEFT JOIN dbo.Cliente C ON B.Cliente = C.ID\
@@ -439,7 +439,7 @@ var SQLQuery = {
             ValorHoraAdicional\
             FROM dbo.Tarifa     A\
             INNER JOIN dbo.Cliente B ON A.Cliente = B.ID\
-            WHERE Mes = @mes AND Ano = @ano) A\
+            WHERE Mes = MONTH(GETDATE())-1 AND Ano = @ano) A\
             ) B ON A.Cliente = B.Cliente AND B.Servicio = A.Servicio\
             INNER JOIN dbo.Cliente C ON A.Cliente = C.ID\
             INNER JOIN dbo.Servicio D ON A.Servicio = D.ID\

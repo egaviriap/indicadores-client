@@ -8,7 +8,7 @@
 
     <title>Indicadores De Choucair</title>
 </head>
-<body data-ano="2015" data-mes="1" data-url="Dashboard" data-analista="1">
+<body>
 
     <div class="container main-content">
         <div class="jumbotron">
@@ -82,28 +82,31 @@
                             </select>
                         </li>
                     </ul>
-
                 </div>
-
                 <!-- /.navbar-collapse -->
             </div>
             <!-- /.container-fluid -->
         </nav>
             <div id="checkboxesCharts" class="checkbox">
                 <label>
-                    <input id="checkboxciudad"  class="checkbox-inline" type="checkbox" name="Ciudad" value="Ciudad">Ciudad
+                    <input class="checkbox-inline" type="checkbox" name="checkboxCharts" value="ciudad"
+                           onchange="Dashboard.onChangeCheckBoxFilterHandler(this)">Ciudad
                 </label>
                 <label>
-                    <input id="checkboxcliente" class="checkbox-inline" type="checkbox" name="Cliente" value="Cliente">Cliente
+                    <input class="checkbox-inline" type="checkbox" name="checkboxCharts" value="cliente"
+                           onchange="Dashboard.onChangeCheckBoxFilterHandler(this)">Cliente
                 </label>
                 <label>
-                    <input id="checkboxservicio" class="checkbox" type="checkbox" name="Servicio" value="Servicio">Servicio
+                    <input class="checkbox" type="checkbox" name="checkboxCharts" value="servicio"
+                           onchange="Dashboard.onChangeCheckBoxFilterHandler(this)">Servicio
                 </label>
                 <label>
-                    <input id="checkboxcargo" class="checkbox" type="checkbox" name="Cargo" value="Servicio">Cargo
+                    <input class="checkbox" type="checkbox" name="checkboxCharts" value="cargo"
+                           onchange="Dashboard.onChangeCheckBoxFilterHandler(this)">Cargo
                 </label>
                 <label>
-                    <input id="checkboxanalista" class="checkbox" type="checkbox" name="Analista" value="Analista">Analista
+                    <input class="checkbox" type="checkbox" name="checkboxCharts" value="analista"
+                           onchange="Dashboard.onChangeCheckBoxFilterHandler(this)">Analista
                 </label>
             </div>
         <div align="left">
@@ -115,7 +118,7 @@
         <H3>FILTROS</H3>
         <div class="panel panel-primary">
             <div class="panel-body">
-                <div id="dashboard_div"></div>
+                <div id="dashboard_div" onclick="Dashboard.onChangeMainFilter()"></div>
             </div>
         </div>
 
@@ -179,7 +182,7 @@
             </div>
     </div>
     <div id="buttonDiv" align="right">
-        <input type="button" class="btn btn-default exportar" id="btnExport" value="Exportar a Excel"  />
+        <input type="button" class="btn btn-success exportar" id="btnExport" value="Exportar a Excel"  />
     </div>
     <div id="imgGif" align="middle"><img src="assets/img/preloader.gif" alt=""/></div>
         <div id="charts"></div>
@@ -192,41 +195,11 @@
     <script src="lib/all.min.js"></script>
 
 <script type="text/javascript">
-    function searchToObject(urlSearch) {
-        var pairs = urlSearch.substring(1).split("&"),
-        obj = {},
-        pair,
-        i;
-        for ( i in pairs ) {
-            if ( pairs[i] === "" ) continue;
-
-            pair = pairs[i].split("=");
-            obj[ decodeURIComponent( pair[0] ) ] = decodeURIComponent( pair[1] );
-        }
-
-        return obj;
-    }
     // Load the Visualization API and the charts package.
     google.load('visualization', '1', {'packages':['corechart','controls','table', 'calendar']});
     // Set a callback to run when the Google Visualization API is loaded.
 //    google.setOnLoadCallback(drawChart);
-
-
-    function addDivCharts(classText, idText) {
-        return '<div class="' + classText  + '"> <div id="' + idText + '"></div></div>';
-    }
-    function addChartstoHTML(text) {
-        var list = document.getElementById('charts');
-        list.innerHTML = text;
-    }
-    function addDynamicFilters(idText) {
-        return '<div id=' + idText  + ' style="float:left; padding-left: 30px;"' + '> </div>';
-    }
-    function addFilterstoHTML(text) {
-        var list = document.getElementById('dashboard_div');
-        list.innerHTML = text;
-    }
-    var now = new Date();
+        var now = new Date();
     $("#mesSelect").on("change", function(e){
         $.data(document.body, "mes", this.value);
         onChange();
@@ -247,24 +220,6 @@
         var urls = $.data(document.body, "url");
         download(urls);
     });
-    function download(service){
-        var data = {
-            ano: $.data(document.body, "ano"),
-            mes: $.data(document.body, "mes")
-        };
-        window.open(config.apiEndpoint + 'download'+service+ '?' +$.param(data));
-    }
-    function onChange(){
-        // actualizar el ano y mes
-        var data = {
-            ano: $.data(document.body, "ano"),
-            mes: $.data(document.body, "mes"),
-            url: $.data(document.body, "url"),
-            analista:$.data(document.body, "analista")
-        };
-        window.location.hash = "#?"+$.param(data);
-        window.location.reload();
-    }
     //fill the dynamically the analysts <select>
     $.getJSON(config.apiEndpoint + 'IdNombreAnalista', function(data){
 //        $('#AnalistaSelect').append('<option value="' + '0' + '">' + "Selecctione Uno" + '</option>');
@@ -291,7 +246,80 @@
         $("#btnModal").click(function(){
             $("#myModal").modal('show');
         });
+
     });
+    function searchToObject(urlSearch) {
+        var pairs = urlSearch.substring(1).split("&"),
+                obj = {},
+                pair,
+                i;
+        for ( i in pairs ) {
+            if ( pairs[i] === "" ) continue;
+
+            pair = pairs[i].split("=");
+            obj[ decodeURIComponent( pair[0] ) ] = decodeURIComponent( pair[1] );
+        }
+
+        return obj;
+    }
+    function addDivCharts(classText, idText) {
+        return '<div class="' + classText  + '"> <div id="' + idText + '"></div></div>';
+    }
+    function addChartstoHTML(text) {
+        var list = document.getElementById('charts');
+        list.innerHTML = text;
+    }
+    function addDynamicFilters(idText) {
+        return '<div id=' + idText  + ' style="float:left; padding-left: 30px;"' + '> </div>';
+    }
+    function addFilterstoHTML(text) {
+        var list = document.getElementById('dashboard_div');
+        list.innerHTML = text;
+    }
+    function onChange(){
+        // actualizar el ano y mes
+        var data = {
+            ano: $.data(document.body, "ano"),
+            mes: $.data(document.body, "mes"),
+            url: $.data(document.body, "url"),
+            analista:$.data(document.body, "analista")
+        };
+        window.location.hash = "#?"+$.param(data);
+        window.location.reload();
+    }
+    function download(service){
+        var data = {
+            ano: $.data(document.body, "ano"),
+            mes: $.data(document.body, "mes")
+        };
+        window.open(config.apiEndpoint + 'download'+service+ '?' +$.param(data));
+    }
+    function getDate(){
+        return date = {
+            ano: $.data(document.body, "ano"),
+            mes: $.data(document.body, "mes")
+        };
+    }
+    function saveCheckboxStatus(){
+        var data = $('input[name=checkboxCharts]:checked').map(function(){
+            return this.value;
+        }).get();
+        localStorage['data']=JSON.stringify(data);
+    }
+    function loadCheckboxStatus() {
+        if (localStorage && localStorage["data"]) {
+            var localStoredData = JSON.parse(localStorage["data"]);
+            var checkboxes = document.getElementsByName('checkboxCharts');
+            for (var i = 0; i < checkboxes.length; i++) {
+                for (var j = 0; j < localStoredData.length; j++) {
+                    if (checkboxes[i].value == localStoredData[j]) {
+                        checkboxes[i].checked = true;
+                        Dashboard.onChangeCheckBoxFilterHandler(checkboxes[i]);
+                    }
+                }
+            }
+        }
+    }
     function convertToDate(data){
         var dateIndexes = [];
         data['cols'].forEach(function(col, i){
@@ -324,14 +352,12 @@
         }).then(function(data, textStatus){
             if(url){
                 changeService(urls);
+                loadCheckboxStatus();
                 var dashboard = draw(convertToDate(data));
                 google.visualization.events.addListener(dashboard, "ready", function(){
-                    $("input[type='checkbox']").on('change', function(){
-                        draw(convertToDate(data));
-                    });
                     document.getElementById("imgGif").style.display = "none";
-
                 });
+
             }
         }, function(xhr, textStatus){
             console.log("ERROR 123");

@@ -9,6 +9,7 @@
     var Dashboard = function(jsonData, controlsID, chartsID){
         var proxyColumns = Dashboard.proxy.columns,
             gca = GoogleChartAdapter;
+        this.checkBoxTimer = 0;
         this.data = new google.visualization.DataTable(jsonData);
         this.controls = new google.visualization.Dashboard(document.getElementById(controlsID));
         this.filters = Dashboard.filters;
@@ -80,6 +81,7 @@
 
         this.createTemplate(controlsID, chartsID);
     };
+    Dashboard.controller = {};
     Dashboard.proxy = {
         columns: {
             cliente:{
@@ -317,8 +319,6 @@
     };
     Dashboard.ciudad = {
         column: Dashboard.proxy.columns.ciudad.index,
-        state: null,
-        isActive: false,
         indices: {
             elemID: "chart1_div",
             chartOptions: ["BarChart","chart1_div", "Indices IF / IOP / IE Por Ciudad",
@@ -349,8 +349,6 @@
     };
     Dashboard.cliente = {
         column: Dashboard.proxy.columns.cliente.index,
-        state: null,
-        isActive: false,
         indices: {
             elemID: "chart5_div",
             chartOptions: ["BarChart","chart5_div","Indices IF / IOP / IE Por Cliente",
@@ -383,8 +381,6 @@
     };
     Dashboard.servicio = {
         column: Dashboard.proxy.columns.servicio.index,
-        state: null,
-        isActive: false,
         indices: {
             elemID: "chart9_div",
             chartOptions: ["BarChart","chart9_div","Indices IF / IOP / IE Por Servicio",
@@ -416,8 +412,6 @@
     };
     Dashboard.cargo = {
         column: Dashboard.proxy.columns.cargo.index,
-        state: null,
-        isActive: false,
         indices: {
             elemID: "chart13_div",
             chartOptions: ["BarChart","chart13_div","Indices IF / IOP / IE Por Cargo",
@@ -449,8 +443,6 @@
     };
     Dashboard.analista = {
         column: Dashboard.proxy.columns.analista.index,
-        state: null,
-        isActive: false,
         indices: {
             elemID: "chart17_div",
             chartOptions: ["BarChart","chart17_div","Indices IF / IOP / IE Por Analista",
@@ -499,6 +491,24 @@
         }
         this.controls.bind(lastCreatedFilter, tableChart).draw(this.data);
     };
+    Dashboard.prototype.redraw = function(section){
+        var now = new Date();
+        var fecha = globals.getDate();
+        if((fecha.ano <= now.getFullYear() && fecha.mes <= now.getMonth()+1) ||
+            (fecha.ano < now.getFullYear()) ){
+            for (chart in this.charts){
+                this.sections[section][chart].chartWrapper.draw();
+            }
+        }
+
+    };
+    Dashboard.prototype.clear = function(section){
+        for (chart in this.charts){
+            console.dir(this.sections[section][chart].chartWrapper);
+            this.sections[section][chart].chartWrapper.clear();
+        }
+
+    };
     Dashboard.prototype.draw = function(){
         var tableChart = Dashboard.createTableChart();
         var dashboard = this;
@@ -532,11 +542,10 @@
                     chartObject.columns);
                 globals.setChartsOptions(transformedDataTable,
                     sectionObject[chart].chartWrapper, 150);
-                if (document.getElementById('checkbox' + section).checked) {
-                    sectionObject[chart].chartWrapper.draw();
-                }
+
             }
         }
+
     };
     Dashboard.prototype._createDynamicDataTable = function(dt, sectionObject, chartObject){
         var dynamicDataTable = new google.visualization.DataTable(),
@@ -559,69 +568,6 @@
         });
         dynamicDataTable.addRows(rows);
         return dynamicDataTable;
-    };
-    Dashboard.getDynamicValue = function(dataTable,columnIndex,distinctColValue,
-            aggregationFn,staticDependencies, dynamicDependencies){
-        var dynamicValues = [];
-        if (dynamicDependencies.length > 0){
-
-            dynamicDependencies.forEach(function(dynamicDependency){
-                try {
-                    var fn = Dashboard.getDynamicValue;
-                    var dynamicValue = fn(dataTable,columnIndex,distinctColValue,
-                        dynamicDependency.aggregationFn,dynamicDependency.dependency.static(),
-                        dynamicDependency.dependency.dynamic);
-
-                    dynamicValues.push(dynamicValue);
-                }
-                catch (err) {
-                    console.error(err);
-                }
-
-            });
-        }
-        return Aggregation.customSum(dataTable,
-            [{column: columnIndex, value: distinctColValue}], aggregationFn, staticDependencies, dynamicValues);
-
-    };
-    Dashboard.prototype._getAgrupatedDataSum = function(dt, groupColumn, cols){
-        var agregatedData = [], groupedData;
-        cols.forEach(function (column) {
-            agregatedData.push({
-                    column: column.index,
-                    label: column.label,
-                    type: 'number',
-                    aggregation: google.visualization.data.sum
-            });
-        });
-        groupedData = google.visualization.data.group(dt, groupColumn, agregatedData);
-        return groupedData;
-    };
-
-    Dashboard.createFilter = function(containerId,columnLabel,allowTyping,allowMultiple,label){
-        return new google.visualization.ControlWrapper({
-            'controlType': "CategoryFilter",
-            'containerId': containerId,
-            'options': {
-                'filterColumnLabel': columnLabel,
-                'ui': {'labelStacking': 'vertical',
-                    'allowNone': true,
-                    'allowTyping': allowTyping,
-                    'allowMultiple': allowMultiple,
-                    'caption': 'Todos',
-                    'label': label}
-            }
-        });
-    };
-    Dashboard.createTableChart = function(){
-        return new google.visualization.ChartWrapper({
-            chartType: 'Table',
-            containerId: 'tableChart_div',
-            options: {
-                page: 'enable',
-                pageSize: 10
-            }
-        });
     };
     Dashboard.prototype.createTemplate = function(controlsID, chartsID){
         var chartsFragment = "", filtersFragment = "", tableChartFragment="";
@@ -646,6 +592,87 @@
         globals.document.getElementById(controlsID).innerHTML = filtersFragment;
         globals.document.getElementById(chartsID).innerHTML = chartsFragment + " " + tableChartFragment ;
     };
+    Dashboard.prototype._getAgrupatedDataSum = function(dt, groupColumn, cols){
+        var agregatedData = [], groupedData;
+        cols.forEach(function (column) {
+            agregatedData.push({
+                    column: column.index,
+                    label: column.label,
+                    type: 'number',
+                    aggregation: google.visualization.data.sum
+            });
+        });
+        groupedData = google.visualization.data.group(dt, groupColumn, agregatedData);
+        return groupedData;
+    };
+    Dashboard.getDynamicValue = function(dataTable,columnIndex,distinctColValue,
+                                         aggregationFn,staticDependencies, dynamicDependencies){
+        var dynamicValues = [];
+        if (dynamicDependencies.length > 0){
+
+            dynamicDependencies.forEach(function(dynamicDependency){
+                try {
+                    var fn = Dashboard.getDynamicValue;
+                    var dynamicValue = fn(dataTable,columnIndex,distinctColValue,
+                        dynamicDependency.aggregationFn,dynamicDependency.dependency.static(),
+                        dynamicDependency.dependency.dynamic);
+
+                    dynamicValues.push(dynamicValue);
+                }
+                catch (err) {
+                    console.error(err);
+                }
+
+            });
+        }
+        return Aggregation.customSum(dataTable,
+            [{column: columnIndex, value: distinctColValue}], aggregationFn, staticDependencies, dynamicValues);
+
+    };
+    Dashboard.createFilter = function(containerId,columnLabel,allowTyping,allowMultiple,label){
+        var controlWrapper = new google.visualization.ControlWrapper({
+            'controlType': "CategoryFilter",
+            'containerId': containerId,
+            'options': {
+                'filterColumnLabel': columnLabel,
+                'ui': {'labelStacking': 'vertical',
+                    'allowNone': true,
+                    'allowTyping': allowTyping,
+                    'allowMultiple': allowMultiple,
+                    'caption': 'Todos',
+                    'label': label}
+            }
+        });
+        google.visualization.events.addListener(controlWrapper, 'statechange', function(){
+            Dashboard.onChangeCheckBoxFilterHandler();
+        });
+        return controlWrapper;
+    };
+    Dashboard.createTableChart = function(){
+        return new google.visualization.ChartWrapper({
+            chartType: 'Table',
+            containerId: 'tableChart_div',
+            options: {
+                page: 'enable',
+                pageSize: 10
+            }
+        });
+    };
+    Dashboard.onChangeCheckBoxFilterHandler = function(e){
+        globals.saveCheckboxStatus();
+        if (!!e) Dashboard.controller[e.value] = e.checked;
+        if (this.checkBoxTimer) clearTimeout(this.checkBoxTimer);
+        this.checkBoxTimer = setTimeout(function(){
+            for (control in Dashboard.controller){
+                if (Dashboard.controller[control] === true) {
+                    Dashboard.instance.redraw(control);
+                }
+                else {
+                    Dashboard.instance.clear(control);
+                }
+            }
+        }, 500);
+    };
     Dashboard.transformToClass = function(scale){
         var classname = "";
         switch(scale){
@@ -663,13 +690,13 @@
     };
     function draw(jsonData) {
         var dashboard = new Dashboard(jsonData, 'dashboard_div', 'charts');
+        Dashboard.instance = dashboard;
         dashboard.draw();
         document.getElementById("wrapperFooter").style.display = "block";
         return dashboard.controls;
     }
-
-
     window.draw = draw;
+    window.Dashboard = Dashboard;
 
 })(window,GoogleChartAdapter, Aggregation);
 

@@ -2,11 +2,11 @@
  * Created by egaviria on 01/07/2015.
  */
 
-
 var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
 var connection = DBConnection.getConnection();
+
 
 var ServicioTendencias = function(){
     this.cols = [
@@ -43,19 +43,16 @@ var ServicioTendencias = function(){
         {label:'NoIngresos', type:'number', format: "currency"}
     ];
 };
-
 ServicioTendencias.prototype.getResults = function(callback,ano,mes){
 
     var params = [
         new DBPreparedParams('ano',ano,'number'),
         new DBPreparedParams('mes',mes,'number')
     ];
-    DBConnection.prepare(SQLQuery.Tendencias, params, callback);
+    var datos = DBConnection.prepare(SQLQuery.Tendencias, params, callback);
 
 };
 
-ServicioTendencias.insertIntoMongo = function(callback,ano,mes){
 
-};
 module.exports = ServicioTendencias;
 

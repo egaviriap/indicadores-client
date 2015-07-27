@@ -9,3 +9,4 @@ module.exports = mongoose.model('User',{
 	firstName: String,
 	lastName: String
 });
+

@@ -1,6 +1,7 @@
 var http = require('http');
 var url = require('url');
 var app = require("../app");
+var Tendencia = require('../models/tendencia');
 
 var ServicioHorasCargoCiudad = require('./ServicioHorasCargoCiudad.js');
 var ServicioDashboard = require('./ServicioDashboard.js');
@@ -22,11 +23,7 @@ var server = http.createServer(function (req, res) {
     var ano = parsedUrl.query.ano;
     var analista=parsedUrl.query.analista;
     var servicio;
-
-    if (/^\/api\/tendencias/.test(req.url)) {
-        servicio = new ServicioTendencias();
-        servicio.getResults(writeData(servicio),ano,mes);
-    }
+    // ---------servicios
     if (/^\/api\/HorasCargoCiudad/.test(req.url)) {
         servicio = new ServicioHorasCargoCiudad();
         servicio.getResults(writeData(servicio),ano,mes);
@@ -85,6 +82,11 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioReporteDeTarifas();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
+    // -----Tendencias ------
+    if (/^\/api\/tendencias/.test(req.url)) {
+        servicio = new ServicioTendencias();
+        servicio.getResults(fillTendency(servicio), ano, mes);
+    }
     function writeData(servicio){
         return function(data){
             var Charts = new GoogleChartAdapter();
@@ -93,9 +95,8 @@ var server = http.createServer(function (req, res) {
                 'Content-Type': 'application/json; charset=utf-8',
                 'Access-Control-Allow-Origin': "*"});
             res.end(JSON.stringify(formatedData));
+            }
         }
-    }
-
     function writeDataNoGoogle(){
         return function(data){
             res.writeHead(200, {
@@ -111,6 +112,57 @@ var server = http.createServer(function (req, res) {
                 'Access-Control-Allow-Origin': "*"});
             res.end(servicio.saveDataXls(data, query));
 
+        }
+    }
+    function fillTendency(servicio){
+    return function(data){
+        var Charts = new GoogleChartAdapter();
+        var formatedData = Charts.getFormatedData(servicio,data);
+        res.writeHead(200, {
+            'Content-Type': 'application/json; charset=utf-8',
+            'Access-Control-Allow-Origin': "*"});
+        res.end(JSON.stringify(formatedData));
+            if(data.length > 0){
+                data.forEach(function(row){
+                    var tendencia = new Tendencia();
+                    tendencia.CiudadN = row.CiudadN;
+                    tendencia.ServicioN = row.ServicioN;
+                    tendencia.IE = row.IE;
+                    tendencia.IOP = row.IOP;
+                    tendencia.InFac = row.InFac;
+                    tendencia.AnalistaN = row.AnalistaN;
+                    tendencia.Cargo = row.Cargo;
+                    tendencia.Cliente = row.Cliente;
+                    tendencia.Servicio = row.Servicio;
+                    tendencia.Analista = row.Analista;
+                    tendencia.Incap = row.Incap;
+                    tendencia.Vac = row.Vac;
+                    tendencia.Comp = row.Comp;
+                    tendencia.Preventa = row.Preventa;
+                    tendencia.Induccion = row.Induccion;
+                    tendencia.Informacion = row.Informacion;
+                    tendencia.Error = row.Error;
+                    tendencia.ProyectoChoucair = row.ProyectoChoucair;
+                    tendencia.HorasFacturables = row.HorasFacturables;
+                    tendencia.HorasNoFacturables = row.HorasNoFacturables;
+                    tendencia.HANF = row.HANF;
+                    tendencia.HAF = row.HAF;
+                    tendencia.HASC = row.HASC;
+                    tendencia.CargoID = row.CargoID;
+                    tendencia.HorasRegistradas = row.HorasRegistradas;
+                    tendencia.HorasLaborales = row.HorasLaborales;
+                    tendencia.Ciudad = row.Ciudad;
+                    tendencia.CiudadN = row.CiudadN;
+                    tendencia.Ingresos = row.Ingresos;
+                    tendencia.NoIngresos = row.NoIngresos;
+                    tendencia.save(function(err) {
+                        if (err){
+                            throw err;
+                        }
+                        return (tendencia);
+                    })
+                });
+            }
         }
     }
 });
