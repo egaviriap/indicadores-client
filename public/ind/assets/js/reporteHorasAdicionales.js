@@ -40,7 +40,18 @@
         'controlType': 'NumberRangeFilter',
         'containerId': 'filtroHoras_div',
         'options': {
-            'filterColumnLabel': 'Saldo'
+            'ui': {
+                'format':{
+                    'fractionDigits': 1,
+                    'groupingSymbol': '.'
+                },
+                'ticks': 50,
+                'step': 50,
+                'unitIncrement': 50
+            },
+            'filterColumnLabel': 'Saldo',
+            'minValue': -300,
+            'maxValue': 600
         }
     });
     /**
