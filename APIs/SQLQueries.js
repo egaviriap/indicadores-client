@@ -475,12 +475,12 @@ var SQLQuery = {
             AS(\
             SELECT Analista, Comp, (HANF+HAF+HASC) as HA FROM HorasAdicionalesYCompromisos\
             )\
-            SELECT B.Nombre as Analista, C.Nombre as Cargo, A.Comp, A.HA, (A.HA-A.Comp) as Sueldo FROM\
+            SELECT B.Nombre as Analista, C.Nombre as Cargo, A.Comp, A.HA, (A.HA-A.Comp) as Saldo FROM\
             HorasAdicionalesPorCompromiso A\
             INNER JOIN dbo.Analista B ON A.Analista = B.ID\
             INNER JOIN dbo.Cargo C ON B.Cargo = C.ID\
             WHERE Ciudad IN (1,2)\
-            ORDER BY Analista, Sueldo DESC;"
+            ORDER BY Saldo DESC, Analista;"
 
 
 

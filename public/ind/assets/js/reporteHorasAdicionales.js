@@ -25,13 +25,24 @@
     innerHTML = innerHTML +addDivCharts("col-sm-12","TableChart_div",true);
     filtersInnerHTML = filtersInnerHTML +addDynamicFilters("filtroCargo_div");
     filtersInnerHTML = filtersInnerHTML +addDynamicFilters("filtroAnalista_div");
+    filtersInnerHTML = filtersInnerHTML +addDynamicFilters("filtroHoras_div");
 
     addChartstoHTML(innerHTML);
     addFilterstoHTML(filtersInnerHTML);
     var filtroCargo = filters("CategoryFilter","filtroCargo_div","Cargo",false,true,"Todos","Seleccione El Cargo");
     var filtroAnalista = filters("CategoryFilter","filtroAnalista_div","Analista",true,true,"Todos","Seleccione el Analista");
 
+    //var filtroHoras = filters("CategoryFilter","filtroHoras_div","Saldo",true,true,"Todos","Saldo");
 
+
+
+    var filtroHoras = new google.visualization.ControlWrapper({
+        'controlType': 'NumberRangeFilter',
+        'containerId': 'filtroHoras_div',
+        'options': {
+            'filterColumnLabel': 'Saldo'
+        }
+    });
     /**
      *
      * @param {string} typeFileter
@@ -59,12 +70,10 @@
         });
         return filter;
     }
-
-
-
     dashboard.
         bind(filtroCargo, filtroAnalista).
-        bind(filtroAnalista, tableChart).
+        bind(filtroAnalista, filtroHoras).
+        bind(filtroHoras, tableChart).
         // Draw the dashboard
         draw(data);
 

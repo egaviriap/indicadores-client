@@ -3,7 +3,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/bootstrap-select.min.css"/>
     <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <link rel="stylesheet" href="css/main.css"/>
 
     <title>Indicadores De Choucair</title>
@@ -118,7 +117,7 @@
         <H3>FILTROS</H3>
         <div class="panel panel-primary">
             <div class="panel-body">
-                <div id="dashboard_div" onclick="Dashboard.onChangeMainFilter()"></div>
+                <div id="dashboard_div"></div>
             </div>
         </div>
 
@@ -182,15 +181,14 @@
             </div>
     </div>
     <div id="buttonDiv" align="right">
-        <input type="button" class="btn btn-success exportar" id="btnExport" value="Exportar a Excel"  />
+        <input type="button" class="btn btn-info exportar" id="btnExport" value="Exportar a Excel"  />
     </div>
     <div id="imgGif" align="middle"><img src="assets/img/preloader.gif" alt=""/></div>
         <div id="charts"></div>
 
     </div>
 
-
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src="lib/all.min.js"></script>
 
@@ -352,7 +350,6 @@
         }).then(function(data, textStatus){
             if(url){
                 changeService(urls);
-                loadCheckboxStatus();
                 var dashboard = draw(convertToDate(data));
                 google.visualization.events.addListener(dashboard, "ready", function(){
                     document.getElementById("imgGif").style.display = "none";

@@ -14,7 +14,7 @@ var ServicioHorasAdicionales = function(){
         {label:'Cargo', type:'string', format: null},
         {label:'Comp', type:'number', format: null},
         {label:'HA', type:'number', format: null},
-        {label:'Sueldo', type:'number', format: null}
+        {label:'Saldo', type:'number', format: null}
 
     ];
 };

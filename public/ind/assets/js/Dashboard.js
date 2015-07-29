@@ -689,6 +689,7 @@
         return classname;
     };
     function draw(jsonData) {
+        loadCheckboxStatus();
         var dashboard = new Dashboard(jsonData, 'dashboard_div', 'charts');
         Dashboard.instance = dashboard;
         dashboard.draw();
