@@ -40,7 +40,7 @@ var ServicioReporteMaxTime = function(){
 
 ServicioReporteMaxTime.prototype.saveDataXls = function(jsonData, query){
 
-    descarga = new dlClass('/../reports/ReportMaxTime.xlsx');
+   var descarga = new dlClass('/../reports/ReportMaxTime.xlsx');
     return descarga.getFile(jsonData, query);
 
 };

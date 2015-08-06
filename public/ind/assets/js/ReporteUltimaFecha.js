@@ -13,7 +13,7 @@
     var innerHTML = "";
     var filtersInnerHTML = "";
 
-    filtersInnerHTML = filtersInnerHTML + addDynamicFilters("filtroHorasR_div");
+    filtersInnerHTML = filtersInnerHTML + addDynamicFilters("filtroDiasLaborados_div");
     filtersInnerHTML = filtersInnerHTML + addDynamicFilters("filtroDiferencia_div");
     filtersInnerHTML = filtersInnerHTML + addDynamicFilters("filtroAnalista_div");
     innerHTML = innerHTML + addDivCharts("col-sm-12","TableChart_div");
@@ -33,14 +33,14 @@
 
     var filtroHoras = new google.visualization.ControlWrapper({
         'controlType': 'NumberRangeFilter',
-        'containerId': 'filtroHorasR_div',
+        'containerId': 'filtroDiasLaborados_div',
         'options': {
-            'filterColumnLabel': 'HorasRegistradas',
+            'filterColumnLabel': 'DiasLaborados',
             'ui': {'labelStacking': 'vertical',
-                'label': 'Horas Registradas',
+                'label': 'Dias laborados',
                 'cssClass': 'sliderClass'},
             'minValue': 0,
-            'maxValue': 200
+            'maxValue': 30
         }
     });
 
@@ -48,7 +48,7 @@
         'controlType': "CategoryFilter",
         'containerId': "filtroAnalista_div",
         'options': {
-            'filterColumnLabel': "Nombre",
+            'filterColumnLabel': "Analista",
             'ui': {'labelStacking': 'vertical',
                 'allowNone': true,
                 'allowTyping': true,
@@ -66,7 +66,7 @@
             'ui': {'labelStacking': 'vertical',
                 'cssClass': 'sliderClass'},
             'minValue': 0,
-            'maxValue': 200
+            'maxValue': 30
         }
     });
 

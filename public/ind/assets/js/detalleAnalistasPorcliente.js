@@ -1,66 +1,57 @@
-/**
- * Created by egaviria on 14/07/2015.
+/*
+ * Created by egaviria on 07/05/2015.
  */
 
 (function(globals, GoogleChartAdapter){
-    var reporteHorasAdicionales = function(jsonData, controlsID, chartsID){
+    var detalleAnalistasPorCliente = function(jsonData, controlsID, chartsID){
 
-        var proxyColumns = reporteHorasAdicionales.proxy.columns,
+        var proxyColumns = detalleAnalistasPorCliente.proxy.columns,
             gca = GoogleChartAdapter;
         this.data = new google.visualization.DataTable(jsonData);
         this.controls = new google.visualization.Dashboard(document.getElementById(controlsID));
-        this.filters = reporteHorasAdicionales.filters;
+        this.filters = detalleAnalistasPorCliente.filters;
         this.tableChart = {
             transform: null,
             scale: 1
         };
-        this.filtroHoras = new google.visualization.ControlWrapper({
-            'controlType': 'NumberRangeFilter',
-            'containerId': 'filtroHoras',
-            'options': {
-                'ui': {
-                    'format':{
-                        'fractionDigits': 1,
-                        'groupingSymbol': '.'
-                    },
-                    'ticks': 10,
-                    'step': 10,
-                    'unitIncrement': 10
-                },
-                'filterColumnLabel': 'Saldo',
-                'minValue': -200,
-                'maxValue': 200
-            }
-        });
-
         this.createTemplate(controlsID, chartsID);
     };
-    reporteHorasAdicionales.proxy = {
+    detalleAnalistasPorCliente.proxy = {
         columns: {
-            analista:{
+            Analista:{
                 index: 0,
                 label: 'Analista'
             },
-            cargo:{
+            Cargo:{
                 index: 1,
                 label: 'Cargo'
             },
-            comp: {
+            cliente: {
                 index:2,
-                label: 'Comp'
+                label: 'Cliente'
             },
-            ha: {
+            pais: {
                 index:3,
-                label: 'HA'
-            },
-            saldo: {
-                index:3,
-                label: 'Saldo'
+                label: 'Pais'
             }
         }
     };
-    reporteHorasAdicionales.filters = {
+    detalleAnalistasPorCliente.filters = {
         pais: {
+            elemID: "filterPais",
+            columnName: "Pais",
+            allowWrite: false,
+            allowMultiple: true,
+            label: "Pais"
+        },
+        cliente: {
+            elemID: "filterCliente",
+            columnName: "Cliente",
+            allowWrite: true,
+            allowMultiple: true,
+            label: "Cliente"
+        },
+        cargo: {
             elemID: "filterCargo",
             columnName: "Cargo",
             allowWrite: false,
@@ -76,7 +67,7 @@
         }
 
     };
-    reporteHorasAdicionales.transformToClass = function(scale){
+    detalleAnalistasPorCliente.transformToClass = function(scale){
         var classname = "";
         switch(scale){
             case 0.3:
@@ -91,7 +82,7 @@
         }
         return classname;
     };
-    reporteHorasAdicionales.createFilter = function(containerId,columnLabel,allowTyping,allowMultiple,label){
+    detalleAnalistasPorCliente.createFilter = function(containerId,columnLabel,allowTyping,allowMultiple,label){
         return new google.visualization.ControlWrapper({
             'controlType': "CategoryFilter",
             'containerId': containerId,
@@ -106,7 +97,7 @@
             }
         });
     };
-    reporteHorasAdicionales.createTableChart = function(){
+    detalleAnalistasPorCliente.createTableChart = function(){
         return new google.visualization.ChartWrapper({
             chartType: 'Table',
             containerId: 'tableChart_div',
@@ -117,20 +108,20 @@
             }
         });
     };
-    reporteHorasAdicionales.prototype.draw = function(){
-        var tableChart = reporteHorasAdicionales.createTableChart();
+    detalleAnalistasPorCliente.prototype.draw = function(){
+        var tableChart = detalleAnalistasPorCliente.createTableChart();
         var dashboard = this;
         google.visualization.events.addListener(tableChart, 'ready', function () {
             var dt = tableChart.getDataTable();
         });
         this._createDashboard(tableChart);
     };
-    reporteHorasAdicionales.prototype._createDashboard = function(tableChart){
+    detalleAnalistasPorCliente.prototype._createDashboard = function(tableChart){
         var lastCreatedFilter = null;
         var filtersCounter = 1;
         for (filter in this.filters){
             var filterElement = this.filters[filter];
-            var currentCreatedFilter = reporteHorasAdicionales.createFilter(filterElement.elemID,
+            var currentCreatedFilter = detalleAnalistasPorCliente.createFilter(filterElement.elemID,
                 filterElement.columnName,filterElement.allowWrite,
                 filterElement.allowMultiple, filterElement.label);
             if (filtersCounter > 1){
@@ -141,10 +132,9 @@
             filtersCounter++;
             lastCreatedFilter = currentCreatedFilter;
         }
-        this.controls.bind(lastCreatedFilter, this.filtroHoras)
-            .bind(this.filtroHoras, tableChart).draw(this.data);
+        this.controls.bind(lastCreatedFilter, tableChart).draw(this.data);
     };
-    reporteHorasAdicionales.prototype.createTemplate = function(controlsID, chartsID){
+    detalleAnalistasPorCliente.prototype.createTemplate = function(controlsID, chartsID){
         var chartsFragment = "", filtersFragment = "", tableChartFragment="";
         for (filter in this.filters){
             filtersFragment += '<div id="' + this.filters[filter].elemID +
@@ -154,15 +144,13 @@
             for (chart in this.charts){
                 chartsFragment += '<div id="' +
                 this.sections[section][chart].elemID + '" class="' +
-                reporteHorasAdicionales.transformToClass(this.charts[chart].scale) +
+                detalleAnalistasPorCliente.transformToClass(this.charts[chart].scale) +
                 '"></div>';
             }
         }
         tableChartFragment += '<div id="' + "tableChart_div" + '" class="' +
-        reporteHorasAdicionales.transformToClass(this.tableChart.scale) +
+        detalleAnalistasPorCliente.transformToClass(this.tableChart.scale) +
         '"></div>';
-        filtersFragment = filtersFragment + '<div id="' + "filtroHoras" +
-        '" class="filter"></div>';
         globals.document.getElementById(controlsID).innerHTML = filtersFragment;
         globals.document.getElementById(chartsID).innerHTML = chartsFragment + " " + tableChartFragment ;
     };
@@ -170,7 +158,7 @@
     function draw(jsonData) {
         // Create our data table out of JSON data loaded from server.
         document.getElementById("checkboxesCharts").style.display = "none";
-        var dashboard = new reporteHorasAdicionales(jsonData, 'dashboard_div', 'charts');
+        var dashboard = new detalleAnalistasPorCliente(jsonData, 'dashboard_div', 'charts');
         dashboard.draw();
         return dashboard.controls;
     }

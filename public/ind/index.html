@@ -23,7 +23,8 @@
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -37,13 +38,26 @@
                             <label for="servicioselect">Servicio</label><br/>
                             <select  class="selectpicker span2" title='Seleccione El Servicio'
                                      id="ServicioSelect">
-                                <option label="Dashboard" value="Dashboard">Reporte General</option>
-                                <option label="HorasPorAnalista" value="HorasPorAnalista">Acompañamiento Diario</option>
-                                <option label="HorasPorCargoPorCiudad" value="HorasCargoCiudad">Horas Por Servicio/Cargo</option>
-                                <option label="ReporteDeTarifas" value="ReporteDeTarifas">Reporte De Tarifas </option>
-                                <option label="ReporteMaxTime" value="ReporteMaxTime">Reporte De MaxTime </option>
-                                <option label="ReporteUltimaFecha" value="ReporteUltimaFecha">Reporte Ultima Fecha </option>
-                                <option label="reporteHorasAdicionales" value="reporteHorasAdicionales">Reporte Horas Adicionales </option>
+                                <option label="Dashboard"
+                                        value="Dashboard">Reporte General</option>
+                                <option label="HorasPorAnalista"
+                                        value="HorasPorAnalista">Acompañamiento Diario</option>
+                                <option label="HorasPorCargoPorCiudad"
+                                        value="HorasCargoCiudad">Horas Por Servicio/Cargo</option>
+                                <option label="ReporteDeTarifas"
+                                        value="ReporteDeTarifas">Reporte De Tarifas </option>
+                                <option label="ReporteMaxTime"
+                                        value="ReporteMaxTime">Reporte De MaxTime </option>
+                                <option label="ReporteUltimaFecha"
+                                        value="ReporteUltimaFecha">Reporte Ultima Fecha </option>
+                                <option label="reporteHorasAdicionales"
+                                        value="reporteHorasAdicionales">Reporte Horas Adicionales </option>
+                                <option label="totalAnalistasPorCliente"
+                                        value="totalAnalistasPorCliente">Total Analistas Por Cliente </option>
+                                <option label="detalleAnalistasPorCliente"
+                                        value="detalleAnalistasPorCliente">Detalle Analistas Por Cliente </option>
+<!--                                <option label="indicesEmpresa"
+                                        value="indicesEmpresa">Indices De La Empresa</option>-->
                             </select>
                         </li>
                         <li class="page-scroll" id="anoLI" style="margin: 1em;">
@@ -88,6 +102,10 @@
         </nav>
             <div id="checkboxesCharts" class="checkbox">
                 <label>
+                    <input class="checkbox" type="checkbox" name="checkboxCharts" value="pais"
+                           onchange="Dashboard.onChangeCheckBoxFilterHandler(this)">Pais
+                </label>
+                <label>
                     <input class="checkbox-inline" type="checkbox" name="checkboxCharts" value="ciudad"
                            onchange="Dashboard.onChangeCheckBoxFilterHandler(this)">Ciudad
                 </label>
@@ -107,6 +125,7 @@
                     <input class="checkbox" type="checkbox" name="checkboxCharts" value="analista"
                            onchange="Dashboard.onChangeCheckBoxFilterHandler(this)">Analista
                 </label>
+
             </div>
         <div align="left">
             <button type="button" id="btnModal" class="btn btn-primary btn-sm exportar"style="float:right;">
@@ -120,14 +139,12 @@
                 <div id="dashboard_div"></div>
             </div>
         </div>
-
-
         <div id="myModal" class="modal fade">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Decripción de Campos</h4>
+                        <h4 class="modal-title">Descripción de Campos</h4>
                     </div>
                     <div class="col-md-4">
                         <b style="font-size: medium">IE</b>
@@ -185,7 +202,6 @@
     </div>
     <div id="imgGif" align="middle"><img src="assets/img/preloader.gif" alt=""/></div>
         <div id="charts"></div>
-
     </div>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -220,11 +236,11 @@
     });
     //fill the dynamically the analysts <select>
     $.getJSON(config.apiEndpoint + 'IdNombreAnalista', function(data){
-//        $('#AnalistaSelect').append('<option value="' + '0' + '">' + "Selecctione Uno" + '</option>');
         $.each(data, function(key, val){
             $('#AnalistaSelect').append('<option value="' + val.Id + '">' + val.Nombre + '</option>');
         })
     });
+
     $(document).ready(function(){
         var searchObj = searchToObject(window.location.hash.substring(1)),
                 servicio = searchObj.url || "Dashboard",
@@ -240,11 +256,9 @@
         $("#AnalistaSelect").val(searchObj.analista);
         $.data(document.body, "analista", searchObj.analista);
         drawChart(null, ano, mes, servicio, parseInt(searchObj.analista));
-
         $("#btnModal").click(function(){
             $("#myModal").modal('show');
         });
-
     });
     function searchToObject(urlSearch) {
         var pairs = urlSearch.substring(1).split("&"),
@@ -406,8 +420,9 @@
         var numberRows = rows.getNumberOfRows ? rows.getNumberOfRows() : rows.rows.length;
         chart.setOption('height',numberRows*heightPerRow + 120);
         chart.setOption('chartArea.height', numberRows*heightPerRow);
-        chart.setOption('fontSize',8);
+        chart.setOption('fontSize',10);
     }
+
 </script>
 <script id="serviceScript"></script>
 

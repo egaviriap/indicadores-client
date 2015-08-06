@@ -43,6 +43,7 @@ DBConecction.prototype.prepare = function(query, params, callback){
     var ps = new sql.PreparedStatement(this.connection);
     var self = this;
 
+    //console.log(params);
     var paramsQuery = {};
     if(!!params){
         params.forEach(function(param){
@@ -66,7 +67,7 @@ DBConecction.prototype.prepare = function(query, params, callback){
 
         });
     });
-}
+};
 
 
 module.exports = (new DBConecction(DBConfig));

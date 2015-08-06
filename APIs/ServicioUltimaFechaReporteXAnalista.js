@@ -13,11 +13,12 @@ var ServicioUltimaFechaReporteXAnalista = function(){
 
     this.cols = [
         {label:'Fecha', type:'string', format: null},
-        {label:'Nombre', type:'string', format: null},
-        {label:'Cedula', type:'number', format: null},
-        {label:'HorasLaborales', type:'number', format: null},
-        {label:'HorasRegistradas', type:'number', format: null},
-        {label:'Diferencia', type:'number', format: null}
+        {label:'DiasLaborales', type:'number', format: null},
+        {label:'DiasLaborados', type:'number', format: null},
+        {label:'Diferencia', type:'number', format: null},
+        {label:'Analista', type:'string', format: null},
+        {label:'Cedula', type:'string', format: null},
+        {label:'Pais', type:'string', format: null}
     ];
 };
 /*
@@ -33,9 +34,10 @@ ServicioUltimaFechaReporteXAnalista.prototype.saveDataXls = function(jsonData, q
 
 
 ServicioUltimaFechaReporteXAnalista.prototype.getResults = function(callback,ano,mes){
+    var now = new Date();
+    var date = mes+'/'+now.getDate()+'/'+ano;
     var params = [
-        new DBPreparedParams('ano',ano,'number'),
-        new DBPreparedParams('mes',mes,'number')
+        new DBPreparedParams('date',date,'date')
     ];
     DBConnection.prepare(SQLQuery.UltimaFechaReporteXAnalista, params, callback);
 };

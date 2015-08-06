@@ -14,6 +14,7 @@
         this.controls = new google.visualization.Dashboard(document.getElementById(controlsID));
         this.filters = Dashboard.filters;
         this.sections = {
+            pais: Dashboard.pais,
             ciudad: Dashboard.ciudad,
             cliente: Dashboard.cliente,
             servicio: Dashboard.servicio,
@@ -281,6 +282,13 @@
         }
     };
     Dashboard.filters = {
+        pais: {
+            elemID: "filterPais",
+            columnName: "Pais",
+            allowWrite: false,
+            allowMultiple: true,
+            label: "Pais"
+        },
         ciudad: {
             elemID: "filterCiudad",
             columnName: "CiudadN",
@@ -316,6 +324,7 @@
             allowMultiple: true,
             label: "Analista"
         }
+
     };
     Dashboard.ciudad = {
         column: Dashboard.proxy.columns.ciudad.index,
@@ -473,6 +482,38 @@
         }
 
     };
+    Dashboard.pais = {
+        column: Dashboard.proxy.columns.pais.index,
+        indices: {
+            elemID: "chart21_div",
+            chartOptions: ["BarChart","chart21_div","Indices IF / IOP / IE Por Pais",
+                "Pais","porcentaje","#,###%",400,"vertical"],
+            chartWrapper: {}
+        },
+        ingresos: {
+            elemID: "chart22_div",
+            chartOptions: ["BarChart","chart22_div", "Suma Ingresos/No Ingresos Por Pais",
+                "Pais","Cantidad","$#,###.###",400,"vertical",["#5e8043","#F15854"]],
+            chartWrapper: {}
+        },
+        horas: {
+            elemID:"chart23_div",
+            chartOptions:["BarChart","chart23_div","Suma Horas Por Pais","Pais",
+                "Cantidad","decimal",400,"vertical",["#5DA5DA","#60BD68","#FAA43A",
+                    "#A0805A","#D9C039","#F17CB0"]],
+            chartWrapper: {}
+        },
+        noFacturables: {
+            elemID:"chart24_div",
+            chartOptions:["BarChart","chart24_div",
+                "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Pais",
+                "Pais","Cantidad","decimal",400,"vertical",
+                ["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
+                    "#888888","#A0805A","#D9C039","#F17CB0"]],
+            chartWrapper: {}
+        }
+
+    };
     Dashboard.prototype._createDashboard = function(tableChart){
         var lastCreatedFilter = null;
         var filtersCounter = 1;
@@ -504,7 +545,6 @@
     };
     Dashboard.prototype.clear = function(section){
         for (chart in this.charts){
-            console.dir(this.sections[section][chart].chartWrapper);
             this.sections[section][chart].chartWrapper.clear();
         }
 
@@ -542,7 +582,6 @@
                     chartObject.columns);
                 globals.setChartsOptions(transformedDataTable,
                     sectionObject[chart].chartWrapper, 150);
-
             }
         }
 
@@ -672,6 +711,7 @@
                 }
             }
         }, 500);
+
     };
     Dashboard.transformToClass = function(scale){
         var classname = "";
@@ -689,7 +729,7 @@
         return classname;
     };
     function draw(jsonData) {
-        loadCheckboxStatus();
+        globals.loadCheckboxStatus();
         var dashboard = new Dashboard(jsonData, 'dashboard_div', 'charts');
         Dashboard.instance = dashboard;
         dashboard.draw();

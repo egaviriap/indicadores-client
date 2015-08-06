@@ -1,7 +1,6 @@
 var http = require('http');
 var url = require('url');
 var app = require("../app");
-var Tendencia = require('../models/tendencia');
 
 var ServicioHorasCargoCiudad = require('./ServicioHorasCargoCiudad.js');
 var ServicioDashboard = require('./ServicioDashboard.js');
@@ -12,7 +11,10 @@ var ServicioReporteDeTarifas = require('./ServicioReporteDeTarifasGoogle.js');
 var ServicioReporteMaxTime = require('./ServicioReporteMaxTime.js');
 var ServicioUltimaFechaReporteXAnalista = require('./ServicioUltimaFechaReporteXAnalista.js');
 var ServicioReporteHorasAdicionales = require('./ServicioHorasAdicionales.js');
-var ServicioTendencias = require('./servicioTendencias.js');
+var saveIndicesEmpresa = require('./saveIndicesEmpresa.js');
+var loadIndicesEmpresa = require('./loadIndicesEmpresa.js');
+var ServicioAnalistasPorCliente = require('./servicioAnalistasPorCliente.js');
+var ServicioDetalleAnalistasPorCliente = require('./servicioDetalleAnalistaPorCliente.js');
 
 var server2 = http.createServer(app);
 server2.listen(3000);
@@ -54,10 +56,17 @@ var server = http.createServer(function (req, res) {
     }
     if (/^\/api\/reporteHorasAdicionales/.test(req.url)) {
         servicio = new ServicioReporteHorasAdicionales();
-        servicio.getResults(writeData(servicio, parsedUrl.query), ano, mes);
+        servicio.getResults(writeData(servicio), ano, mes);
+    }
+    if (/^\/api\/totalAnalistasPorCliente/.test(req.url)) {
+        servicio = new ServicioAnalistasPorCliente();
+        servicio.getResults(writeData(servicio), ano, mes);
+    }
+    if (/^\/api\/detalleAnalistasPorCliente/.test(req.url)) {
+        servicio = new ServicioDetalleAnalistasPorCliente();
+        servicio.getResults(writeData(servicio), ano, mes);
     }
     //download Reports--------
-
     if (/^\/api\/downloadReporteMaxTime/.test(req.url)) {
         servicio = new ServicioReporteMaxTime();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
@@ -82,10 +91,20 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioReporteDeTarifas();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
+    if (/^\/api\/downloadindicesEmpresa/.test(req.url)) {
+        servicio = new loadIndicesEmpresa();
+        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
+    }
+
     // -----Tendencias ------
-    if (/^\/api\/tendencias/.test(req.url)) {
-        servicio = new ServicioTendencias();
-        servicio.getResults(fillTendency(servicio), ano, mes);
+    if (/^\/api\/saveIndicesEmpresa/.test(req.url)) {
+        servicio = new saveIndicesEmpresa();
+        servicio.getResults(saveIndices(servicio), ano, mes);
+    }
+
+    if (/^\/api\/indicesEmpresa/.test(req.url)) {
+        servicio = new loadIndicesEmpresa();
+        servicio.getResults(loadIndices(servicio), ano, mes);
     }
     function writeData(servicio){
         return function(data){
@@ -114,55 +133,24 @@ var server = http.createServer(function (req, res) {
 
         }
     }
-    function fillTendency(servicio){
+    function saveIndices(servicio){
     return function(data){
-        var Charts = new GoogleChartAdapter();
-        var formatedData = Charts.getFormatedData(servicio,data);
         res.writeHead(200, {
             'Content-Type': 'application/json; charset=utf-8',
             'Access-Control-Allow-Origin': "*"});
-        res.end(JSON.stringify(formatedData));
-            if(data.length > 0){
-                data.forEach(function(row){
-                    var tendencia = new Tendencia();
-                    tendencia.CiudadN = row.CiudadN;
-                    tendencia.ServicioN = row.ServicioN;
-                    tendencia.IE = row.IE;
-                    tendencia.IOP = row.IOP;
-                    tendencia.InFac = row.InFac;
-                    tendencia.AnalistaN = row.AnalistaN;
-                    tendencia.Cargo = row.Cargo;
-                    tendencia.Cliente = row.Cliente;
-                    tendencia.Servicio = row.Servicio;
-                    tendencia.Analista = row.Analista;
-                    tendencia.Incap = row.Incap;
-                    tendencia.Vac = row.Vac;
-                    tendencia.Comp = row.Comp;
-                    tendencia.Preventa = row.Preventa;
-                    tendencia.Induccion = row.Induccion;
-                    tendencia.Informacion = row.Informacion;
-                    tendencia.Error = row.Error;
-                    tendencia.ProyectoChoucair = row.ProyectoChoucair;
-                    tendencia.HorasFacturables = row.HorasFacturables;
-                    tendencia.HorasNoFacturables = row.HorasNoFacturables;
-                    tendencia.HANF = row.HANF;
-                    tendencia.HAF = row.HAF;
-                    tendencia.HASC = row.HASC;
-                    tendencia.CargoID = row.CargoID;
-                    tendencia.HorasRegistradas = row.HorasRegistradas;
-                    tendencia.HorasLaborales = row.HorasLaborales;
-                    tendencia.Ciudad = row.Ciudad;
-                    tendencia.CiudadN = row.CiudadN;
-                    tendencia.Ingresos = row.Ingresos;
-                    tendencia.NoIngresos = row.NoIngresos;
-                    tendencia.save(function(err) {
-                        if (err){
-                            throw err;
-                        }
-                        return (tendencia);
-                    })
-                });
-            }
+        res.end(JSON.stringify(data));
+        servicio.saveInMongo(data);
+        }
+    }
+    function loadIndices(servicio) {
+        return function (data) {
+            var Charts = new GoogleChartAdapter();
+            var formatedData = Charts.getFormatedData(servicio,data);
+            res.writeHead(200, {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Access-Control-Allow-Origin': "*"
+            });
+            res.end(JSON.stringify(formatedData));
         }
     }
 });
