@@ -2,7 +2,6 @@ var http = require('http');
 var url = require('url');
 var app = require("../app");
 
-var ServicioHorasCargoCiudad = require('./ServicioHorasCargoCiudad.js');
 var ServicioDashboard = require('./ServicioDashboard.js');
 var GoogleChartAdapter = require('./GoogleChartAdapter.js');
 var ServicioIdNombreAnalista = require('./ServicioIdNombreAnalista.js');
@@ -26,10 +25,6 @@ var server = http.createServer(function (req, res) {
     var analista=parsedUrl.query.analista;
     var servicio;
     // ---------servicios
-    if (/^\/api\/HorasCargoCiudad/.test(req.url)) {
-        servicio = new ServicioHorasCargoCiudad();
-        servicio.getResults(writeData(servicio),ano,mes);
-    }
     if (/^\/api\/Dashboard/.test(req.url)) {
         servicio = new ServicioDashboard();
         servicio.getResults(writeData(servicio),ano,mes);
