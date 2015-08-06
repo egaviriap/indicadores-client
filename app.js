@@ -40,7 +40,7 @@ initPassport(passport);
 app.use(express.static(__dirname, '/common'));
 
 app.use(function(req, res, next) {
-    if (!req.user && (req.path != '/') && (req.path != '/login') && (req.path != '/signup')){
+    if (!req.user && (req.path != '/') && (req.path != '/login')){
         res.redirect('/');
     }
     else {
