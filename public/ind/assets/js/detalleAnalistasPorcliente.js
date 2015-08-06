@@ -18,20 +18,24 @@
     };
     detalleAnalistasPorCliente.proxy = {
         columns: {
-            Analista:{
+            Fijo:{
                 index: 0,
+                label: 'Fijo'
+            },
+            Analista:{
+                index: 1,
                 label: 'Analista'
             },
             Cargo:{
-                index: 1,
+                index: 2,
                 label: 'Cargo'
             },
             cliente: {
-                index:2,
+                index: 3,
                 label: 'Cliente'
             },
             pais: {
-                index:3,
+                index: 4,
                 label: 'Pais'
             }
         }

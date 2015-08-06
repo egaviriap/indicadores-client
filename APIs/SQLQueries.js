@@ -408,13 +408,11 @@ var SQLQuery = {
         HorasLaboralesMensual(Fecha, DiasLaborales, Pais)\
         AS (\
         SELECT A.Fecha, (DiasMes-DiasNoLaborales) as DiasLaborales, Pais FROM\
-        (SELECT @Qdate as Fecha, \
-        datediff(day, dateadd(day, 1-day(Cast(@Qdate as date)), Cast(@Qdate as date)),\
+        (SELECT @Qdate as Fecha, datediff(day, dateadd(day, 1-day(Cast(@Qdate as date)), Cast(@Qdate as date)),\
         dateadd(month, 1, dateadd(day, 1-day(Cast(@Qdate as date)), Cast(@Qdate as date)))) AS DiasMes) A\
         LEFT JOIN\
         (SELECT Cast(@Qdate as date) as Fecha, Pais, COUNT(*) as DiasNoLaborales\
-        FROM dbo.DiaNoLaboral WHERE ano = YEAR(Cast(@Qdate as date)) AND \
-        mes = MONTH(Cast(@Qdate as date)) GROUP BY pais) B\
+        FROM dbo.DiaNoLaboral WHERE ano = YEAR(Cast(@Qdate as date)) AND mes = MONTH(Cast(@Qdate as date)) GROUP BY pais) B\
         ON A.Fecha = B.Fecha\
         ),\
         DiasLaboradosMensual(DiasLaborados, Analista, Cliente, Pais)\
@@ -427,8 +425,7 @@ var SQLQuery = {
         LEFT JOIN dbo.ReporteDia B ON A.ReporteDia = B.ID\
         LEFT JOIN dbo.Proyecto C ON A.Proyecto = C.ID\
         LEFT JOIN dbo.Cliente D ON C.Cliente = D.ID\
-        WHERE YEAR(A.Fecha) = YEAR(Cast(@Qdate as date)) AND \
-        MONTH(A.Fecha) = MONTH(Cast(@Qdate as date))\
+        WHERE YEAR(A.Fecha) = YEAR(Cast(@Qdate as date)) AND MONTH(A.Fecha) = MONTH(Cast(@Qdate as date))\
         GROUP BY A.Fecha, B.Analista, C.Cliente, D.HorasLaborales\
         ) A\
         INNER JOIN dbo.Cliente B ON A.Cliente = B.ID\
@@ -436,16 +433,26 @@ var SQLQuery = {
         GROUP BY Analista, Cliente, Pais\
         )\
         SELECT\
+        case Fijo\
+        when 1 then 'Si'\
+        when 0 then 'No'\
+        else 'no'\
+        end as Fijo,\
+        Analista, Cargo, Cliente, Pais\
+        FROM (\
+        SELECT\
+        IIF(DiasLaborados>=DiasLaborales,1,0) AS Fijo,\
         E.Nombre as Analista,\
         Car.Nombre as Cargo,\
         C.Nombre AS Cliente,\
+        E.ID,\
         D.Nombre AS Pais\
         FROM HorasLaboralesMensual A\
         INNER JOIN DiasLaboradosMensual B ON A.Pais = B.Pais\
         INNER JOIN dbo.Cliente C ON B.Cliente = C.ID\
         INNER JOIN dbo.Pais D ON B.Pais = D.ID\
         INNER JOIN dbo.Analista E ON B.Analista = E.ID\
-        inner join dbo.Cargo Car on E.Cargo = Car.ID",
+        inner join dbo.Cargo Car on E.Cargo = Car.ID) Analistas",
 
     indicesEmpresa: "select @ano as Ano, @mes as Mes,\
         Consolidado.ClienteN,Consolidado.Pais,Consolidado.CiudadN,Consolidado.Cargo,Consolidado.ServicioN,\
