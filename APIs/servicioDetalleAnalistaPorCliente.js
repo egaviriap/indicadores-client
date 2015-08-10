@@ -6,6 +6,11 @@ var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
 var connection = DBConnection.getConnection();
+var dlClass = require('./DownloadClass.js');
+
+
+
+
 
 
 var ServicioDetalleAnalistasPorcliente = function(){
@@ -18,6 +23,14 @@ var ServicioDetalleAnalistasPorcliente = function(){
         {label:'Pais', type:'string', format: null}
     ];
 };
+
+ServicioDetalleAnalistasPorcliente.prototype.saveDataXls = function(jsonData, query){
+
+    var descarga = new dlClass('/../reports/ReportMaxTime.xlsx');
+    return descarga.getFile(jsonData, query);
+
+};
+
 ServicioDetalleAnalistasPorcliente.prototype.getResults = function(callback,ano,mes){
 
     var now = new Date();

@@ -3,6 +3,7 @@ var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
 var connection = DBConnection.getConnection();
+var dlClass = require('./DownloadClass.js');
 
 
 var ServicioAnalistasPorcliente = function(){
@@ -26,5 +27,11 @@ ServicioAnalistasPorcliente.prototype.getResults = function(callback,ano,mes){
 
 };
 
+ServicioAnalistasPorcliente.prototype.saveDataXls = function(jsonData, query){
+
+    var  descarga = new dlClass('/../reports/ReportMaxTime.xlsx');
+    return descarga.getFile(jsonData, query);
+
+};
 
 module.exports = ServicioAnalistasPorcliente;

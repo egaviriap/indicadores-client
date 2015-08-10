@@ -90,6 +90,14 @@ var server = http.createServer(function (req, res) {
         servicio = new loadIndicesEmpresa();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
+    if (/^\/api\/downloadtotalAnalistasPorCliente/.test(req.url)) {
+        servicio = new ServicioAnalistasPorCliente();
+        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
+    }
+    if (/^\/api\/downloaddetalleAnalistasPorCliente/.test(req.url)) {
+        servicio = new ServicioDetalleAnalistasPorCliente();
+        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
+    }
 
     // -----Tendencias ------
     if (/^\/api\/saveIndicesEmpresa/.test(req.url)) {
