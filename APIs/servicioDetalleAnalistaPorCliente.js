@@ -10,7 +10,9 @@ var connection = DBConnection.getConnection();
 
 var ServicioDetalleAnalistasPorcliente = function(){
     this.cols = [
+        {label:'Fijo', type:'string', format: null},
         {label:'Analista', type:'string', format: null},
+        {label:'Cedula', type:'string', format: null},
         {label:'Cargo', type:'number', format: null},
         {label:'Cliente', type:'string', format: null},
         {label:'Pais', type:'string', format: null}

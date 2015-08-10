@@ -42,8 +42,6 @@
                                         value="Dashboard">Reporte General</option>
                                 <option label="HorasPorAnalista"
                                         value="HorasPorAnalista">Acompañamiento Diario</option>
-                                <option label="HorasPorCargoPorCiudad"
-                                        value="HorasCargoCiudad">Horas Por Servicio/Cargo</option>
                                 <option label="ReporteDeTarifas"
                                         value="ReporteDeTarifas">Reporte De Tarifas </option>
                                 <option label="ReporteMaxTime"
@@ -354,6 +352,7 @@
     }
     function drawChart(e, ano, mes, url, analista) {
         var ano = ano || now.getFullYear();
+        var dashboard = null;
         var mes = mes || now.getMonth()+1;
         var urls = url || "Dashboard";
         var analista = analista || 0;
@@ -364,7 +363,7 @@
         }).then(function(data, textStatus){
             if(url){
                 changeService(urls);
-                var dashboard = draw(convertToDate(data));
+                dashboard = draw(convertToDate(data));
                 google.visualization.events.addListener(dashboard, "ready", function(){
                     document.getElementById("imgGif").style.display = "none";
                 });

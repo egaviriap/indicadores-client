@@ -1,87 +1,5 @@
 var SQLQuery = {
 
-    HorasServicioCargoCiudad:
-        "SELECT \
-            DA.CargoN,\
-            DA.ServicioN,\
-            DA.CiudadClienteN,\
-            DA.CiudadCliente,\
-            DA.TotalHorasServicioCargo,\
-            DB.PromedioValorHora*DA.TotalHorasServicioCargo as IngresosServicioCargo,\
-            DB.PromedioValorHora as PromedioValorHora,\
-            DA.TotalHorasCargo,\
-            DA.IndiceServicioCargo,\
-            DB.CantidadTotalHoras as TotalHorasServicioCiudad\
-            FROM\
-            (SELECT\
-            CA.CargoN,\
-            CA.ServicioN,\
-            CA.Servicio,\
-            CA.CiudadClienteN,\
-            CA.CiudadCliente,\
-            CA.TotalHorasServicioCargo,\
-            CB.TotalHorasCargo,\
-            CAST(CA.TotalHorasServicioCargo/CB.TotalHorasCargo as Decimal(6,2)) as IndiceServicioCargo\
-            FROM\
-            (SELECT\
-            BA.*,\
-            BB.Nombre as CargoN,\
-            BC.Nombre as ServicioN,\
-            BD.Nombre as CiudadClienteN,\
-            BD.Pais as PaisCliente\
-            FROM\
-            (SELECT SUM(AA.TotalHoras) as TotalHorasServicioCargo,\
-            CASE AA.Ciudad\
-            WHEN 9 THEN 1\
-            ELSE AA.Ciudad\
-            END as CiudadCliente,\
-            AA.Servicio, AB.Cargo FROM\
-            (SELECT SUM(A.Horas) as TotalHoras, C.Analista, B.Cliente, A.Servicio, E.Ciudad  FROM dbo.DetalleReporteDia as A\
-            LEFT JOIN dbo.Proyecto as B ON A.Proyecto = B.ID\
-            LEFT JOIN dbo.ReporteDia as C ON A.ReporteDia = C.ID\
-            LEFT JOIN dbo.Actividad D ON D.ID = A.Actividad\
-            LEFT JOIN dbo.Cliente as E ON B.Cliente = E.ID\
-            WHERE Year(A.Fecha) = @ano and Month(A.Fecha) = @mes AND D.Facturable = 1\
-            GROUP BY C.Analista, B.Cliente, A.Servicio, E.Ciudad) AA\
-            LEFT JOIN dbo.Analista as AB ON AA.Analista = AB.ID\
-            GROUP BY AA.Ciudad, AA.Servicio, AB.Cargo) BA\
-            LEFT JOIN dbo.Cargo as BB ON BA.Cargo = BB.ID\
-            LEFT JOIN dbo.Servicio as BC ON BA.Servicio = BC.ID\
-            LEFT JOIN dbo.Ciudad as BD ON BA.CiudadCliente = BD.ID) CA\
-            LEFT JOIN\
-            (SELECT SUM(AA.TotalHoras) as TotalHorasCargo, AA.Ciudad as CiudadCliente, AB.Cargo FROM\
-            (SELECT SUM(A.Horas) as TotalHoras, C.Analista, B.Cliente, A.Servicio, E.Ciudad  FROM dbo.DetalleReporteDia as A\
-            LEFT JOIN dbo.Proyecto as B ON A.Proyecto = B.ID\
-            LEFT JOIN dbo.ReporteDia as C ON A.ReporteDia = C.ID\
-            LEFT JOIN dbo.Actividad D ON D.ID = A.Actividad\
-            LEFT JOIN dbo.Cliente as E ON B.Cliente = E.ID\
-            WHERE Year(A.Fecha) = @ano and Month(A.Fecha) = @mes AND D.Facturable = 1\
-            GROUP BY C.Analista, B.Cliente, A.Servicio, E.Ciudad) AA\
-            LEFT JOIN dbo.Analista as AB ON AA.Analista = AB.ID\
-            GROUP BY AA.Ciudad, AB.Cargo) CB\
-            ON CB.Cargo = CA.Cargo AND CB.CiudadCliente = CA.CiudadCliente) DA\
-            LEFT JOIN (SELECT\
-            CA.Nombre as ServicioN,\
-            CA.ID as Servicio,\
-            DA.Nombre as CiudadN,\
-            DA.ID as Ciudad,\
-            CAST(SUM(AA.TotalHoras * BA.ValorHora)/SUM(AA.TotalHoras) as Decimal(8,2)) as PromedioValorHora,\
-            SUM(AA.TotalHoras) as CantidadTotalHoras\
-            FROM\
-            (SELECT SUM(A.Horas) as TotalHoras, C.Analista, B.Cliente, A.Servicio, E.Ciudad  FROM dbo.DetalleReporteDia as A\
-            LEFT JOIN dbo.Proyecto as B ON A.Proyecto = B.ID\
-            LEFT JOIN dbo.ReporteDia as C ON A.ReporteDia = C.ID\
-            LEFT JOIN dbo.Actividad D ON D.ID = A.Actividad\
-            LEFT JOIN dbo.Cliente as E ON B.Cliente = E.ID\
-            WHERE Year(A.Fecha) = @ano and Month(A.Fecha) = @mes AND D.Facturable = 1\
-            GROUP BY C.Analista, B.Cliente, A.Servicio, E.Ciudad) AA\
-            LEFT JOIN dbo.Tarifa as BA ON AA.Cliente = BA.Cliente AND AA.Servicio = BA.Servicio\
-            LEFT JOIN dbo.Servicio as CA ON AA.Servicio = CA.ID\
-            LEFT JOIN dbo.Ciudad as DA ON AA.Ciudad = DA.ID\
-            WHERE BA.Mes = @mes AND BA.Ano = @ano\
-            GROUP BY CA.Nombre, DA.Nombre, CA.ID, DA.ID) DB\
-            ON DA.CiudadCliente = DB.Ciudad AND DA.Servicio = DB.Servicio",
-
     IdNombreAnalistas:
         "select Id, Nombre from dbo.Analista\
             WHERE IsActive = 1\
@@ -408,13 +326,11 @@ var SQLQuery = {
         HorasLaboralesMensual(Fecha, DiasLaborales, Pais)\
         AS (\
         SELECT A.Fecha, (DiasMes-DiasNoLaborales) as DiasLaborales, Pais FROM\
-        (SELECT @Qdate as Fecha, \
-        datediff(day, dateadd(day, 1-day(Cast(@Qdate as date)), Cast(@Qdate as date)),\
+        (SELECT @Qdate as Fecha, datediff(day, dateadd(day, 1-day(Cast(@Qdate as date)), Cast(@Qdate as date)),\
         dateadd(month, 1, dateadd(day, 1-day(Cast(@Qdate as date)), Cast(@Qdate as date)))) AS DiasMes) A\
         LEFT JOIN\
         (SELECT Cast(@Qdate as date) as Fecha, Pais, COUNT(*) as DiasNoLaborales\
-        FROM dbo.DiaNoLaboral WHERE ano = YEAR(Cast(@Qdate as date)) AND \
-        mes = MONTH(Cast(@Qdate as date)) GROUP BY pais) B\
+        FROM dbo.DiaNoLaboral WHERE ano = YEAR(Cast(@Qdate as date)) AND mes = MONTH(Cast(@Qdate as date)) GROUP BY pais) B\
         ON A.Fecha = B.Fecha\
         ),\
         DiasLaboradosMensual(DiasLaborados, Analista, Cliente, Pais)\
@@ -427,8 +343,7 @@ var SQLQuery = {
         LEFT JOIN dbo.ReporteDia B ON A.ReporteDia = B.ID\
         LEFT JOIN dbo.Proyecto C ON A.Proyecto = C.ID\
         LEFT JOIN dbo.Cliente D ON C.Cliente = D.ID\
-        WHERE YEAR(A.Fecha) = YEAR(Cast(@Qdate as date)) AND \
-        MONTH(A.Fecha) = MONTH(Cast(@Qdate as date))\
+        WHERE YEAR(A.Fecha) = YEAR(Cast(@Qdate as date)) AND MONTH(A.Fecha) = MONTH(Cast(@Qdate as date))\
         GROUP BY A.Fecha, B.Analista, C.Cliente, D.HorasLaborales\
         ) A\
         INNER JOIN dbo.Cliente B ON A.Cliente = B.ID\
@@ -436,16 +351,27 @@ var SQLQuery = {
         GROUP BY Analista, Cliente, Pais\
         )\
         SELECT\
+        case Fijo\
+        when 1 then 'Si'\
+        when 0 then 'No'\
+        else 'no'\
+        end as Fijo,\
+        Analista,Cedula, Cargo, Cliente, Pais\
+        FROM (\
+        SELECT\
+        IIF(DiasLaborados>=DiasLaborales,1,0) AS Fijo,\
         E.Nombre as Analista,\
+        E.Cedula,\
         Car.Nombre as Cargo,\
         C.Nombre AS Cliente,\
+        E.ID,\
         D.Nombre AS Pais\
         FROM HorasLaboralesMensual A\
         INNER JOIN DiasLaboradosMensual B ON A.Pais = B.Pais\
         INNER JOIN dbo.Cliente C ON B.Cliente = C.ID\
         INNER JOIN dbo.Pais D ON B.Pais = D.ID\
         INNER JOIN dbo.Analista E ON B.Analista = E.ID\
-        inner join dbo.Cargo Car on E.Cargo = Car.ID",
+        inner join dbo.Cargo Car on E.Cargo = Car.ID) Analistas",
 
     indicesEmpresa: "select @ano as Ano, @mes as Mes,\
         Consolidado.ClienteN,Consolidado.Pais,Consolidado.CiudadN,Consolidado.Cargo,Consolidado.ServicioN,\
