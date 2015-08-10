@@ -26,16 +26,20 @@
                 index: 1,
                 label: 'Analista'
             },
-            Cargo:{
+            Cedula:{
                 index: 2,
+                label: 'Cedula'
+            },
+            Cargo:{
+                index: 3,
                 label: 'Cargo'
             },
             cliente: {
-                index: 3,
+                index: 4,
                 label: 'Cliente'
             },
             pais: {
-                index: 4,
+                index: 5,
                 label: 'Pais'
             }
         }

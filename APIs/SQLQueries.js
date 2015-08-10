@@ -356,11 +356,12 @@ var SQLQuery = {
         when 0 then 'No'\
         else 'no'\
         end as Fijo,\
-        Analista, Cargo, Cliente, Pais\
+        Analista,Cedula, Cargo, Cliente, Pais\
         FROM (\
         SELECT\
         IIF(DiasLaborados>=DiasLaborales,1,0) AS Fijo,\
         E.Nombre as Analista,\
+        E.Cedula,\
         Car.Nombre as Cargo,\
         C.Nombre AS Cliente,\
         E.ID,\
