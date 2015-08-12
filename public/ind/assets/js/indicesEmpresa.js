@@ -401,13 +401,22 @@
         this._createDashboard(tableChart);
     };
     IndicesEmpresa.prototype._fillData = function(tableChart){
+        var now= new Date();
         for (section in this.sections) {
             var sectionObject = this.sections[section], dataTable;
             for (chart in this.charts) {
                 var chartObject = this.charts[chart],
                     transformedDataTable;
-                sectionObject[chart].chartWrapper = drawTendencyChart.apply({},
-                    sectionObject[chart].chartOptions);
+
+                if(now.getMonth() === 1){
+                    sectionObject[chart].chartWrapper = drawJanChart.apply({},
+                        sectionObject[chart].chartOptions);
+                }
+                else {
+                    sectionObject[chart].chartWrapper = drawTendencyChart.apply({},
+                        sectionObject[chart].chartOptions);
+                }
+
                 if (chartObject.dynamicAggregation === true) {
                     dataTable = this._createDynamicDataTable(tableChart,
                         sectionObject, chartObject);
@@ -524,7 +533,29 @@
         return dynamicDataTable;
     };
 
-    function drawTendencyChart(chartType,containerId, title,vAxisTitle, hAxisTitle,height, orientation, colors, format){
+    function drawJanChart(chartType,containerId, title,vAxisTitle, hAxisTitle,height, orientation, colors, format){
+        var chart = new google.visualization.ChartWrapper({
+            'chartType': chartType,
+            'containerId': containerId,
+            'options': {
+                title: title,
+                vAxis: {title: vAxisTitle, minValue: 0, format: format},
+                hAxis: {title: hAxisTitle, minValue: 0,
+                    viewWindow: {
+                        min: 0,
+                        max: 2
+                    },
+                    ticks: [1, 2]
+                },
+                height: height,
+                colors: colors,
+                orientation: orientation
+            }
+        });
+        return chart;
+    }
+
+    function drawTendencyChart(chartType,containerId, title,vAxisTitle, hAxisTitle,height, orientation, colors, format, months){
         var chart = new google.visualization.ChartWrapper({
             'chartType': chartType,
             'containerId': containerId,
@@ -543,6 +574,7 @@
                 orientation: orientation
             }
         });
+        console.log(months);
         return chart;
     }
     function draw(jsonData) {

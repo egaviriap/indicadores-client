@@ -55,11 +55,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/ind/assets/globals/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.14761215">
-              <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="3" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -102,10 +102,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SQLQueries.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIs/SQLQueries.js">
+      <file leaf-file-name="indicesEmpresa.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/ind/assets/js/indicesEmpresa.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
+              <caret line="414" column="22" selection-start-line="414" selection-start-column="22" selection-end-line="414" selection-end-column="22" />
+              <folding>
+                <element signature="e#2761#8630#0" expanded="false" />
+                <element signature="e#8661#9772#0" expanded="false" />
+                <element signature="e#11368#11714#0" expanded="false" />
+                <element signature="e#11825#12400#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SQLQueries.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/APIs/SQLQueries.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5904486">
               <caret line="158" column="59" selection-start-line="158" selection-start-column="59" selection-end-line="158" selection-end-column="59" />
               <folding />
             </state>
@@ -905,16 +920,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/indicesEmpresa.js">
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/globals/config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.95803183">
-          <caret line="343" column="50" selection-start-line="343" selection-start-column="50" selection-end-line="343" selection-end-column="50" />
-          <folding>
-            <element signature="e#2761#8630#0" expanded="false" />
-            <element signature="e#8661#9772#0" expanded="false" />
-            <element signature="e#11368#11714#0" expanded="false" />
-            <element signature="e#11825#12400#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="3" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -953,18 +963,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIs/SQLQueries.js">
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/indicesEmpresa.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="158" column="59" selection-start-line="158" selection-start-column="59" selection-end-line="158" selection-end-column="59" />
-          <folding />
+          <caret line="414" column="22" selection-start-line="414" selection-start-column="22" selection-end-line="414" selection-end-column="22" />
+          <folding>
+            <element signature="e#2761#8630#0" expanded="false" />
+            <element signature="e#8661#9772#0" expanded="false" />
+            <element signature="e#11368#11714#0" expanded="false" />
+            <element signature="e#11825#12400#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/globals/config.js">
+    <entry file="file://$PROJECT_DIR$/APIs/SQLQueries.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14761215">
-          <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.5904486">
+          <caret line="158" column="59" selection-start-line="158" selection-start-column="59" selection-end-line="158" selection-end-column="59" />
           <folding />
         </state>
       </provider>
