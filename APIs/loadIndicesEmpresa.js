@@ -1,11 +1,12 @@
 /**
  * Created by egaviria on 14/05/2015.
  */
-var dbConfig = require('../db');
-var mongoose = require('mongoose');
+
+var SQLQuery =  require('./SQLQueries.js');
+var DBConnection =  require('./DBConnection.js');
+var DBPreparedParams = require('./DBPreparedParams');
+var connection = DBConnection.getConnection();
 var indicesEmpresa = require('../models/indicesEmpresa');
-var db = mongoose.createConnection(dbConfig.url);
-var dlClass = require('./DownloadClass.js');
 
 var loadIndicesEmpresa = function(){
 
@@ -49,11 +50,11 @@ loadIndicesEmpresa.prototype.saveDataXls = function(jsonData, query){
 };
 loadIndicesEmpresa.prototype.getResults = function(callback,ano,mes){
 
-    var cursor = indicesEmpresa.find({ Ano: ano},{"_id":false,"__v":false}).lean().exec(
-        function(err, data){
-            callback(data);
-        });
+    var params = [
+        new DBPreparedParams('ano',ano,'number'),
+        new DBPreparedParams('mes',mes,'number')
+    ];
+    DBConnection.prepare(SQLQuery.indicesEmpresa, params, callback);
 };
-
 
 module.exports = loadIndicesEmpresa;

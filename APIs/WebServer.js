@@ -10,7 +10,6 @@ var ServicioReporteDeTarifas = require('./ServicioReporteDeTarifasGoogle.js');
 var ServicioReporteMaxTime = require('./ServicioReporteMaxTime.js');
 var ServicioUltimaFechaReporteXAnalista = require('./ServicioUltimaFechaReporteXAnalista.js');
 var ServicioReporteHorasAdicionales = require('./ServicioHorasAdicionales.js');
-var saveIndicesEmpresa = require('./saveIndicesEmpresa.js');
 var loadIndicesEmpresa = require('./loadIndicesEmpresa.js');
 var ServicioAnalistasPorCliente = require('./servicioAnalistasPorCliente.js');
 var ServicioDetalleAnalistasPorCliente = require('./servicioDetalleAnalistaPorCliente.js');
@@ -100,11 +99,6 @@ var server = http.createServer(function (req, res) {
     }
 
     // -----Tendencias ------
-    if (/^\/api\/saveIndicesEmpresa/.test(req.url)) {
-        servicio = new saveIndicesEmpresa();
-        servicio.getResults(saveIndices(servicio), ano, mes);
-    }
-
     if (/^\/api\/indicesEmpresa/.test(req.url)) {
         servicio = new loadIndicesEmpresa();
         servicio.getResults(loadIndices(servicio), ano, mes);
