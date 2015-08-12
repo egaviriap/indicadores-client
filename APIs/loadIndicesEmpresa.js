@@ -7,6 +7,7 @@ var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
 var connection = DBConnection.getConnection();
 var indicesEmpresa = require('../models/indicesEmpresa');
+var dlClass = require('./DownloadClass.js');
 
 var loadIndicesEmpresa = function(){
 
