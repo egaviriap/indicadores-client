@@ -37,6 +37,7 @@ var loadIndicesEmpresa = function(){
         {label:'Preventa', type:'number', format: null},
         {label:'Informacion', type:'number', format: null},
         {label:'ProyectoChoucair', type:'number', format: null},
+        {label:'GS_Coordinadores', type:'number', format: null},
         {label:'Error', type:'number', format: null}
 
     ];

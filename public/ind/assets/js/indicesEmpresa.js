@@ -54,9 +54,15 @@
                     proxyColumns.HorasLaborales,
                     proxyColumns.HorasFacturables,
                     proxyColumns.HorasNoFacturables
-                   /* proxyColumns.HAF,
+                ]
+            },
+            horasAdd: {
+                transform: null,
+                scale: 1,
+                columns: [
                     proxyColumns.HANF,
-                    proxyColumns.HASC*/
+                    proxyColumns.HAF,
+                    proxyColumns.HASC
                 ]
             },
             noFacturables: {
@@ -70,6 +76,7 @@
                     proxyColumns.Preventa,
                     proxyColumns.Informacion,
                     proxyColumns.ProyectoChoucair,
+                    proxyColumns.GS_Coordinadores,
                     proxyColumns.Error
                 ]
             }
@@ -254,8 +261,12 @@
                 index:  25,
                 label: 'ProyectoChoucair'
             },
-            Error:{
+            GS_Coordinadores:{
                 index:  26,
+                label: 'GS_Coordinadores_Arquitectos'
+            },
+            Error:{
+                index:  27,
                 label: 'Error'
             }
         }
@@ -322,9 +333,15 @@
                 "Horas","Mes",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]],
             chartWrapper: {}
         },
-        noFacturables: {
+        horasAdd: {
             elemID:"chart4_div",
-            chartOptions:["BarChart","chart4_div",
+            chartOptions:["BarChart","chart4_div","Totales de Horas Por Mes",
+                "Horas","Mes",400,"horizontal",["#BAFFAB","#535E80","#CCCC99"]],
+            chartWrapper: {}
+        },
+        noFacturables: {
+            elemID:"chart5_div",
+            chartOptions:["BarChart","chart5_div",
                 "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Mes","Cantidad",
                 "Mes",400,"horizontal",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
                     "#888888"]],
