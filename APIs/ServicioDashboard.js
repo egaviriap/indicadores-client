@@ -31,6 +31,7 @@ var ServicioDashboard = function(){
             {label:'Informacion', type:'number', format: null},
             {label:'Error', type:'number', format: null},
             {label:'ProyectoChoucair', type:'number', format: null},
+            {label:'GS_Coordinadores', type:'number', format: null},
             {label:'HorasFacturables', type:'number', format: null},
             {label:'HorasNoFacturables', type:'number', format: null},
             {label:'HANF', type:'number', format: null},

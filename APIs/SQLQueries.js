@@ -143,13 +143,16 @@ var SQLQuery = {
         "SELECT C.Nombre as ClienteN, D.Nombre as ServicioN,\
             A.IE, A.IOP, A.InFac,A.AnalistaN,A.Cargo,A.Incap,A.Vac,A.Comp,\
             A.Preventa,A.Induccion,A.Informacion,\
-            A.Error,A.ProyectoChoucair,A.HorasFacturables,A.HorasNoFacturables,A.HANF,A.HAF,A.HASC,\
+            A.Error,A.ProyectoChoucair,A.GS_Coordinadores,A.HorasFacturables,A.HorasNoFacturables,A.HANF,A.HAF,A.HASC,\
             A.HorasRegistradas,\
             A.HorasLaborales,E.Nombre as CiudadN,F.Nombre as Pais,\
             ((A.HorasFacturables-HASC)*B.ValorHora)+((HASC)*B.ValorHoraAdicional) as Ingresos,\
-            A.HorasLaborales*IIF(A.InFac < 1 AND A.CargoID NOT IN (7,11,12), 1-A.InFac, 0)*B.ValorHora as NoIngresos FROM (\
-            SELECT CAST(IIF(HorasLaborales = 0, HorasFacturables/1, HorasFacturables/HorasLaborales) as DECIMAL(6,2)) as 'IE',\
-            CAST(IIF(HorasLaborales = 0, (HorasFacturables-(HAF+HASC))/1, (HorasFacturables-(HAF+HASC))/HorasLaborales) as DECIMAL(6,2)) as 'IOP',\
+            A.HorasLaborales*IIF(A.InFac < 1 AND A.CargoID NOT IN (7,11,12), 1-A.InFac, 0)*B.ValorHora as NoIngresos \
+            FROM (\
+            SELECT CAST(IIF(HorasLaborales = 0, HorasFacturables/1, \
+            HorasFacturables/HorasLaborales) as DECIMAL(6,2)) as 'IE',\
+            CAST(IIF(HorasLaborales = 0, (HorasFacturables-(HAF+HASC))/1, \
+            (HorasFacturables-(HAF+HASC))/HorasLaborales) as DECIMAL(6,2)) as 'IOP',\
             CAST(IIF(HorasLaborales = 0 OR (HorasLaborales-(Incap+Vac)) = 0, HorasFacturables/1,\
             HorasFacturables/(HorasLaborales-(Incap+Vac))) as DECIMAL(6,2)) as InFac,\
             A.* FROM (\
@@ -170,8 +173,9 @@ var SQLQuery = {
             SUM(A.Informacion) as Informacion,\
             SUM(A.Error) as Error,\
             SUM(A.ProyectoChoucair) as ProyectoChoucair,\
+            SUM(a.GS_Coordinadores) AS GS_Coordinadores,\
             SUM(A.HorasFacturables) as HorasFacturables,\
-            SUM(A.HorasNoFacturables) as HorasNoFacturables,\
+            SUM(A.HorasNoFacturables) - SUM(A.HorasAdicionalesNF) as HorasNoFacturables,\
             SUM(A.HorasAdicionalesNF) as HANF,\
             SUM(A.HorasAdicionalesF) as HAF,\
             SUM(A.HorasAdicionalesSC) as HASC\
@@ -187,21 +191,23 @@ var SQLQuery = {
             SUM(A.HorasNF*Informacion) as Informacion,\
             SUM(A.HorasNF*Error) as Error,\
             SUM(A.HorasNF*ProyectoChoucair) as ProyectoChoucair,\
+            SUM(A.HorasNF*GS_Coordinadores) as GS_Coordinadores,\
             SUM(A.HorasNF*HoraAdicionalNF) as HorasAdicionalesNF,\
             SUM(A.HorasF*HoraAdicionalF) as HorasAdicionalesF,\
             SUM(A.HorasF*HoraAdicionalSC) as HorasAdicionalesSC,\
             Cliente,\
             Servicio\
             FROM\
-            (SELECT A.Actividad, A.Fecha, A.Analista, C.HorasLaborales, A.HorasF, A.HorasNF,\
+            (SELECT A.Actividad, A.Fecha, A.Analista, (A.HorasF+A.HorasNF) as HorasLaborales, A.HorasF, A.HorasNF,\
             IIF(E.GrupoActividad IN (4,5,6,7,8),1,0) as Incap,\
             IIF(E.GrupoActividad IN (19,20,21),1,0) as Vac,\
             IIF(E.GrupoActividad IN (3,11),1,0) as Comp,\
             IIF(E.GrupoActividad IN (16,25),1,0) as Preventa,\
-            IIF(E.GrupoActividad = 24,1,0) as Induccion,\
-            IIF(E.GrupoActividad IN (9,10,13,14),1,0) as Informacion,\
+            IIF(E.GrupoActividad = (24),1,0) as Induccion,\
+            IIF(E.GrupoActividad IN (9,10,13,14,18),1,0) as Informacion,\
             IIF(E.GrupoActividad IN (15,17),1,0) as Error,\
-            IIF(E.GrupoActividad IN (12),1,0) as ProyectoChoucair,\
+            IIF(E.GrupoActividad IN (12,22),1,0) as ProyectoChoucair,\
+            IIF(E.GrupoActividad IN (1,2,23),1,0) AS GS_Coordinadores,\
             IIF(A.TipoHora = 11,1,0) as HoraAdicionalNF,\
             IIF(A.TipoHora = 1,1,0) as HoraAdicionalF,\
             IIF(A.TipoHora = 2,1,0) as HoraAdicionalSC,\
@@ -214,7 +220,7 @@ var SQLQuery = {
             FROM dbo.DetalleReporteDia A\
             LEFT JOIN dbo.ReporteDia B ON A.ReporteDia = B.ID\
             inner join dbo.Proyecto P on A.Proyecto = P.ID\
-            WHERE YEAR(A.Fecha) = @ano AND MONTH(A.Fecha) = (@mes)\
+            WHERE YEAR(A.Fecha) = @ano AND MONTH(A.Fecha) = @mes\
             GROUP BY A.Fecha, B.Analista, A.Servicio, A.Proyecto, A.Actividad, A.TipoHora) A\
             LEFT JOIN dbo.Proyecto B ON A.Proyecto = B.ID\
             LEFT JOIN dbo.Cliente C ON B.Cliente = C.ID\
@@ -232,9 +238,9 @@ var SQLQuery = {
             SELECT Cliente, Servicio,\
             ValorHora,\
             ValorHoraAdicional\
-            FROM dbo.Tarifa     A\
+            FROM dbo.Tarifa A\
             INNER JOIN dbo.Cliente B ON A.Cliente = B.ID\
-            WHERE Mes in (@mes) AND Ano = @ano) A\
+            WHERE Mes = @mes AND Ano = @ano) A\
             ) B ON A.Cliente = B.Cliente AND B.Servicio = A.Servicio\
             INNER JOIN dbo.Cliente C ON A.Cliente = C.ID\
             INNER JOIN dbo.Servicio D ON A.Servicio = D.ID\

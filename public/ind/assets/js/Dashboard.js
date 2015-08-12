@@ -41,6 +41,7 @@
                     columns: [1,2]
                 },
                 scale: 0.3,
+                dynamicAggregation: false,
                 columns: [
                     proxyColumns.ingresos,
                     proxyColumns.noIngresos
@@ -50,18 +51,20 @@
             horas: {
                 transform: null,
                 scale: 0.3,
+                dynamicAggregation: false,
                 columns: [
                     proxyColumns.horasLaborales,
                     proxyColumns.horasFacturables,
                     proxyColumns.horasNoFacturables,
-                    proxyColumns.horasAF,
                     proxyColumns.horasANF,
+                    proxyColumns.horasAF,
                     proxyColumns.horasASC
                 ]
             },
             noFacturables: {
                 transform: null,
                 scale: 0.3,
+                dynamicAggregation: false,
                 columns: [
                     proxyColumns.horasIncap,
                     proxyColumns.horasComp,
@@ -70,6 +73,7 @@
                     proxyColumns.horasPreventa,
                     proxyColumns.horasInformacion,
                     proxyColumns.horasProyectoChoucair,
+                    proxyColumns.horasGS_Coordinadores,
                     proxyColumns.horasError
                 ]
             }
@@ -224,58 +228,63 @@
                 label: 'ProyectoChoucair',
                 dependency: null
             },
+            horasGS_Coordinadores:{
+                index:  15,
+                label: 'GS_Coordinadores_Arquitectos',
+                dependency: null
+            },
             horasFacturables: {
-                index: 15,
+                index: 16,
                 label: 'HorasFacturables',
                 dependency: null
             },
             horasNoFacturables: {
-                index: 16,
+                index: 17,
                 label: 'HorasNoFacturables',
                 dependency: null
             },
             horasANF: {
-                index: 17,
+                index: 18,
                 label: 'HANF',
                 dependency: null
             },
             horasAF: {
-                index: 18,
+                index: 19,
                 label: 'HAF',
                 dependency: null
             },
             horasASC:{
-                index:  19,
+                index:  20,
                 label: 'HASC',
                 dependency: null
             },
             horasRegistradas: {
-                index: 20,
+                index: 21,
                 label: 'HorasRegistradas',
                 dependency: null
             },
             horasLaborales: {
-                index: 21,
+                index: 22,
                 label: 'HorasLaborales',
                 dependency: null
             },
             ciudad: {
-                index: 22,
+                index: 23,
                 label: 'CiudadN',
                 dependency: null
             },
             pais: {
-                index: 23,
+                index: 24,
                 label: 'Pais',
                 dependency: null
             },
             ingresos: {
-                index: 24,
+                index: 25,
                 label: 'Ingresos',
                 dependency: null
             },
             noIngresos: {
-                index: 25,
+                index: 26,
                 label: 'NoIngresos',
                 dependency: null
             }
