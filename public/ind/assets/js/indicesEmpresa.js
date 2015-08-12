@@ -209,13 +209,13 @@
                 index:  12,
                 label: 'HorasLaborales'
             },
-            HorasFacturables:{
-                index:  13,
-                label: 'HorasFacturables'
-            },
             HorasNoFacturables:{
-                index:  14,
+                index:  13,
                 label: 'HorasNoFacturables'
+            },
+            HorasFacturables:{
+                index:  14,
+                label: 'HorasFacturables'
             },
             HorasRegistradas:{
                 index:  15,
@@ -407,7 +407,6 @@
             for (chart in this.charts) {
                 var chartObject = this.charts[chart],
                     transformedDataTable;
-
                 if(now.getMonth() === 1){
                     sectionObject[chart].chartWrapper = drawJanChart.apply({},
                         sectionObject[chart].chartOptions);
