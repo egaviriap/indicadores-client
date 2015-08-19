@@ -340,13 +340,13 @@
         indices: {
             elemID: "chart1_div",
             chartOptions: ["BarChart","chart1_div", "Indices IF / IOP / IE Por Ciudad",
-                "porcentaje","Ciudad","#,###%",400,"vertical"],
+                "Ciudad","porcentaje","#,###%",400,"vertical"],
             chartWrapper: {}
         },
         ingresos: {
             elemID: "chart2_div",
             chartOptions: ["BarChart","chart2_div","Suma Ingresos/No Ingresos Por Ciudad",
-                "Cantidad","Ciudad","$#,###.###",400,"vertical",["#5e8043","#F15854"]],
+                "Ciudad","Cantidad","$#,###.###",400,"vertical",["#5e8043","#F15854"]],
             chartWrapper: {}
         },
         horas: {
@@ -370,13 +370,13 @@
         indices: {
             elemID: "chart5_div",
             chartOptions: ["BarChart","chart5_div","Indices IF / IOP / IE Por Cliente",
-                "porcentaje","Cliente","#,###%",400,"vertical"],
+                "Cliente","porcentaje","#,###%",400,"vertical"],
             chartWrapper: {}
         },
         ingresos: {
             elemID: "chart6_div",
-            chartOptions: ["BarChart","chart6_div","Suma Ingresos/No Ingresos Por Cliente","Cantidad",
-                "Cliente","$#,###.###",400,"vertical",["#5e8043","#F15854"]],
+            chartOptions: ["BarChart","chart6_div","Suma Ingresos/No Ingresos Por Cliente","Cliente",
+                "Cantidad","$#,###.###",400,"vertical",["#5e8043","#F15854"]],
             chartWrapper: {}
         },
         horas: {
@@ -402,13 +402,13 @@
         indices: {
             elemID: "chart9_div",
             chartOptions: ["BarChart","chart9_div","Indices IF / IOP / IE Por Servicio",
-                "porcentaje","Servicio","#,###%",400,"vertical"],
+                "Servicio","porcentaje","#,###%",400,"vertical"],
             chartWrapper: {}
         },
         ingresos: {
             elemID: "chart10_div",
             chartOptions: ["BarChart","chart10_div","Suma Ingresos/No Ingresos Por Servicio",
-                "Cantidad","Servicio","$#,###.###",400,"vertical",["#5e8043","#F15854"]],
+                "Servicio","Cantidad","$#,###.###",400,"vertical",["#5e8043","#F15854"]],
             chartWrapper: {}
         },
         horas: {
@@ -433,13 +433,13 @@
         indices: {
             elemID: "chart13_div",
             chartOptions: ["BarChart","chart13_div","Indices IF / IOP / IE Por Cargo",
-                "porcentaje","Cargo","#,###%",400,"vertical"],
+                "Cargo","porcentaje","#,###%",400,"vertical"],
             chartWrapper: {}
         },
         ingresos: {
             elemID: "chart14_div",
             chartOptions: ["BarChart","chart14_div","Suma Ingresos/No Ingresos Por Cargo",
-                "Cantidad","Cargo","$#,###.###",400,"vertical",["#5e8043","#F15854"]],
+                "Cargo","Cantidad","$#,###.###",400,"vertical",["#5e8043","#F15854"]],
             chartWrapper: {}
         },
         horas: {

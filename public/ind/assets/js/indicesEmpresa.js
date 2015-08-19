@@ -54,6 +54,7 @@
                     proxyColumns.HorasLaborales,
                     proxyColumns.HorasFacturables,
                     proxyColumns.HorasNoFacturables
+
                 ]
             },
             horasAdd: {
@@ -335,7 +336,7 @@
         },
         horasAdd: {
             elemID:"chart4_div",
-            chartOptions:["BarChart","chart4_div","Totales de Horas Por Mes",
+            chartOptions:["BarChart","chart4_div","Totales de Horas Adicionales Por Mes",
                 "Horas","Mes",400,"horizontal",["#BAFFAB","#535E80","#CCCC99"]],
             chartWrapper: {}
         },
@@ -387,7 +388,7 @@
             options: {
                 page: 'enable',
                 pageSize: 10,
-                height: "250px"
+                width: "1000px"
             }
         });
     };

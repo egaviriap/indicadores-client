@@ -34,8 +34,8 @@ ServicioDetalleAnalistasPorcliente.prototype.saveDataXls = function(jsonData, qu
 ServicioDetalleAnalistasPorcliente.prototype.getResults = function(callback,ano,mes){
 
     var now = new Date();
-
     var fecha =ano+'-'+mes+'-'+now.getDate();
+    console.log(fecha);
     var params = [
         new DBPreparedParams('Qdate',fecha,'date')
     ];

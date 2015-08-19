@@ -13,6 +13,7 @@ var ServicioReporteHorasAdicionales = require('./ServicioHorasAdicionales.js');
 var loadIndicesEmpresa = require('./loadIndicesEmpresa.js');
 var ServicioAnalistasPorCliente = require('./servicioAnalistasPorCliente.js');
 var ServicioDetalleAnalistasPorCliente = require('./servicioDetalleAnalistaPorCliente.js');
+var ServicioIngresosAddSC = require('./ServicioIngresosAddSC.js');
 
 var server2 = http.createServer(app);
 server2.listen(3000);
@@ -60,6 +61,10 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioDetalleAnalistasPorCliente();
         servicio.getResults(writeData(servicio), ano, mes);
     }
+    if (/^\/api\/ingresosAddSC/.test(req.url)) {
+        servicio = new ServicioIngresosAddSC();
+        servicio.getResults(writeData(servicio), ano, mes);
+    }
     //download Reports--------
     if (/^\/api\/downloadReporteMaxTime/.test(req.url)) {
         servicio = new ServicioReporteMaxTime();
@@ -97,11 +102,14 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioDetalleAnalistasPorCliente();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
-
+    if (/^\/api\/downloadingresosAddSC/.test(req.url)) {
+        servicio = new ServicioIngresosAddSC();
+        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
+    }
     // -----Tendencias ------
     if (/^\/api\/indicesEmpresa/.test(req.url)) {
         servicio = new loadIndicesEmpresa();
-        servicio.getResults(loadIndices(servicio), ano, mes);
+        servicio.getResults(writeData(servicio), ano, mes);
     }
     function writeData(servicio){
         return function(data){
@@ -128,26 +136,6 @@ var server = http.createServer(function (req, res) {
                 'Access-Control-Allow-Origin': "*"});
             res.end(servicio.saveDataXls(data, query));
 
-        }
-    }
-    function saveIndices(servicio){
-    return function(data){
-        res.writeHead(200, {
-            'Content-Type': 'application/json; charset=utf-8',
-            'Access-Control-Allow-Origin': "*"});
-        res.end(JSON.stringify(data));
-        servicio.saveInMongo(data);
-        }
-    }
-    function loadIndices(servicio) {
-        return function (data) {
-            var Charts = new GoogleChartAdapter();
-            var formatedData = Charts.getFormatedData(servicio,data);
-            res.writeHead(200, {
-                'Content-Type': 'application/json; charset=utf-8',
-                'Access-Control-Allow-Origin': "*"
-            });
-            res.end(JSON.stringify(formatedData));
         }
     }
 });

@@ -104,7 +104,7 @@
             options: {
                 page: 'enable',
                 pageSize: 10,
-                height: "250px"
+                width: "1000px"
             }
         });
     };

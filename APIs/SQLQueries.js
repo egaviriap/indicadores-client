@@ -341,20 +341,16 @@ var SQLQuery = {
         ),\
         DiasLaboradosMensual(DiasLaborados, Analista, Cliente, Pais)\
         AS (\
-        SELECT COUNT(*) AS DiasLaborados, Analista, Cliente, Pais FROM (\
-        SELECT CAST(A.Fecha as DATE) as Fecha, B.Analista, C.Cliente, D.HorasLaborales,\
-        SUM(IIF(C.Facturable = 1, A.Horas, 0)) as HorasF,\
-        SUM(IIF(C.Facturable = 0, A.Horas, 0)) as HorasNF\
-        FROM dbo.DetalleReporteDia A\
-        LEFT JOIN dbo.ReporteDia B ON A.ReporteDia = B.ID\
-        LEFT JOIN dbo.Proyecto C ON A.Proyecto = C.ID\
-        LEFT JOIN dbo.Cliente D ON C.Cliente = D.ID\
-        WHERE YEAR(A.Fecha) = YEAR(Cast(@Qdate as date)) AND MONTH(A.Fecha) = MONTH(Cast(@Qdate as date))\
-        GROUP BY A.Fecha, B.Analista, C.Cliente, D.HorasLaborales\
-        ) A\
-        INNER JOIN dbo.Cliente B ON A.Cliente = B.ID\
-        WHERE A.HorasLaborales <= (HorasF+HorasNF)\
-        GROUP BY Analista, Cliente, Pais\
+        select Sum(A.Horas) as DiasLaboales,A.AnalistaId as Analista,A.Clienteid as Cliente,A.Pais\
+        from (\
+        select DAY(DRD.Fecha) AS DIA, A.Nombre AS ANALISTA,A.ID as AnalistaId,a.Cedula,DRD.Horas,C.Nombre AS CLIENTE, C.id ClienteId,C.Pais\
+        from DetalleReporteDia DRD\
+        inner join ReporteDia R on (DRD.ReporteDia = R.ID)\
+        INNER JOIN Analista A ON (R.Analista = A.ID)\
+        INNER JOIN Proyecto P ON (DRD.Proyecto = P.ID)\
+        INNER JOIN Cliente C ON (C.ID = P.Cliente)\
+        WHERE YEAR(Drd.Fecha) = YEAR(Cast(@Qdate as date)) AND MONTH(Drd.Fecha) = MONTH(Cast(@Qdate as date)) ) A\
+        group by A.Analista,A.AnalistaId, A.CLIENTE, a.ClienteId, A.Pais\
         )\
         SELECT\
         case Fijo\
@@ -365,7 +361,7 @@ var SQLQuery = {
         Analista,Cedula, Cargo, Cliente, Pais\
         FROM (\
         SELECT\
-        IIF(DiasLaborados>=DiasLaborales,1,0) AS Fijo,\
+        IIF(DiasLaborados >= (DiasLaborales * C.HorasLaborales),1,0) AS Fijo,\
         E.Nombre as Analista,\
         E.Cedula,\
         Car.Nombre as Cargo,\
@@ -381,7 +377,29 @@ var SQLQuery = {
 
     indicesEmpresa:
         "USE [ControlCO]\
-            EXEC  [dbo].[SP_ReporteDeTendencias] @Qmes = @mes, @Qano = @ano"
+            EXEC  [dbo].[SP_ReporteDeTendencias] @Qmes = @mes, @Qano = @ano",
+
+
+    ingresosAddSC: "select\
+Cliente, Servicio, totales.Horas as Horas_Adicionales, \
+Sum(totales.Horas * ValorHoraAdicional) as Total\
+from (\
+select Sum(Horas) as Horas, C.Nombre as Cliente,\
+c.ID as ClienteId,  S.Nombre as Servicio,s.ID as servicioId, \
+T.ValorHoraAdicional\
+from DetalleReporteDia DRD\
+inner join ReporteDia R on (DRD.ReporteDia = R.ID)\
+INNER JOIN Analista A ON (R.Analista = A.ID)\
+INNER JOIN Proyecto P ON (DRD.Proyecto = P.ID)\
+INNER JOIN Cliente C ON (C.ID = P.Cliente)\
+INNER JOIN Servicio S ON (DRD.Servicio = S.ID)\
+inner join Tarifa T ON (drd.Servicio = T.Servicio\
+and C.ID = T.Cliente and T.Mes = Month(drd.Fecha) and T.ano = YEAR(drd.Fecha))\
+where TipoHora = 2 and month(DRD.Fecha) = @mes and year(Drd.Fecha) = @ano\
+group by C.Nombre, S.Nombre,s.ID,  c.ID, T.ValorHoraAdicional\
+) totales\
+group by Cliente, Horas, servicio"
+
 };
 
 module.exports = SQLQuery;
