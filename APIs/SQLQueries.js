@@ -381,24 +381,24 @@ var SQLQuery = {
 
 
     ingresosAddSC: "select\
-Cliente, Servicio, totales.Horas as Horas_Adicionales, \
-Sum(totales.Horas * ValorHoraAdicional) as Total\
-from (\
-select Sum(Horas) as Horas, C.Nombre as Cliente,\
-c.ID as ClienteId,  S.Nombre as Servicio,s.ID as servicioId, \
-T.ValorHoraAdicional\
-from DetalleReporteDia DRD\
-inner join ReporteDia R on (DRD.ReporteDia = R.ID)\
-INNER JOIN Analista A ON (R.Analista = A.ID)\
-INNER JOIN Proyecto P ON (DRD.Proyecto = P.ID)\
-INNER JOIN Cliente C ON (C.ID = P.Cliente)\
-INNER JOIN Servicio S ON (DRD.Servicio = S.ID)\
-inner join Tarifa T ON (drd.Servicio = T.Servicio\
-and C.ID = T.Cliente and T.Mes = Month(drd.Fecha) and T.ano = YEAR(drd.Fecha))\
-where TipoHora = 2 and month(DRD.Fecha) = @mes and year(Drd.Fecha) = @ano\
-group by C.Nombre, S.Nombre,s.ID,  c.ID, T.ValorHoraAdicional\
-) totales\
-group by Cliente, Horas, servicio"
+        Cliente, Servicio, totales.Horas as Horas_Adicionales, \
+        Sum(totales.Horas * ValorHoraAdicional) as Total\
+        from (\
+        select Sum(Horas) as Horas, C.Nombre as Cliente,\
+        c.ID as ClienteId,  S.Nombre as Servicio,s.ID as servicioId, \
+        T.ValorHoraAdicional\
+        from DetalleReporteDia DRD\
+        inner join ReporteDia R on (DRD.ReporteDia = R.ID)\
+        INNER JOIN Analista A ON (R.Analista = A.ID)\
+        INNER JOIN Proyecto P ON (DRD.Proyecto = P.ID)\
+        INNER JOIN Cliente C ON (C.ID = P.Cliente)\
+        INNER JOIN Servicio S ON (DRD.Servicio = S.ID)\
+        inner join Tarifa T ON (drd.Servicio = T.Servicio\
+        and C.ID = T.Cliente and T.Mes = Month(drd.Fecha) and T.ano = YEAR(drd.Fecha))\
+        where TipoHora = 2 and month(DRD.Fecha) = @mes and year(Drd.Fecha) = @ano\
+        group by C.Nombre, S.Nombre,s.ID,  c.ID, T.ValorHoraAdicional\
+        ) totales\
+        group by Cliente, Horas, servicio"
 
 };
 

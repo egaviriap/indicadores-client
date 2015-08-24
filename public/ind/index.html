@@ -4,7 +4,10 @@
     <link rel="stylesheet" href="css/bootstrap-select.min.css"/>
     <!--Load the AJAX API-->
     <link rel="stylesheet" href="css/main.css"/>
-
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="lib/all.min.js"></script>
+    <script id="serviceScript"></script>
     <title>Indicadores De Choucair</title>
 </head>
 <body>
@@ -204,10 +207,6 @@
         <div id="charts"></div>
     </div>
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script src="lib/all.min.js"></script>
-
 <script type="text/javascript">
     // Load the Visualization API and the charts package.
     google.load('visualization', '1', {'packages':['corechart','controls','table', 'calendar']});
@@ -365,11 +364,12 @@
         }).then(function(data, textStatus){
             if(url){
                 changeService(urls);
-                dashboard = draw(convertToDate(data));
-                google.visualization.events.addListener(dashboard, "ready", function(){
-                    document.getElementById("imgGif").style.display = "none";
-                });
-
+                setTimeout(function(){
+                    dashboard = draw(convertToDate(data));
+                    google.visualization.events.addListener(dashboard, "ready", function(){
+                        document.getElementById("imgGif").style.display = "none";
+                    });
+                }, 3000);
             }
         }, function(xhr, textStatus){
             console.log("ERROR 123");
@@ -425,7 +425,6 @@
     }
 
 </script>
-<script id="serviceScript"></script>
 
     <div id="wrapperFooter" style="display:none;">
         <div id="footer">

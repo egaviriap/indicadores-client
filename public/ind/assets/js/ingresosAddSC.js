@@ -187,7 +187,6 @@
                     dataTable = this._getAgrupatedDataSum(tableChart,
                         [sectionObject.column], chartObject.columns);
 
-                console.log(sectionObject[chart].chartWrapper);
                 transformedDataTable = chartObject.transform ?
                     chartObject.transform.fx(dataTable,
                         chartObject.transform.columns) : dataTable;
