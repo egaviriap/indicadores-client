@@ -408,15 +408,6 @@
             for (chart in this.charts) {
                 var chartObject = this.charts[chart],
                     transformedDataTable;
-                if(now.getMonth() === 1){
-                    sectionObject[chart].chartWrapper = drawJanChart.apply({},
-                        sectionObject[chart].chartOptions);
-                }
-                else {
-                    sectionObject[chart].chartWrapper = drawTendencyChart.apply({},
-                        sectionObject[chart].chartOptions);
-                }
-
                 if (chartObject.dynamicAggregation === true) {
                     dataTable = this._createDynamicDataTable(tableChart,
                         sectionObject, chartObject);
@@ -424,6 +415,16 @@
                 else {
                     dataTable = this._getAgrupatedDataSum(tableChart,
                         [sectionObject.column], chartObject.columns);
+                }
+                console.log(dataTable);
+                if(now.getMonth() === 1 || dataTable["Gf"].length === 1){
+                    sectionObject[chart].chartWrapper = drawJanChart.apply({},
+                        sectionObject[chart].chartOptions);
+                }
+                else {
+
+                    sectionObject[chart].chartWrapper = drawTendencyChart.apply({},
+                        sectionObject[chart].chartOptions);
                 }
                 transformedDataTable = chartObject.transform ?
                     chartObject.transform.fx(dataTable,
@@ -554,7 +555,7 @@
         return chart;
     }
 
-    function drawTendencyChart(chartType,containerId, title,vAxisTitle, hAxisTitle,height, orientation, colors, format, months){
+    function drawTendencyChart(chartType,containerId, title,vAxisTitle, hAxisTitle,height, orientation, colors, format){
         var chart = new google.visualization.ChartWrapper({
             'chartType': chartType,
             'containerId': containerId,
