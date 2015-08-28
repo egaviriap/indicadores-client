@@ -28,9 +28,9 @@ var SQLQuery = {
         "USE [ControlCO]\
              EXEC  [dbo].[SP_ReporteHorasAdicionales] @Qano = @ano",
 
-    analistasPorCliente:
+    totalAnalistasPorPais:
         "USE [ControlCO]\
-             EXEC  [dbo].[SP_ReporteTotalAnalistasPorCliente] @Querydate = @Qdate",
+             EXEC  [dbo].[SP_ReporteTotalAnalistasPorPais] @Querydate = @Qdate",
 
     detalleAnalistasPorCliente:
         "USE [ControlCO]\
