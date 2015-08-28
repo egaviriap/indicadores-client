@@ -1,9 +1,8 @@
 var SQLQuery = {
 
     IdNombreAnalistas:
-        "select Id, Nombre from dbo.Analista\
-            WHERE IsActive = 1\
-            ORDER BY Nombre",
+        "USE [ControlCO]\
+            EXEC  [dbo].[SP_CargarAnalistas]",
 
     HorasPorAnalista:
         "USE [ControlCO]\
