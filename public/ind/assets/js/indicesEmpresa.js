@@ -12,6 +12,9 @@
     document.getElementById("checkboxesCharts").style.display = "none";
 
     var IndicesEmpresa = function(jsonData, controlsID, chartsID){
+        var newData = new google.visualization.DataTable(jsonData);
+        newData.addColumn({type: 'string', role: 'tooltip'});
+        console.log(newData);
 
         var proxyColumns = IndicesEmpresa.proxy.columns,
             gca = GoogleChartAdapter;
@@ -318,33 +321,33 @@
         column: IndicesEmpresa.proxy.columns.Mes.index,
         indices: {
             elemID: "chart1_div",
-            chartOptions: ["BarChart","chart1_div", "Indices IF / IOP / IE Por Mes",
+            chartOptions: ["ColumnChart","chart1_div", "Indices IF / IOP / IE Por Mes",
                 "porcentaje","Mes",400,"horizontal",["#3366cc","#dc3912","#ff9900"],"#,###%"],
             chartWrapper: {}
         },
         ingresos: {
             elemID: "chart2_div",
-            chartOptions: ["BarChart","chart2_div","Total Ingresos Por Mes",
+            chartOptions: ["ColumnChart","chart2_div","Total Ingresos Por Mes",
                 "Ingresos","Mes",400,"horizontal",["#5e8043","#F15854"],"$#,###.###"],
             chartWrapper: {}
         },
         horas: {
             elemID:"chart3_div",
-            chartOptions:["BarChart","chart3_div","Totales de Horas Por Mes",
+            chartOptions:["ColumnChart","chart3_div","Totales de Horas Por Mes",
                 "Horas","Mes",400,"horizontal",["#5DA5DA","#60BD68","#FAA43A"]],
             chartWrapper: {}
         },
         horasAdd: {
             elemID:"chart4_div",
-            chartOptions:["BarChart","chart4_div","Totales de Horas Adicionales Por Mes",
+            chartOptions:["ColumnChart","chart4_div","Totales de Horas Adicionales Por Mes",
                 "Horas","Mes",400,"horizontal",["#BAFFAB","#535E80","#CCCC99"]],
             chartWrapper: {}
         },
         noFacturables: {
             elemID:"chart5_div",
-            chartOptions:["BarChart","chart5_div",
+            chartOptions:["ColumnChart","chart5_div",
                 "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Mes","Cantidad",
-                "Mes",400,"horizontal",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
+                "Mes",400,"horizontal",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#5DA5DA","#535E80","#CCCC99",
                     "#888888"]],
             chartWrapper: {}
         }
@@ -416,19 +419,19 @@
                     dataTable = this._getAgrupatedDataSum(tableChart,
                         [sectionObject.column], chartObject.columns);
                 }
-                console.log(dataTable);
                 if(now.getMonth() === 1 || dataTable["Gf"].length === 1){
+                    var fixed =
                     sectionObject[chart].chartWrapper = drawJanChart.apply({},
                         sectionObject[chart].chartOptions);
                 }
                 else {
-
                     sectionObject[chart].chartWrapper = drawTendencyChart.apply({},
                         sectionObject[chart].chartOptions);
                 }
                 transformedDataTable = chartObject.transform ?
                     chartObject.transform.fx(dataTable,
                         chartObject.transform.columns) : dataTable;
+
                 sectionObject[chart].chartWrapper.setDataTable(transformedDataTable);
                 this.sections[section][chart].chartWrapper.draw();
             }
@@ -545,7 +548,7 @@
                         min: 0,
                         max: 2
                     },
-                    ticks: [1, 2]
+                    ticks: [0, 1, 2, 3]
                 },
                 height: height,
                 colors: colors,
@@ -567,7 +570,7 @@
                     min: 0,
                     max: 13
                 },
-                ticks: [1, 2, 3, 4, 5, 6, 7, 8, 9 ,10 ,11, 12]
+                ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ,10 ,11, 12]
             },
                 height: height,
                 colors: colors,

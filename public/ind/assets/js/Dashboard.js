@@ -157,8 +157,8 @@
                 dependency: {
                     static: function(){
                         return [Dashboard.proxy.columns.horasFacturables.index,
-                            Dashboard.proxy.columns.horasIncap.index,
-                            Dashboard.proxy.columns.horasVac.index];
+                                Dashboard.proxy.columns.horasIncap.index,
+                                Dashboard.proxy.columns.horasVac.index];
                     },
                     dynamic:[
                         {
@@ -359,8 +359,8 @@
             elemID:"chart4_div",
             chartOptions:["BarChart","chart4_div",
                 "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Ciudad","Ciudad",
-                "Cantidad","decimal",400,"vertical",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
-                    "#888888","#A0805A","#D9C039","#F17CB0"]],
+                "Cantidad","decimal",400,"vertical",["#FEA895","#46C09D","#CFC2FE","#ADB97F","#5DA5DA","#535E80","#CCCC99",
+                    "#888888","#A0805A"]],
             chartWrapper: {}
         }
 
@@ -391,8 +391,8 @@
             chartOptions:["BarChart","chart8_div",
                 "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Cliente",
                 "Cliente","Cantidad","decimal",400,"vertical",
-                ["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
-                    "#888888","#A0805A","#D9C039","#F17CB0"]],
+                ["#FEA895","#46C09D","#CFC2FE","#ADB97F","#5DA5DA","#535E80","#CCCC99",
+                    "#888888","#A0805A"]],
             chartWrapper: {}
         }
 
@@ -423,8 +423,8 @@
             chartOptions:["BarChart","chart12_div",
                 "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Servicio",
                 "Servicio","Cantidad","decimal",400,"vertical",
-                ["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
-                    "#888888","#A0805A","#D9C039","#F17CB0"]],
+                ["#FEA895","#46C09D","#CFC2FE","#ADB97F","#5DA5DA","#535E80","#CCCC99",
+                    "#888888","#A0805A"]],
             chartWrapper: {}
         }
     };
@@ -454,8 +454,8 @@
             chartOptions:["BarChart","chart16_div",
                 "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Cargo",
                 "Cargo","Cantidad","decimal",400,"vertical",
-                ["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
-                    "#888888","#A0805A","#D9C039","#F17CB0"]],
+                ["#FEA895","#46C09D","#CFC2FE","#ADB97F","#5DA5DA","#535E80","#CCCC99",
+                    "#888888","#A0805A"]],
             chartWrapper: {}
         }
     };
@@ -485,8 +485,8 @@
             chartOptions:["BarChart","chart20_div",
                 "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Analista",
                 "Analista","Cantidad","decimal",400,"vertical",
-                ["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
-                    "#888888","#A0805A","#D9C039","#F17CB0"]],
+                ["#FEA895","#46C09D","#CFC2FE","#ADB97F","#5DA5DA","#535E80","#CCCC99",
+                    "#888888","#A0805A"]],
             chartWrapper: {}
         }
 
@@ -517,8 +517,8 @@
             chartOptions:["BarChart","chart24_div",
                 "Suma Incap/Vac/Comp/Preventa/Induccion/Informacion/Error/ProyectoChoucair/HANF/HAF/HASC Por Pais",
                 "Pais","Cantidad","decimal",400,"vertical",
-                ["#FEA895","#46C09D","#CFC2FE","#ADB97F","#BAFFAB","#535E80","#CCCC99",
-                    "#888888","#A0805A","#D9C039","#F17CB0"]],
+                ["#FEA895","#46C09D","#CFC2FE","#ADB97F","#5DA5DA","#535E80","#CCCC99",
+                    "#888888","#A0805A"]],
             chartWrapper: {}
         }
 
@@ -550,12 +550,11 @@
                 this.sections[section][chart].chartWrapper.draw();
             }
         }
-
     };
     Dashboard.prototype.clear = function(section){
         for (chart in this.charts){
             this.sections[section][chart].chartWrapper.clear();
-        }
+    }
 
     };
     Dashboard.prototype.draw = function(){
