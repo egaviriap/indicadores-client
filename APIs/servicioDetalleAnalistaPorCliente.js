@@ -34,12 +34,13 @@ ServicioDetalleAnalistasPorcliente.prototype.saveDataXls = function(jsonData, qu
 ServicioDetalleAnalistasPorcliente.prototype.getResults = function(callback,ano,mes){
 
     var now = new Date();
-    var fecha =ano+'-'+mes+'-'+now.getDate();
-    console.log(fecha);
+    var dia = now.getDate();
     var params = [
-        new DBPreparedParams('Qdate',fecha,'date')
+        new DBPreparedParams('ano',ano,'number'),
+        new DBPreparedParams('mes',mes,'number'),
+        new DBPreparedParams('dia',dia,'number')
     ];
-    var datos = DBConnection.prepare(SQLQuery.detalleAnalistasPorCliente, params, callback);
+    DBConnection.prepare(SQLQuery.totalAnalistasPorPais, params, callback);
 
 };
 

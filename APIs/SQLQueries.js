@@ -30,11 +30,11 @@ var SQLQuery = {
 
     totalAnalistasPorPais:
         "USE [ControlCO]\
-             EXEC  [dbo].[SP_ReporteTotalAnalistasPorPais] @Querydate = @Qdate",
+                 EXEC  [dbo].[SP_ReporteTotalAnalistasPorPais] @Qano = @ano, @Qmes = @mes,  @Qdia = @dia",
 
     detalleAnalistasPorCliente:
         "USE [ControlCO]\
-             EXEC  [dbo].[SP_ReporteDetalleAnalistasPorCliente] @Querydate = @Qdate",
+             EXEC  [dbo].[SP_ReporteDetalleAnalistasPorCliente] @Qano = @ano, @Qmes = @mes,  @Qdia = @dia",
 
     indicesEmpresa:
         "USE [ControlCO]\

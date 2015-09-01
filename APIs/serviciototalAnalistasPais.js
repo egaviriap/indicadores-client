@@ -27,16 +27,15 @@ ServiciototalAnalistasPorPais.prototype.saveDataXls = function(jsonData, query){
 };
 
 ServiciototalAnalistasPorPais.prototype.getResults = function(callback,ano,mes){
-
     var now = new Date();
-    var fecha =ano+'-'+mes+'-'+now.getDate();
-    console.log(fecha);
+    var dia = now.getDate();
     var params = [
-        new DBPreparedParams('Qdate',fecha,'date')
+        new DBPreparedParams('ano',ano,'number'),
+        new DBPreparedParams('mes',mes,'number'),
+        new DBPreparedParams('dia',dia,'number')
     ];
-    var datos = DBConnection.prepare(SQLQuery.totalAnalistasPorPais, params, callback);
+    DBConnection.prepare(SQLQuery.totalAnalistasPorPais, params, callback);
 
 };
-
 
 module.exports = ServiciototalAnalistasPorPais;

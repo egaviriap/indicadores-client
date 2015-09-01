@@ -11,7 +11,7 @@ var ServicioReporteMaxTime = require('./ServicioReporteMaxTime.js');
 var ServicioUltimaFechaReporteXAnalista = require('./ServicioUltimaFechaReporteXAnalista.js');
 var ServicioReporteHorasAdicionales = require('./ServicioHorasAdicionales.js');
 var loadIndicesEmpresa = require('./loadIndicesEmpresa.js');
-var ServicioAnalistasPorPais = require('./ServiciototalAnalistasPais.js');
+var ServicioAnalistasPorPais = require('./serviciototalAnalistasPais.js');
 var ServicioDetalleAnalistasPorCliente = require('./servicioDetalleAnalistaPorCliente.js');
 var ServicioIngresosAddSC = require('./ServicioIngresosAddSC.js');
 
@@ -82,10 +82,6 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioDashboard();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
-    if (/^\/api\/downloadHorasCargoCiudad/.test(req.url)) {
-        servicio = new ServicioHorasCargoCiudad();
-        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
-    }
     if (/^\/api\/downloadReporteDeTarifas/.test(req.url)) {
         servicio = new ServicioReporteDeTarifas();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
@@ -94,8 +90,8 @@ var server = http.createServer(function (req, res) {
         servicio = new loadIndicesEmpresa();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
-    if (/^\/api\/downloadtotalAnalistasPorCliente/.test(req.url)) {
-        servicio = new ServicioAnalistasPorCliente();
+    if (/^\/api\/downloadtotalAnalistasPorPais/.test(req.url)) {
+        servicio = new ServicioAnalistasPorPais();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
     if (/^\/api\/downloaddetalleAnalistasPorCliente/.test(req.url)) {
