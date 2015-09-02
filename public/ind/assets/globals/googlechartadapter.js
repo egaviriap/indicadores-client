@@ -28,7 +28,6 @@ GoogleChartAdapter.convertColsToPercentage = function(datatable, cols){
 
     var datatableJSON = JSON.parse(datatable.toJSON());
     var rows = datatableJSON['rows'];
-
     rows.forEach(function(rowCols){
         rowCols['c'].forEach(function(itemData, i){
             if (cols.indexOf(i) >= 0) {

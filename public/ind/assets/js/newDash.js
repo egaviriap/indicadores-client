@@ -8,8 +8,7 @@
 (function(globals, GoogleChartAdapter, Aggregation){
     var Dashboard = function(jsonData, controlsID, chartsID){
         var proxyColumns = Dashboard.proxy.columns,
-            gca = GoogleChartAdapter, agg = Aggregation;
-        this.temp = 0;
+            gca = GoogleChartAdapter;
         this.checkBoxTimer = 0;
         this.data = new google.visualization.DataTable(jsonData);
         this.controls = new google.visualization.Dashboard(document.getElementById(controlsID));
@@ -122,11 +121,7 @@
                     ]
                 },
                 aggregationFn: function(horasFacturables, horasLaborales){
-                    var valueIE = horasFacturables/horasLaborales;
-                    if (isNaN(valueIE) || !isFinite(valueIE))
-                        return 0;
-                    else
-                        return valueIE;
+                    return horasFacturables/horasLaborales;
                 }
             },
             IOP: {
@@ -153,11 +148,7 @@
                     ]
                 },
                 aggregationFn: function(horasFacturables, haf, hasc, horasLaborales){
-                    var valueIOP = (horasFacturables-haf-hasc)/horasLaborales;
-                    if (isNaN(valueIOP) || !isFinite(valueIOP))
-                        return 0;
-                    else
-                        return valueIOP;
+                    return (horasFacturables-haf-hasc)/horasLaborales;
                 }
             },
             InFac:{
@@ -166,8 +157,8 @@
                 dependency: {
                     static: function(){
                         return [Dashboard.proxy.columns.horasFacturables.index,
-                                Dashboard.proxy.columns.horasIncap.index,
-                                Dashboard.proxy.columns.horasVac.index];
+                            Dashboard.proxy.columns.horasIncap.index,
+                            Dashboard.proxy.columns.horasVac.index];
                     },
                     dynamic:[
                         {
@@ -184,13 +175,8 @@
                     ]
                 },
                 aggregationFn: function(horasFacturables, incap, vac, horasLaborales){
-                    var valueIF = horasFacturables/(horasLaborales-(incap+vac));
-                    if (isNaN(valueIF) || !isFinite(valueIF))
-                        return 0;
-                    else
-                        return valueIF;
+                    return horasFacturables/(horasLaborales-incap-vac);
                 }
-
             },
             analista: {
                 index:5,
@@ -568,7 +554,7 @@
     Dashboard.prototype.clear = function(section){
         for (chart in this.charts){
             this.sections[section][chart].chartWrapper.clear();
-    }
+        }
 
     };
     Dashboard.prototype.draw = function(){
@@ -613,7 +599,6 @@
             columnIndex = sectionObject.column,
             distinctedGroupByCol = dt.getDistinctValues(columnIndex),
             rows = [], columnsLabelSetted = false;
-
         dynamicDataTable.addColumn("string",dt.getColumnLabel(columnIndex));
         distinctedGroupByCol.forEach(function(distinctColValue){
             var rowValues = [distinctColValue];
@@ -625,35 +610,12 @@
                     distinctColValue,column.aggregationFn,
                     column.dependency.static(),column.dependency.dynamic));
             });
-            console.log(rowValues);
             rows.push(rowValues);
             columnsLabelSetted = true;
         });
         dynamicDataTable.addRows(rows);
         return dynamicDataTable;
     };
-
-    Dashboard.getDynamicValue = function(dataTable,columnIndex,distinctColValue,
-                                         aggregationFn,staticDependencies, dynamicDependencies){
-        var dynamicValues = [];
-        if (dynamicDependencies.length > 0){
-            dynamicDependencies.forEach(function(dynamicDependency){
-                try {
-                    var fn = Dashboard.getDynamicValue;
-                    var dynamicValue = fn(dataTable,columnIndex,distinctColValue,
-                        dynamicDependency.aggregationFn,dynamicDependency.dependency.static(),
-                        dynamicDependency.dependency.dynamic);
-                    dynamicValues.push(dynamicValue);
-                }
-                catch (err) {
-                    console.error(err);
-                }
-            });
-        }
-        return Aggregation.customSum(dataTable,
-            [{column: columnIndex, value: distinctColValue}], aggregationFn, staticDependencies, dynamicValues);
-    };
-
     Dashboard.prototype.createTemplate = function(controlsID, chartsID){
         var chartsFragment = "", filtersFragment = "", tableChartFragment="";
 
@@ -681,16 +643,39 @@
         var agregatedData = [], groupedData;
         cols.forEach(function (column) {
             agregatedData.push({
-                    column: column.index,
-                    label: column.label,
-                    type: 'number',
-                    aggregation: google.visualization.data.sum
+                column: column.index,
+                label: column.label,
+                type: 'number',
+                aggregation: google.visualization.data.sum
             });
         });
         groupedData = google.visualization.data.group(dt, groupColumn, agregatedData);
         return groupedData;
     };
+    Dashboard.getDynamicValue = function(dataTable,columnIndex,distinctColValue,
+                                         aggregationFn,staticDependencies, dynamicDependencies){
+        var dynamicValues = [];
+        if (dynamicDependencies.length > 0){
 
+            dynamicDependencies.forEach(function(dynamicDependency){
+                try {
+                    var fn = Dashboard.getDynamicValue;
+                    var dynamicValue = fn(dataTable,columnIndex,distinctColValue,
+                        dynamicDependency.aggregationFn,dynamicDependency.dependency.static(),
+                        dynamicDependency.dependency.dynamic);
+
+                    dynamicValues.push(dynamicValue);
+                }
+                catch (err) {
+                    console.error(err);
+                }
+
+            });
+        }
+        return Aggregation.customSum(dataTable,
+            [{column: columnIndex, value: distinctColValue}], aggregationFn, staticDependencies, dynamicValues);
+
+    };
     Dashboard.createFilter = function(containerId,columnLabel,allowTyping,allowMultiple,label){
         var controlWrapper = new google.visualization.ControlWrapper({
             'controlType': "CategoryFilter",

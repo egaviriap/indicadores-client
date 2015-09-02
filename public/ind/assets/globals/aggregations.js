@@ -35,7 +35,7 @@ Aggregation.customSum = function(dataTable,filters, rowAggregation, cols, values
     var sum = Aggregation.customAggregation(dataTable,filters, rowAggregation, sumValues, cols, values);
     function sumValues(rowAggregation, accumulatedValue){
         return rowAggregation + accumulatedValue;
-    };
+    }
     return sum;
 };
 

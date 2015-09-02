@@ -40,7 +40,7 @@ ServicioDetalleAnalistasPorcliente.prototype.getResults = function(callback,ano,
         new DBPreparedParams('mes',mes,'number'),
         new DBPreparedParams('dia',dia,'number')
     ];
-    DBConnection.prepare(SQLQuery.totalAnalistasPorPais, params, callback);
+    DBConnection.prepare(SQLQuery.detalleAnalistasPorCliente, params, callback);
 
 };
 
