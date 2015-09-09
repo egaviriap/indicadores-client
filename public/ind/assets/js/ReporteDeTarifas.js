@@ -98,7 +98,7 @@
         horas: {
             elemID:"chart1_div",
             chartOptions:["BarChart","chart1_div","Suma Horas Por Pais",
-                "Pais","Cantidad","decimal",400,"horizontal",["#5DA5DA"]],
+                "Cantidad","Pais","decimal",400,"horizontal",["#5DA5DA"]],
             chartWrapper: {}
         }
     };
@@ -109,7 +109,7 @@
         horas: {
             elemID:"chart2_div",
             chartOptions:["BarChart","chart2_div","Suma Horas Por Cliente",
-                "Cliente","Cantidad","decimal",400,"horizontal",["#5DA5DA"]],
+                "Cantidad","Cliente","decimal",400,"horizontal",["#5DA5DA"]],
             chartWrapper: {}
         }
 
@@ -120,7 +120,7 @@
         horas: {
             elemID:"chart3_div",
             chartOptions:["BarChart","chart3_div","Suma Horas Por Servicio",
-                "Servicio","Cantidad","decimal",400,"horizontal",["#5DA5DA"]],
+                "Cantidad","Servicio","decimal",400,"horizontal",["#5DA5DA"]],
             chartWrapper: {}
         }
     };
