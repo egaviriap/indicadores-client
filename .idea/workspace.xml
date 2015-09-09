@@ -25,7 +25,7 @@
         <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ingresosAddSC.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="169" column="28" selection-start-line="169" selection-start-column="28" selection-end-line="169" selection-end-column="28" />
+              <caret line="131" column="53" selection-start-line="131" selection-start-column="53" selection-end-line="132" selection-end-column="27" />
               <folding>
                 <element signature="e#0#45#0" expanded="false" />
               </folding>
@@ -33,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="totalAnalistasPorPais.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/ind/assets/js/totalAnalistasPorPais.js">
+      <file leaf-file-name="ReporteDeTarifas.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ReporteDeTarifas.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="103" column="28" selection-start-line="103" selection-start-column="28" selection-end-line="103" selection-end-column="28" />
+              <caret line="288" column="28" selection-start-line="288" selection-start-column="28" selection-end-line="288" selection-end-column="28" />
               <folding>
                 <element signature="e#0#45#0" expanded="false" />
               </folding>
@@ -45,12 +45,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Dashboard.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/ind/assets/js/Dashboard.js">
+      <file leaf-file-name="HorasPorAnalista.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/ind/assets/js/HorasPorAnalista.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.28654125">
-              <caret line="669" column="33" selection-start-line="669" selection-start-column="33" selection-end-line="669" selection-end-column="33" />
-              <folding />
+            <state vertical-scroll-proportion="0.3690304">
+              <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -111,7 +113,6 @@
         <option value="$PROJECT_DIR$/public/ind/assets/js/ingresosAddSC.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/js/ReporteUltimaFecha.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/js/ReporteMaxTime.js" />
-        <option value="$PROJECT_DIR$/public/ind/assets/js/ReporteDeTarifas.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/js/HorasPorAnalista.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/js/reporteHorasAdicionales.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/js/totalAnalistasPorPais.js" />
@@ -119,6 +120,7 @@
         <option value="$PROJECT_DIR$/public/ind/assets/js/indicesEmpresa.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/globals/config.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/js/Dashboard.js" />
+        <option value="$PROJECT_DIR$/public/ind/assets/js/ReporteDeTarifas.js" />
       </list>
     </option>
   </component>
@@ -731,26 +733,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ReporteDeTarifas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="268" column="77" selection-start-line="268" selection-start-column="77" selection-end-line="268" selection-end-column="77" />
-          <folding>
-            <element signature="e#0#45#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/HorasPorAnalista.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="43" column="24" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIs/WebServer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -776,16 +758,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ingresosAddSC.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="169" column="28" selection-start-line="169" selection-start-column="28" selection-end-line="169" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#45#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/ind/assets/js/indicesEmpresa.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.12301013">
@@ -799,16 +771,6 @@
         <state vertical-scroll-proportion="0.7380608">
           <caret line="114" column="28" selection-start-line="114" selection-start-column="28" selection-end-line="114" selection-end-column="28" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/totalAnalistasPorPais.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="103" column="28" selection-start-line="103" selection-start-column="28" selection-end-line="103" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#45#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -830,9 +792,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/ind/assets/js/Dashboard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28654125">
+        <state vertical-scroll-proportion="1.024602">
           <caret line="669" column="33" selection-start-line="669" selection-start-column="33" selection-end-line="669" selection-end-column="33" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/totalAnalistasPorPais.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44283646">
+          <caret line="103" column="28" selection-start-line="103" selection-start-column="28" selection-end-line="103" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#45#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ingresosAddSC.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="131" column="53" selection-start-line="131" selection-start-column="53" selection-end-line="132" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#45#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ReporteDeTarifas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="288" column="28" selection-start-line="288" selection-start-column="28" selection-end-line="288" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#45#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/HorasPorAnalista.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3690304">
+          <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

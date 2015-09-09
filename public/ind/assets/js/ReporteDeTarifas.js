@@ -2,7 +2,7 @@
  * Created by egaviria on 15/05/2015.
  */
 
-(function(globals, GoogleChartAdapter, Aggregation){
+(function(globals, GoogleChartAdapter){
     document.getElementById("checkboxesCharts").style.display = "none";
 
     var ReporteDeTarifas = function(jsonData, controlsID, chartsID){
@@ -98,7 +98,7 @@
         horas: {
             elemID:"chart1_div",
             chartOptions:["BarChart","chart1_div","Suma Horas Por Pais",
-                "Servicio","Cantidad","decimal",400,"horizontal",["#5DA5DA"]],
+                "Pais","Cantidad","decimal",400,"horizontal",["#5DA5DA"]],
             chartWrapper: {}
         }
     };
@@ -286,5 +286,5 @@
     window.draw = draw;
     window.ReporteDeTarifas = ReporteDeTarifas;
 
-})(window,GoogleChartAdapter,Aggregation);
+})(window,GoogleChartAdapter);
 
