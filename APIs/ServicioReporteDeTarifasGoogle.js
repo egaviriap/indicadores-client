@@ -12,6 +12,7 @@ var ServicioReporteDeTarifasGoogle = function(){
 
     this.cols = [
 
+        {label:'Pais', type:'string', format: null},
         {label:'Cliente', type:'string', format: null},
         {label:'Servicio', type:'string', format: null},
         {label:'ValorHora', type:'number', format: "currency"},

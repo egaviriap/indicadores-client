@@ -5,6 +5,7 @@ var SQLQuery =  require('./SQLQueries.js');
 var DBConnection =  require('./DBConnection.js');
 var DBPreparedParams = require('./DBPreparedParams');
 var connection = DBConnection.getConnection();
+var dlClass = require('./DownloadClass.js');
 
 var ServicioIdNombreAnalista = function(){
 
@@ -16,5 +17,11 @@ ServicioIdNombreAnalista.prototype.getResults = function(callback){
     DBConnection.prepare(SQLQuery.IdNombreAnalistas, params, callback);
 };
 
+ServicioIdNombreAnalista.prototype.saveDataXls = function(jsonData, query){
+
+    var descarga = new dlClass('/../reports/IngresosAddSC.xlsx');
+    return descarga.getFile(jsonData, query);
+
+};
 
 module.exports = ServicioIdNombreAnalista;

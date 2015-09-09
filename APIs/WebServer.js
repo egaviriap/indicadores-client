@@ -15,6 +15,7 @@ var ServicioAnalistasPorPais = require('./serviciototalAnalistasPais.js');
 var ServicioDetalleAnalistasPorCliente = require('./servicioDetalleAnalistaPorCliente.js');
 var ServicioIngresosAddSC = require('./ServicioIngresosAddSC.js');
 
+
 var server2 = http.createServer(app);
 server2.listen(3000);
 
@@ -102,6 +103,11 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioIngresosAddSC();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
+    if (/^\/api\/AnalistasActivos/.test(req.url)) {
+        servicio = new ServicioIdNombreAnalista();
+        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
+    }
+
     // -----Tendencias ------
     if (/^\/api\/indicesEmpresa/.test(req.url)) {
         servicio = new loadIndicesEmpresa();

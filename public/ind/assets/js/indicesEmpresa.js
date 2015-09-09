@@ -391,7 +391,7 @@
             options: {
                 page: 'enable',
                 pageSize: 10,
-                width: "1000px"
+                width: "100%"
             }
         });
     };

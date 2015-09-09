@@ -113,7 +113,8 @@
             options: {
                 page: 'enable',
                 pageSize: 10,
-                height: "250px"
+                height: "250px",
+                width: "100%"
             }
         });
     };

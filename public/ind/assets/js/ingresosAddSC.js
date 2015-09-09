@@ -2,11 +2,6 @@
  * Created by egaviria on 31/07/2015.
  */
 
-
-/**
- * Created by egaviria on 28/04/2015.
- */
-
 (function(globals, GoogleChartAdapter, Aggregation){
     document.getElementById("checkboxesCharts").style.display = "none";
 
@@ -51,26 +46,37 @@
 
     ingresosAddSC.proxy = {
         columns: {
-            Cliente: {
+            Pais: {
                 index:0,
+                label: 'Pais'
+            },
+            Cliente: {
+                index:1,
                 label: 'Cliente'
             },
             Servicio: {
-                index:1,
+                index:2,
                 label: 'Servicio'
             },
             Horas_Adicionales:{
-                index: 2,
+                index: 3,
                 label: 'Horas_Adicionales'
             },
             Total:{
-                index: 3,
+                index: 4,
                 label: 'Total'
             }
         }
     };
     ingresosAddSC.filters = {
-
+        pais: {
+            elemID: "filterPais",
+            columnName: "Pais",
+            allowWrite: false,
+            allowMultiple: false,
+            allowNone: false,
+            label: "Cliente"
+        },
         cliente: {
             elemID: "filterCliente",
             columnName: "Cliente",
@@ -161,7 +167,7 @@
             options: {
                 page: 'enable',
                 pageSize: 10,
-                width: "1000px"
+                width: "100%"
             }
         });
     };

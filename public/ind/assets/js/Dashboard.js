@@ -309,6 +309,7 @@
             elemID: "filterPais",
             columnName: "Pais",
             allowWrite: false,
+            allowNone: true,
             allowMultiple: true,
             label: "Pais"
         },
@@ -316,6 +317,7 @@
             elemID: "filterCiudad",
             columnName: "CiudadN",
             allowWrite: false,
+            allowNone: true,
             allowMultiple: true,
             label: "Ciudad"
         },
@@ -323,6 +325,7 @@
             elemID: "filterCliente",
             columnName: "ClienteN",
             allowWrite: true,
+            allowNone: true,
             allowMultiple: true,
             label: "Cliente"
         },
@@ -331,6 +334,7 @@
             columnName: "ServicioN",
             allowWrite: false,
             allowMultiple: true,
+            allowNone: true,
             label: "Servicio"
         },
         cargo: {
@@ -338,18 +342,21 @@
             columnName: "Cargo",
             allowWrite: false,
             allowMultiple: true,
+            allowNone: true,
             label: "Cargo"
         },
         analista: {
             elemID: "filterAnalista",
             columnName: "AnalistaN",
             allowWrite: true,
+            allowNone: true,
             allowMultiple: true,
             label: "Analista"
         }
 
     };
     Dashboard.ciudad = {
+        name: "Ciudad",
         column: Dashboard.proxy.columns.ciudad.index,
         indices: {
             elemID: "chart1_div",
@@ -380,6 +387,7 @@
 
     };
     Dashboard.cliente = {
+        name: "Cliente",
         column: Dashboard.proxy.columns.cliente.index,
         indices: {
             elemID: "chart5_div",
@@ -412,6 +420,7 @@
 
     };
     Dashboard.servicio = {
+        name: "Servicio",
         column: Dashboard.proxy.columns.servicio.index,
         indices: {
             elemID: "chart9_div",
@@ -443,6 +452,7 @@
         }
     };
     Dashboard.cargo = {
+        name: "Cargo",
         column: Dashboard.proxy.columns.cargo.index,
         indices: {
             elemID: "chart13_div",
@@ -474,6 +484,7 @@
         }
     };
     Dashboard.analista = {
+        name: "Analista",
         column: Dashboard.proxy.columns.analista.index,
         indices: {
             elemID: "chart17_div",
@@ -506,6 +517,7 @@
 
     };
     Dashboard.pais = {
+        name: "Pais",
         column: Dashboard.proxy.columns.pais.index,
         indices: {
             elemID: "chart21_div",
@@ -543,7 +555,7 @@
         for (filter in this.filters){
             var filterElement = this.filters[filter];
             var currentCreatedFilter = Dashboard.createFilter(filterElement.elemID, filterElement.columnName,filterElement.allowWrite,
-                filterElement.allowMultiple, filterElement.label);
+                filterElement.allowMultiple,filterElement.allowNone, filterElement.label);
 
             if (filtersCounter > 1){
                 this.controls.bind(
@@ -589,6 +601,7 @@
                 sectionObject[chart].chartWrapper = globals.setChartWrapper.apply({},
                     sectionObject[chart].chartOptions);
                 if (chartObject.dynamicAggregation === true) {
+                    this._changeFilters(tableChart, sectionObject, chartObject);
                     dataTable = this._createDynamicDataTable(tableChart,
                         sectionObject, chartObject);
                 }
@@ -606,6 +619,16 @@
                     sectionObject[chart].chartWrapper, 150);
             }
         }
+    };
+
+    Dashboard.prototype._changeFilters = function(dt, sectionObject, chartObject){
+        var  horasFacTot, sortCol = [];
+        if(sectionObject.name == "Pais"){
+            sortCol =[Dashboard.proxy.columns.horasFacturables,
+                        Dashboard.proxy.columns.horasVac,
+                        Dashboard.proxy.columns.horasIncap];
+            horasFacTot = this._getAgrupatedDataSum(dt, [Dashboard.proxy.columns.pais.index],sortCol);
+        }
 
     };
     Dashboard.prototype._createDynamicDataTable = function(dt, sectionObject, chartObject){
@@ -613,7 +636,6 @@
             columnIndex = sectionObject.column,
             distinctedGroupByCol = dt.getDistinctValues(columnIndex),
             rows = [], columnsLabelSetted = false;
-
         dynamicDataTable.addColumn("string",dt.getColumnLabel(columnIndex));
         distinctedGroupByCol.forEach(function(distinctColValue){
             var rowValues = [distinctColValue];
@@ -625,7 +647,6 @@
                     distinctColValue,column.aggregationFn,
                     column.dependency.static(),column.dependency.dynamic));
             });
-            console.log(rowValues);
             rows.push(rowValues);
             columnsLabelSetted = true;
         });
@@ -650,8 +671,10 @@
                 }
             });
         }
+
+
         return Aggregation.customSum(dataTable,
-            [{column: columnIndex, value: distinctColValue}], aggregationFn, staticDependencies, dynamicValues);
+           [{column: columnIndex, value: distinctColValue}], aggregationFn, staticDependencies, dynamicValues);
     };
 
     Dashboard.prototype.createTemplate = function(controlsID, chartsID){
@@ -691,14 +714,14 @@
         return groupedData;
     };
 
-    Dashboard.createFilter = function(containerId,columnLabel,allowTyping,allowMultiple,label){
+    Dashboard.createFilter = function(containerId,columnLabel,allowTyping,allowMultiple,allowNone,label){
         var controlWrapper = new google.visualization.ControlWrapper({
             'controlType': "CategoryFilter",
             'containerId': containerId,
             'options': {
                 'filterColumnLabel': columnLabel,
                 'ui': {'labelStacking': 'vertical',
-                    'allowNone': true,
+                    'allowNone': allowNone,
                     'allowTyping': allowTyping,
                     'allowMultiple': allowMultiple,
                     'caption': 'Todos',

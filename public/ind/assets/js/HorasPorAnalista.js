@@ -1,8 +1,6 @@
 /**
  * Created by egaviria on 04/05/2015.
  */
-
-
 ;function draw(jsonData) {
     // Create our data table out of JSON data loaded from server.
     document.getElementById("analistaLI").style.display = "block";
@@ -42,7 +40,8 @@
         'options': {
             page: 'enable',
             pageSize: 5,
-            height: "300px"
+            height: "300px",
+            width: "100%"
         }
     });
     var filtroHoras = new google.visualization.ControlWrapper({

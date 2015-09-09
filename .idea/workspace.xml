@@ -21,111 +21,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/ind/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.807693">
-              <caret line="56" column="68" selection-start-line="56" selection-start-column="47" selection-end-line="56" selection-end-column="68" />
-              <folding>
-                <element signature="n#style#0;n#li#3;n#ul#0;n#div#1;n#div#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#div#3;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#div#5;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="e#11535#11612#0" expanded="false" />
-                <element signature="e#11788#11865#0" expanded="false" />
-                <element signature="e#13300#13657#0" expanded="false" />
-                <element signature="e#13703#13799#0" expanded="false" />
-                <element signature="e#13835#13927#0" expanded="false" />
-                <element signature="e#13967#14069#0" expanded="false" />
-                <element signature="e#14106#14205#0" expanded="false" />
-                <element signature="e#14229#14584#0" expanded="false" />
-                <element signature="e#14615#14829#0" expanded="false" />
-                <element signature="e#14852#14987#0" expanded="false" />
-                <element signature="e#15021#15203#0" expanded="false" />
-                <element signature="e#15238#15832#0" expanded="false" />
-                <element signature="e#15865#16599#0" expanded="false" />
-                <element signature="e#15942#16065#0" expanded="false" />
-                <element signature="e#18406#19077#0" expanded="false" />
-                <element signature="e#19134#19407#0" expanded="false" />
-                <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WebServer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIs/WebServer.js">
+      <file leaf-file-name="ingresosAddSC.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ingresosAddSC.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="97" column="34" selection-start-line="97" selection-start-column="34" selection-end-line="97" selection-end-column="34" />
+              <caret line="169" column="28" selection-start-line="169" selection-start-column="28" selection-end-line="169" selection-end-column="28" />
               <folding>
-                <element signature="e#3076#3215#0" expanded="false" />
-                <element signature="e#3276#3428#0" expanded="false" />
-                <element signature="e#3494#3642#0" expanded="false" />
-                <element signature="e#3694#3828#0" expanded="false" />
-                <element signature="e#3887#4028#0" expanded="false" />
-                <element signature="e#4085#4220#0" expanded="false" />
-                <element signature="e#4284#4425#0" expanded="false" />
-                <element signature="e#4701#4839#0" expanded="false" />
+                <element signature="e#0#45#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Dashboard.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="totalAnalistasPorPais.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/ind/assets/js/totalAnalistasPorPais.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="103" column="28" selection-start-line="103" selection-start-column="28" selection-end-line="103" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#45#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Dashboard.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/ind/assets/js/Dashboard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="635" column="55" selection-start-line="635" selection-start-column="55" selection-end-line="635" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="detalleAnalistasPorCliente.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/ind/assets/js/detalleAnalistasPorCliente.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="24" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="servicioDetalleAnalistaPorCliente.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIs/servicioDetalleAnalistaPorCliente.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="42" column="60" selection-start-line="42" selection-start-column="60" selection-end-line="42" selection-end-column="60" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SQLQueries.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIs/SQLQueries.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="62" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="62" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="aggregations.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/ind/assets/globals/aggregations.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/ind/assets/globals/config.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.14761215">
-              <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+            <state vertical-scroll-proportion="0.28654125">
+              <caret line="669" column="33" selection-start-line="669" selection-start-column="33" selection-end-line="669" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -144,18 +68,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/passport/signup.js" />
-        <option value="$PROJECT_DIR$/models/user.js" />
-        <option value="$PROJECT_DIR$/public/ind/scss/main.scss" />
-        <option value="$PROJECT_DIR$/APIs/servicioTendencias.js" />
-        <option value="$PROJECT_DIR$/APIs/servicioClienteTendencias.js" />
         <option value="$PROJECT_DIR$/APIs/ServicioHorasAdicionales.js" />
         <option value="$PROJECT_DIR$/APIs/ServicioPaisTendencia.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/js/analistasPorCliente.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/js/reporteAnalistasPorCliente.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/js/dealleAnalistasPorcliente.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/js/detalleAnalistasPorcliente.js" />
-        <option value="$PROJECT_DIR$/public/ind/assets/js/reporteHorasAdicionales.js" />
         <option value="$PROJECT_DIR$/APIs/servicioTendenciasCliente.js" />
         <option value="$PROJECT_DIR$/APIs/ServicioTendenciasPais.js" />
         <option value="$PROJECT_DIR$/APIs/servicioTendenciasCiudad.js" />
@@ -173,28 +91,34 @@
         <option value="$PROJECT_DIR$/models/indicesEmpresa.js" />
         <option value="$PROJECT_DIR$/APIs/saveIndicesEmpresa.js" />
         <option value="$PROJECT_DIR$/APIs/ServicioUltimaFechaReporteXAnalista.js" />
-        <option value="$PROJECT_DIR$/public/ind/assets/js/ReporteUltimaFecha.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/APIs/ServicioDashboard.js" />
         <option value="$PROJECT_DIR$/APIs/DBConnection.js" />
-        <option value="$PROJECT_DIR$/APIs/ServicioIngresosAddSC.js" />
         <option value="$PROJECT_DIR$/APIs/loadIndicesEmpresa.js" />
-        <option value="$PROJECT_DIR$/public/ind/assets/js/ingresosAddSC.js" />
-        <option value="$PROJECT_DIR$/public/ind/assets/js/indicesEmpresa.js" />
         <option value="$PROJECT_DIR$/APIs/servicioAnalistasPorCliente.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/js/totalAnalistasPorCliente.js" />
         <option value="$PROJECT_DIR$/public/ind/index.html" />
-        <option value="$PROJECT_DIR$/public/ind/assets/js/totalAnalistasPorPais.js" />
         <option value="$PROJECT_DIR$/APIs/SQLQueries.js" />
         <option value="$PROJECT_DIR$/APIs/serviciototalAnalistasPais.js" />
-        <option value="$PROJECT_DIR$/APIs/WebServer.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/js/newDash.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/globals/googlechartadapter.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/globals/aggregations.js" />
-        <option value="$PROJECT_DIR$/public/ind/assets/js/Dashboard.js" />
-        <option value="$PROJECT_DIR$/public/ind/assets/js/detalleAnalistasPorCliente.js" />
         <option value="$PROJECT_DIR$/APIs/servicioDetalleAnalistaPorCliente.js" />
+        <option value="$PROJECT_DIR$/APIs/ServicioIngresosAddSC.js" />
+        <option value="$PROJECT_DIR$/APIs/ServicioReporteDeTarifasGoogle.js" />
+        <option value="$PROJECT_DIR$/APIs/ServicioIdNombreAnalista.js" />
+        <option value="$PROJECT_DIR$/APIs/WebServer.js" />
+        <option value="$PROJECT_DIR$/public/ind/assets/js/ingresosAddSC.js" />
+        <option value="$PROJECT_DIR$/public/ind/assets/js/ReporteUltimaFecha.js" />
+        <option value="$PROJECT_DIR$/public/ind/assets/js/ReporteMaxTime.js" />
+        <option value="$PROJECT_DIR$/public/ind/assets/js/ReporteDeTarifas.js" />
+        <option value="$PROJECT_DIR$/public/ind/assets/js/HorasPorAnalista.js" />
+        <option value="$PROJECT_DIR$/public/ind/assets/js/reporteHorasAdicionales.js" />
+        <option value="$PROJECT_DIR$/public/ind/assets/js/totalAnalistasPorPais.js" />
+        <option value="$PROJECT_DIR$/public/ind/assets/js/detalleAnalistasPorCliente.js" />
+        <option value="$PROJECT_DIR$/public/ind/assets/js/indicesEmpresa.js" />
         <option value="$PROJECT_DIR$/public/ind/assets/globals/config.js" />
+        <option value="$PROJECT_DIR$/public/ind/assets/js/Dashboard.js" />
       </list>
     </option>
   </component>
@@ -258,8 +182,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -328,6 +250,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CHIndicadoresSeguro" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CHIndicadoresSeguro" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ind" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -358,48 +302,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CHIndicadoresSeguro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CHIndicadoresSeguro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ind" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="globals" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CHIndicadoresSeguro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CHIndicadoresSeguro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="APIs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -517,7 +423,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="142" />
+      <option name="time" value="144" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -526,7 +432,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -635,24 +540,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/lib/all.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36034733">
-          <caret line="46" column="5" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/ind/scss/main.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0736842">
           <caret line="42" column="1" selection-start-line="42" selection-start-column="1" selection-end-line="42" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIs/ServicioReporteMaxTime.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4341534">
-          <caret line="42" column="6" selection-start-line="42" selection-start-column="6" selection-end-line="42" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -663,59 +554,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIs/ServicioIdNombreAnalista.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIs/ServicioHorasPorAnalista.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.024602026">
-          <caret line="9" column="42" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ReporteUltimaFecha.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.95079595">
-          <caret line="67" column="26" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ReporteMaxTime.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.024602026">
-          <caret line="34" column="51" selection-start-line="34" selection-start-column="51" selection-end-line="34" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ingresosAddSC.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3323263">
-          <caret line="197" column="63" selection-start-line="197" selection-start-column="59" selection-end-line="197" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ReporteDeTarifas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17221418">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.23733719">
           <caret line="50" column="35" selection-start-line="50" selection-start-column="35" selection-end-line="50" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/reporteHorasAdicionales.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.073806">
-          <caret line="146" column="17" selection-start-line="146" selection-start-column="17" selection-end-line="146" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -733,26 +575,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/indicesEmpresa.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="349" column="88" selection-start-line="349" selection-start-column="88" selection-end-line="349" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIs/ServicioIngresosAddSC.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4674385">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIs/ServicioUltimaFechaReporteXAnalista.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6063676">
           <caret line="37" column="45" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -767,17 +593,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.27930537">
           <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/totalAnalistasPorPais.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="29" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#45#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -785,22 +600,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3357453">
           <caret line="23" column="3" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIs/ServicioReporteDeTarifasGoogle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27062228">
-          <caret line="14" column="40" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/HorasPorAnalista.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8856729">
-          <caret line="38" column="57" selection-start-line="38" selection-start-column="57" selection-end-line="38" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -808,9 +607,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.55716354">
           <caret line="28" column="80" selection-start-line="28" selection-start-column="80" selection-end-line="28" selection-end-column="80" />
-          <folding>
-            <element signature="e#0#45#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -818,17 +614,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.040520985">
           <caret line="36" column="56" selection-start-line="36" selection-start-column="56" selection-end-line="36" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/newDash.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.85238785">
-          <caret line="751" column="0" selection-start-line="751" selection-start-column="0" selection-end-line="751" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -839,9 +624,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/APIs/servicioDetalleAnalistaPorCliente.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="42" column="60" selection-start-line="42" selection-start-column="60" selection-end-line="42" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/globals/aggregations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45875543">
+          <caret line="26" column="52" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIs/SQLQueries.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3357453">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIs/ServicioReporteDeTarifasGoogle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27062228">
+          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/ind/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.807693">
+        <state vertical-scroll-proportion="0.0">
           <caret line="56" column="68" selection-start-line="56" selection-start-column="47" selection-end-line="56" selection-end-column="68" />
           <folding>
             <element signature="n#style#0;n#li#3;n#ul#0;n#div#1;n#div#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -868,59 +683,139 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/globals/aggregations.js">
+    <entry file="file://$PROJECT_DIR$/APIs/ServicioIngresosAddSC.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+          <caret line="7" column="46" selection-start-line="7" selection-start-column="46" selection-end-line="8" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/Dashboard.js">
+    <entry file="file://$PROJECT_DIR$/APIs/ServicioReporteMaxTime.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="635" column="55" selection-start-line="635" selection-start-column="55" selection-end-line="635" selection-end-column="55" />
+          <caret line="42" column="6" selection-start-line="42" selection-start-column="6" selection-end-line="42" selection-end-column="6" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIs/ServicioIdNombreAnalista.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4674385">
+          <caret line="19" column="42" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ReporteMaxTime.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="132" column="9" selection-start-line="132" selection-start-column="9" selection-end-line="132" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIs/ServicioHorasPorAnalista.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31982633">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="30" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ReporteUltimaFecha.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.024602">
+          <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ReporteDeTarifas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="268" column="77" selection-start-line="268" selection-start-column="77" selection-end-line="268" selection-end-column="77" />
+          <folding>
+            <element signature="e#0#45#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/HorasPorAnalista.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="43" column="24" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIs/WebServer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="97" column="34" selection-start-line="97" selection-start-column="34" selection-end-line="97" selection-end-column="34" />
+          <caret line="105" column="33" selection-start-line="105" selection-start-column="17" selection-end-line="105" selection-end-column="33" />
           <folding>
-            <element signature="e#3076#3215#0" expanded="false" />
-            <element signature="e#3276#3428#0" expanded="false" />
-            <element signature="e#3494#3642#0" expanded="false" />
-            <element signature="e#3694#3828#0" expanded="false" />
-            <element signature="e#3887#4028#0" expanded="false" />
-            <element signature="e#4085#4220#0" expanded="false" />
-            <element signature="e#4284#4425#0" expanded="false" />
-            <element signature="e#4701#4839#0" expanded="false" />
+            <element signature="e#3277#3429#0" expanded="false" />
+            <element signature="e#3495#3643#0" expanded="false" />
+            <element signature="e#3695#3829#0" expanded="false" />
+            <element signature="e#3888#4029#0" expanded="false" />
+            <element signature="e#4086#4221#0" expanded="false" />
+            <element signature="e#4285#4426#0" expanded="false" />
+            <element signature="e#4495#4646#0" expanded="false" />
+            <element signature="e#4702#4840#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIs/SQLQueries.js">
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/reporteHorasAdicionales.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48335746">
+          <caret line="116" column="28" selection-start-line="116" selection-start-column="28" selection-end-line="116" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/ingresosAddSC.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="62" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="62" />
+          <caret line="169" column="28" selection-start-line="169" selection-start-column="28" selection-end-line="169" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#45#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/indicesEmpresa.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12301013">
+          <caret line="378" column="47" selection-start-line="378" selection-start-column="47" selection-end-line="378" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/ind/assets/js/detalleAnalistasPorCliente.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="24" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.7380608">
+          <caret line="114" column="28" selection-start-line="114" selection-start-column="28" selection-end-line="114" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIs/servicioDetalleAnalistaPorCliente.js">
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/totalAnalistasPorPais.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="60" selection-start-line="42" selection-start-column="60" selection-end-line="42" selection-end-column="60" />
+          <caret line="103" column="28" selection-start-line="103" selection-start-column="28" selection-end-line="103" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#45#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ind/lib/all.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36034733">
+          <caret line="46" column="5" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -929,6 +824,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14761215">
           <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ind/assets/js/Dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28654125">
+          <caret line="669" column="33" selection-start-line="669" selection-start-column="33" selection-end-line="669" selection-end-column="33" />
           <folding />
         </state>
       </provider>

@@ -11,6 +11,7 @@ var dlClass = require('./DownloadClass.js');
 
 var ServicioIngresosAddSC = function(){
     this.cols = [
+        {label:'Pais', type:'string', format: null},
         {label:'Cliente', type:'string', format: null},
         {label:'Servicio', type:'string', format: null},
         {label:'Horas_Adicionales', type:'number', format: null},
