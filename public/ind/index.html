@@ -99,6 +99,12 @@
                                     class="selectpicker span4" id="AnalistaSelect" >
                             </select>
                         </li>
+                        <li class="page-scroll" style="margin: 1em;display:none;" id="clienteLI" >
+                            <label for="clienteSelect">Cliente</label><br/>
+                            <select name="clienteSelect" data-live-search="true" title='Seleccione El Cliente'  data-width="330px"
+                                    class="selectpicker span4" id="clienteSelect" style="display: none">
+                            </select>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -231,16 +237,28 @@
         $.data(document.body, "analista", this.value);
         onChange();
     });
+    $("#clienteSelect").on("change", function(e){
+        $.data(document.body, "cliente", this.value);
+        onChange();
+    });
     $('#btnExport').click(function(){
         var urls = $.data(document.body, "url");
         download(urls);
     });
     //fill the dynamically the analysts <select>
+
     $.getJSON(config.apiEndpoint + 'IdNombreAnalista', function(data){
         $.each(data, function(key, val){
             $('#AnalistaSelect').append('<option value="' + val.Id + '">' + val.Nombre + '</option>');
         })
     });
+
+    $.getJSON(config.apiEndpoint + 'CargarClientes', function(data){
+        $.each(data, function(key, val){
+            $('#clienteSelect').append('<option value="' + val.Id + '">' + val.Nombre + '</option>');
+        })
+    });
+
 
     $(document).ready(function(){
 
@@ -258,13 +276,12 @@
         $.data(document.body, "url", servicio);
         $("#AnalistaSelect").val(searchObj.analista);
         $.data(document.body, "analista", searchObj.analista);
-        drawChart(null, ano, mes, servicio, parseInt(searchObj.analista));
+        $("#clienteSelect").val(searchObj.cliente);
+        $.data(document.body, "cliente", searchObj.cliente);
+        drawChart(null, ano, mes, servicio, parseInt(searchObj.analista), parseInt(searchObj.cliente));
         $("#btnModal").click(function(){
             $("#myModal").modal('show');
         });
-
-        // immediately change the hash
-        //document.location.hash = '';
 
     });
     function searchToObject(urlSearch) {
@@ -300,7 +317,9 @@
             ano: $.data(document.body, "ano"),
             mes: $.data(document.body, "mes"),
             url: $.data(document.body, "url"),
-            analista:$.data(document.body, "analista")
+            analista:$.data(document.body, "analista"),
+            cliente:$.data(document.body, "cliente")
+
         };
         window.location.hash = "#?"+$.param(data);
         window.location.reload();
@@ -308,7 +327,8 @@
     function download(service){
         var data = {
             ano: $.data(document.body, "ano"),
-            mes: $.data(document.body, "mes")
+            mes: $.data(document.body, "mes"),
+            cliente: $.data(document.body, "cliente")
         };
         window.open(config.apiEndpoint + 'download'+service+ '?' +$.param(data));
     }
@@ -358,16 +378,17 @@
         });
         return data;
     }
-    function drawChart(e, ano, mes, url, analista) {
+    function drawChart(e, ano, mes, url, analista, cliente) {
         var ano = ano || now.getFullYear();
         var dashboard = null;
         var mes = mes || now.getMonth()+1;
         var urls = url || "Dashboard";
         var analista = analista || 0;
+        var cliente = cliente || 0;
         var jsonData = $.ajax({
             url: config.apiEndpoint + urls,
             dataType:"json",
-            data: {"ano": ano, "mes": mes, "analista": analista, "url": urls}
+            data: {"ano": ano, "mes": mes, "analista": analista,"cliente":cliente, "url": urls}
         }).then(function(data, textStatus){
             if(url){
                 changeService(urls);

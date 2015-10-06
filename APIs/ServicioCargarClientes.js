@@ -7,14 +7,14 @@ var DBPreparedParams = require('./DBPreparedParams');
 var connection = DBConnection.getConnection();
 var dlClass = require('./DownloadClass.js');
 
-var ServicioIdNombreAnalista = function(){
+var ServicioCargarClientes = function(){
 
 };
 
-ServicioIdNombreAnalista.prototype.getResults = function(callback){
+ServicioCargarClientes.prototype.getResults = function(callback){
     var params = null;
 
-    DBConnection.prepare(SQLQuery.IdNombreAnalistas, params, callback);
+    DBConnection.prepare(SQLQuery.CargarClientes, params, callback);
 };
 
-module.exports = ServicioIdNombreAnalista;
+module.exports = ServicioCargarClientes;

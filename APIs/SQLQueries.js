@@ -4,6 +4,10 @@ var SQLQuery = {
         "USE [ControlCO]\
             EXEC  [dbo].[SP_CargarAnalistas]",
 
+    CargarClientes:
+        "USE [ControlCO]\
+            EXEC  [dbo].[SP_CargarClientes]",
+
     HorasPorAnalista:
         "USE [ControlCO]\
              EXEC  [dbo].[SP_ReporteHorasPorAnalista] @Qanalista = @analista",
@@ -46,7 +50,7 @@ var SQLQuery = {
 
     ReporteFacturacion:
         "USE [ControlCO]\
-             EXEC  [dbo].[SP_ReporteFacturacion] @Qmes = @mes, @Qano = @ano"
+             EXEC  [dbo].[SP_ReporteFacturacion] @Qmes = @mes, @Qano = @ano, @QCliente = @cliente"
 
 };
 

@@ -5,6 +5,7 @@
 
 (function(globals, GoogleChartAdapter){
     document.getElementById("checkboxesCharts").style.display = "none";
+    document.getElementById("clienteLI").style.display = "block";
 
     var ReporteFacturacion = function(jsonData, controlsID, chartsID){
 
@@ -103,14 +104,6 @@
         }
     };
     ReporteFacturacion.filters = {
-        cliente: {
-            elemID: "filterCliente",
-            columnName: "CLIENTE",
-            allowWrite: true,
-            allowMultiple: true,
-            allowNone: true,
-            label: "Cliente"
-        },
         serviico: {
             elemID: "filterServicio",
             columnName: "SERVICIO",
@@ -118,6 +111,14 @@
             allowMultiple: true,
             allowNone: true,
             label: "Servicio"
+        },
+        proyecto: {
+            elemID: "filterProyecto",
+            columnName: "CODIGO PROYECTO",
+            allowWrite: true,
+            allowMultiple: true,
+            allowNone: true,
+            label: "Proyecto"
         },
         analista: {
             elemID: "filterAnalista",

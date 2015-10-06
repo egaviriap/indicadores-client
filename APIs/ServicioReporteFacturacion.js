@@ -39,11 +39,15 @@ ServicioReporteFacturacion.prototype.saveDataXls = function(jsonData, query){
 
 };
 
-ServicioReporteFacturacion.prototype.getResults = function(callback,ano,mes){
+ServicioReporteFacturacion.prototype.getResults = function(callback,ano,mes,cliente){
 
+    console.log(ano);
+    console.log(mes);
+    console.log(cliente);
     var params = [
         new DBPreparedParams('ano',ano,'number'),
-        new DBPreparedParams('mes',mes,'number')
+        new DBPreparedParams('mes',mes,'number'),
+        new DBPreparedParams('cliente',cliente,'number')
     ];
     DBConnection.prepare(SQLQuery.ReporteFacturacion, params, callback);
 };

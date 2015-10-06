@@ -5,6 +5,7 @@ var app = require("../app");
 var ServicioDashboard = require('./ServicioDashboard.js');
 var GoogleChartAdapter = require('./GoogleChartAdapter.js');
 var ServicioIdNombreAnalista = require('./ServicioIdNombreAnalista.js');
+var ServicioCargarClientes = require('./ServicioCargarClientes.js');
 var ServicioHorasPorAnalista = require('./ServicioHorasPorAnalista.js');
 var ServicioReporteDeTarifas = require('./ServicioReporteDeTarifasGoogle.js');
 var ServicioReporteMaxTime = require('./ServicioReporteMaxTime.js');
@@ -24,6 +25,7 @@ var server = http.createServer(function (req, res) {
     var parsedUrl = url.parse(req.url, true);
     var mes = parsedUrl.query.mes;
     var ano = parsedUrl.query.ano;
+    var cliente = parsedUrl.query.cliente;
     var analista=parsedUrl.query.analista;
     var servicio;
     // ---------servicios
@@ -33,6 +35,10 @@ var server = http.createServer(function (req, res) {
     }
     if (/^\/api\/IdNombreAnalista/.test(req.url)) {
         servicio = new ServicioIdNombreAnalista();
+        servicio.getResults(writeDataNoGoogle());
+    }
+    if (/^\/api\/CargarClientes/.test(req.url)) {
+        servicio = new ServicioCargarClientes();
         servicio.getResults(writeDataNoGoogle());
     }
     if (/^\/api\/HorasPorAnalista/.test(req.url)) {
@@ -69,7 +75,7 @@ var server = http.createServer(function (req, res) {
     }
     if (/^\/api\/ReporteFacturacion/.test(req.url)) {
         servicio = new ServicioReporteFacturacion();
-        servicio.getResults(writeData(servicio), ano, mes);
+        servicio.getResults(writeData(servicio), ano, mes, cliente);
     }
     //download Reports--------
     if (/^\/api\/downloadReporteMaxTime/.test(req.url)) {
@@ -114,7 +120,7 @@ var server = http.createServer(function (req, res) {
     }
     if (/^\/api\/downloadReporteFacturacion/.test(req.url)) {
         servicio = new ServicioReporteFacturacion();
-        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
+        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes, cliente);
     }
 
 
