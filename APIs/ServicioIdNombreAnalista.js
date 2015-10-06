@@ -19,7 +19,7 @@ ServicioIdNombreAnalista.prototype.getResults = function(callback){
 
 ServicioIdNombreAnalista.prototype.saveDataXls = function(jsonData, query){
 
-    var descarga = new dlClass('/../reports/IngresosAddSC.xlsx');
+    var descarga = new dlClass('/../reports/AnalistasActivos.xlsx');
     return descarga.getFile(jsonData, query);
 
 };

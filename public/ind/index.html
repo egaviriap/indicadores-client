@@ -61,6 +61,8 @@
                                         value="ingresosAddSC">Ingresos Adicionales SC</option>
                                 <option label="indicesEmpresa"
                                         value="indicesEmpresa">Indices De La Empresa</option>
+                                <option label="ReporteFacturacion"
+                                        value="ReporteFacturacion">Reporte De Facturación</option>
                             </select>
                         </li>
                         <li class="page-scroll" id="anoLI" style="margin: 1em;">
@@ -177,7 +179,7 @@
                     <div class="col-md-4">
                         <b style="font-size: medium">Comp</b>
                         <b>=</b>
-                        Compesantorias
+                        Compensatorias
                     </div>
                     <div class="col-md-4">
                         <b style="font-size: medium">HANF</b>
@@ -241,10 +243,12 @@
     });
 
     $(document).ready(function(){
-        var searchObj = searchToObject(window.location.hash.substring(1)),
-                servicio = searchObj.url || "Dashboard",
-                ano = searchObj.ano || now.getFullYear(),
-                mes = searchObj.mes || (now.getMonth()+1);
+
+      var searchObj = searchToObject(window.location.hash.substring(1)),
+            servicio = searchObj.url || "Dashboard",
+            ano = searchObj.ano || now.getFullYear(),
+            mes = searchObj.mes || (now.getMonth()+1);
+
         changeService(servicio);
         $("#mesSelect").val(mes);
         $.data(document.body, "mes", mes);
@@ -258,6 +262,10 @@
         $("#btnModal").click(function(){
             $("#myModal").modal('show');
         });
+
+        // immediately change the hash
+        //document.location.hash = '';
+
     });
     function searchToObject(urlSearch) {
         var pairs = urlSearch.substring(1).split("&"),
@@ -270,7 +278,6 @@
             pair = pairs[i].split("=");
             obj[ decodeURIComponent( pair[0] ) ] = decodeURIComponent( pair[1] );
         }
-
         return obj;
     }
     function addDivCharts(classText, idText) {
@@ -365,6 +372,7 @@
             if(url){
                 changeService(urls);
                 setTimeout(function(){
+                    //console.log("dataSent",data);
                     dashboard = draw(convertToDate(data));
                     google.visualization.events.addListener(dashboard, "ready", function(){
                         document.getElementById("imgGif").style.display = "none";

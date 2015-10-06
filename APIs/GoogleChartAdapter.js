@@ -100,6 +100,7 @@ GoogleChartAdapter.prototype.formatRows= function(servicio, data) {
 };
 
 GoogleChartAdapter.prototype.getFormatedData = function(servicio, data){
+
     var self = this;
     var formatedData = {"cols": servicio.cols, "rows": self.formatRows(servicio, data)};
     return formatedData;

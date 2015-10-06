@@ -14,6 +14,7 @@ var loadIndicesEmpresa = require('./loadIndicesEmpresa.js');
 var ServicioAnalistasPorPais = require('./serviciototalAnalistasPais.js');
 var ServicioDetalleAnalistasPorCliente = require('./servicioDetalleAnalistaPorCliente.js');
 var ServicioIngresosAddSC = require('./ServicioIngresosAddSC.js');
+var ServicioReporteFacturacion = require('./ServicioReporteFacturacion.js');
 
 
 var server2 = http.createServer(app);
@@ -66,6 +67,10 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioIngresosAddSC();
         servicio.getResults(writeData(servicio), ano, mes);
     }
+    if (/^\/api\/ReporteFacturacion/.test(req.url)) {
+        servicio = new ServicioReporteFacturacion();
+        servicio.getResults(writeData(servicio), ano, mes);
+    }
     //download Reports--------
     if (/^\/api\/downloadReporteMaxTime/.test(req.url)) {
         servicio = new ServicioReporteMaxTime();
@@ -107,6 +112,11 @@ var server = http.createServer(function (req, res) {
         servicio = new ServicioIdNombreAnalista();
         servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
     }
+    if (/^\/api\/downloadReporteFacturacion/.test(req.url)) {
+        servicio = new ServicioReporteFacturacion();
+        servicio.getResults(downloadReports(servicio, parsedUrl.query), ano, mes);
+    }
+
 
     // -----Tendencias ------
     if (/^\/api\/indicesEmpresa/.test(req.url)) {

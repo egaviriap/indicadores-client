@@ -42,7 +42,11 @@ var SQLQuery = {
 
     ingresosAddSC:
         "USE [ControlCO]\
-             EXEC  [dbo].[SP_ReporteIngresosAddicionalesSC] @Qmes = @mes, @Qano = @ano"
+             EXEC  [dbo].[SP_ReporteIngresosAddicionalesSC] @Qmes = @mes, @Qano = @ano",
+
+    ReporteFacturacion:
+        "USE [ControlCO]\
+             EXEC  [dbo].[SP_ReporteFacturacion] @Qmes = @mes, @Qano = @ano"
 
 };
 
