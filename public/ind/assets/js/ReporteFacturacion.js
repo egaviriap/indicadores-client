@@ -61,44 +61,48 @@
                 index: 7,
                 label: 'CODIGO PROYECTO'
             },
-            codigoSubProyecto:{
+            proyecto:{
                 index: 8,
+                label: 'PROYECTO'
+            },
+            codigoSubProyecto:{
+                index: 9,
                 label: 'CODIGOSUBPROYECTO'
             },
             nombreSubProyecto:{
-                index: 9,
+                index: 10,
                 label: 'NOMBRE SUBPROYECTO'
             },
             actividad:{
-                index: 10,
+                index: 11,
                 label: 'ACTIVIDAD'
             },
             cluster:{
-                index: 11,
+                index: 12,
                 label: 'CLUSTER'
             },
             horasInvertidas:{
-                index: 12,
+                index: 13,
                 label: 'HORAS INVERTIDAS'
             },
             casual:{
-                index: 13,
+                index: 14,
                 label: 'CAUSAL'
             },
             observaciones:{
-                index: 14,
+                index: 15,
                 label: 'OBSERVACIONES'
             },
             tipoTiempo:{
-                index: 15,
+                index: 16,
                 label: 'TIPO TIEMPO'
             },
             horasAddicionales_a_Pagar:{
-                index: 16,
+                index: 17,
                 label: 'HorasAdicionalesAPagar'
             },
             horasAddCompensatorio:{
-                index: 17,
+                index: 18,
                 label: 'HorasAdicionalesCompensatorio'
             }
         }
@@ -114,7 +118,7 @@
         },
         proyecto: {
             elemID: "filterProyecto",
-            columnName: "CODIGO PROYECTO",
+            columnName: "PROYECTO",
             allowWrite: true,
             allowMultiple: true,
             allowNone: true,

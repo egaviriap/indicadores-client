@@ -19,6 +19,7 @@ var ServicioReporteFacturacion = function(){
         {label:'ANALISTA', type:'string', format: null},
         {label:'SERVICIO', type:'string', format: null},
         {label:'CODIGO PROYECTO', type:'string', format: null},
+        {label:'PROYECTO', type:'string', format: null},
         {label:'CODIGOSUBPROYECTO', type:'string', format: null},
         {label:'NOMBRE SUBPROYECTO', type:'string', format: null},
         {label:'ACTIVIDAD', type:'string', format: null},
