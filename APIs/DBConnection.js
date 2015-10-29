@@ -42,8 +42,6 @@ DBConecction.prototype.getConnection = function(){
 DBConecction.prototype.prepare = function(query, params, callback){
     var ps = new sql.PreparedStatement(this.connection);
     var self = this;
-
-    //console.log(params);
     var paramsQuery = {};
     if(!!params){
         params.forEach(function(param){
@@ -53,8 +51,7 @@ DBConecction.prototype.prepare = function(query, params, callback){
     }
 
 
-    ps.prepare( query , function(err) {
-        //console.log(query);
+    ps.prepare(query, function(err) {
 
         // ... error checks
         ps.execute(paramsQuery, function(err, recordset) {
@@ -62,7 +59,6 @@ DBConecction.prototype.prepare = function(query, params, callback){
             ps.unprepare(function(err) {
                 // ... error checks
             });
-            //console.log(recordset);
             callback(recordset);
 
         });

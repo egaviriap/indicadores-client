@@ -55,7 +55,12 @@
             pais:{
                 index: 6,
                 label: 'Pais'
+            },
+            horasReportadas:{
+                index: 7,
+                label: 'Horas Reportadas'
             }
+
         }
     };
     ReporteUltimaFecha.filters = {

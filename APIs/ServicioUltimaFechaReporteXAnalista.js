@@ -18,7 +18,8 @@ var ServicioUltimaFechaReporteXAnalista = function(){
         {label:'Diferencia', type:'number', format: null},
         {label:'Analista', type:'string', format: null},
         {label:'Cedula', type:'string', format: null},
-        {label:'Pais', type:'string', format: null}
+        {label:'Pais', type:'string', format: null},
+        {label:'TotalHorasReportadas', type:'number', format: null}
     ];
 };
 /*
