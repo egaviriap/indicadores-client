@@ -12,14 +12,14 @@ var ServicioUltimaFechaReporteXAnalista = function(){
     this.file = __dirname + '/../reports/UltimaFechaReporteXAnalista.xlsx';
 
     this.cols = [
-        {label:'Fecha', type:'string', format: null},
-        {label:'DiasLaborales', type:'number', format: null},
-        {label:'DiasLaborados', type:'number', format: null},
-        {label:'Diferencia', type:'number', format: null},
-        {label:'Analista', type:'string', format: null},
-        {label:'Cedula', type:'string', format: null},
-        {label:'Pais', type:'string', format: null},
-        {label:'TotalHorasReportadas', type:'number', format: null}
+        {label: 'Fecha', type:'string', format: null},
+        {label: 'Pais', type: 'string', format: null },
+        {label: 'Analista', type: 'string', format: null },
+        {label: 'Cedula', type: 'string', format: null },
+        {label: 'DiasLaborales', type: 'number', format: null },
+        {label: 'DiasLaborados', type:'number', format: null},
+        {label: 'Diferencia', type:'number', format: null},
+        {label: 'TotalHorasReportadas', type: 'number', format: null }
     ];
 };
 /*

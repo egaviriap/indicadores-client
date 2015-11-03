@@ -32,35 +32,34 @@
                 index:0,
                 label: 'Fecha'
             },
+            pais: {
+                index: 1,
+                label: 'Pais'
+            },
+            analista: {
+                index: 2,
+                label: 'Analista'
+            },
+            cedula: {
+                index: 3,
+                label: 'Cedula'
+            },
             diasLaborales: {
-                index:1,
+                index:4,
                 label: 'Dias Laborales'
             },
             diasLaborados: {
-                index:2,
+                index:5,
                 label: 'Dias Laborados'
             },
             diferencia:{
-                index: 3,
+                index: 6,
                 label: 'Diferencia'
             },
-            analista:{
-                index: 4,
-                label: 'Analista'
-            },
-            cedula:{
-                index: 5,
-                label: 'Cedula'
-            },
-            pais:{
-                index: 6,
-                label: 'Pais'
-            },
-            horasReportadas:{
+            horasReportadas: {
                 index: 7,
                 label: 'Horas Reportadas'
             }
-
         }
     };
     ReporteUltimaFecha.filters = {
